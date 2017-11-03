@@ -8,6 +8,10 @@ h1, h2, h3, label, input {
   color: $darkGrey;
 }
 
+h1, h2, h3 {
+  text-transform: uppercase;
+}
+
 h1 {
   font-size: 30px;
 }

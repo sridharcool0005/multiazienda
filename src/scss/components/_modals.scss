@@ -1,0 +1,40 @@
+.new-form {
+  .modal-div {
+    margin-top: 60px;
+    position: fixed;
+    padding: 20px;
+    padding-top: 30px;
+    background: $red;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    h2 {
+      text-transform: uppercase;
+    }
+    h2, label {
+      color: $white
+    }
+    .row {
+      margin-bottom: 30px;
+      div:last-child {
+        text-align: right;
+        a {
+          display: inline-block;
+          padding: 3px 7px;
+          background: $lightGrey;
+        }
+      }
+    }
+    input:focus {
+      border-bottom-color: $darkRed;
+    }
+    input[type="submit"] {
+      background: $lightGrey;
+      color: $red;
+      &:hover {
+        background: $darkRed;
+        color: $white;
+      }
+    }
+  }
+}
