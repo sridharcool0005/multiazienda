@@ -1,0 +1,31 @@
+form {
+  text-align: center;
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+}
+
+input {
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  display: block;
+  background: $lightGrey;
+  border: none;
+  border-bottom: solid 2px $lightGrey;
+  @include trans(0.3s);
+  &[type="submit"] {
+    padding: 15px;
+    background-color: $red;
+    color: $white;
+    &:hover {
+      background-color: $darkRed;
+    }
+  }
+  &:focus {
+    outline: none;
+    border-bottom: solid 2px $red;
+  }
+}

@@ -1,0 +1,20 @@
+<h1>Add a new bar seen</h1>
+
+<form ng-submit="seenBar.saveSeenBar()">
+  <div>
+    <input type="search" ng-model="seenBar.q" placeholder="Search bar...">
+    <div ng-repeat="bar in seenBar.filtered">
+      <p ng-click="seenBar.addSeenBar(bar)">{{ bar.denominazioneAttivita }}</p>
+    </div>
+    <div ng-show="seenBar.seenBar.bar.denominazioneAttivita">
+      <p>Bar selezionato: {{ seenBar.seenBar.bar.denominazioneAttivita }}</p>
+    </div>
+  </div>
+  <div>
+    <label for="data">Data in cui e stato visto</label>
+    <input type="date" name="data" ng-model="seenBar.seenBar.data">
+  </div>
+  <input type="submit" value="AGGIUNGI QUESTO BAR">
+</form>
+
+<a ui-sref="clientShow({ id: seenBar.client.id })">CANCEL</a>

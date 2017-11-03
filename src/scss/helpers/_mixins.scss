@@ -1,0 +1,9 @@
+@mixin trans($delay) {
+  transition: all linear $delay;
+}
+
+@mixin backgroundImagePosition {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

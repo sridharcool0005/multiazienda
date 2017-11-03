@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="multiazienda">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <title>Gestionale Multiazienda</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+    <script asyn defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4&libraries=places&language=it"></script>
+    <!-- inject:js -->
+    <!-- endinject -->
+    <!-- inject:css -->
+    <!-- endinject -->
+  </head>
+  <body ng-controller="MainCtrl as main">
+    <nav ng-cloak ng-show="main.nav">
+      <div class="container">
+        <ul class="">
+          <li>
+            <a ui-sref="home" class="logo">
+              <logo></logo>
+            </a>
+          </li>
+          <li ng-show="main.user">
+            <a ng-click="main.logout()" class="text-btn">Logout</a>
+          </li>
+          <li style="float: right;" ng-show="main.user" ng-class="{ infocus : main.inArchivio }">
+            <a ui-sref="archive" class="text-btn">ARCHIVIO</a>
+          </li>
+          <li style="float: right;" ng-show="main.user" ng-class="{ infocus : main.inClienti }">
+            <a ui-sref="clientsIndex" class="text-btn">CLIENTI</a>
+          </li>
+          <li style="float: right;" ng-show="main.user" ng-class="{ infocus : main.inAttivita }">
+            <a ui-sref="barsIndex" class="text-btn">ATTIVITÀ</a>
+          </li>
+        </ul>
+      </div>
+      <div class="sub-nav">
+        <div class="container">
+          <a ng-show="main.canGoBack" ng-click="main.goBack()">
+            <span><back-arrow></back-arrow></span>TORNA INDIETRO
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main  class="" ui-view></main>
+    <footer ng-show="main.nav">
+      Copyright © 2017 Multiazienda Tutti diritti riservati
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,293 @@
+<h1>Aggiungi un nuovo bar</h1>
+
+<h2>1) Trova il bar</h2>
+<google-place></google-place>
+
+<div ng-show="bar.location">
+  <h2>2) Completa il modulo</h2>
+  <p style="backround: gold;">{{ bar.bar }}</p>
+  <form ng-submit="bar.barNew()">
+    <div class="page">
+      <div>
+        <label for="codiceAttivita">Codice Attivita</label>
+        <input type="text" name="codiceAttivita" id="codiceAttivita" ng-model="bar.bar.codiceAttivita" value="bar.bar.codiceAttivita">
+      </div>
+      <div>
+        <label for="tipologiaAttivita">Tipologia</label>
+        <select ng-model="bar.bar.tipologiaAttivita" ng-change="bar.pushId('tipologiaAttivita')" ng-options="option.id as option.name for option in bar.types">
+        </select>
+        <a ng-hide="!bar.bar.tipologiaAttivita || bar.bar.tipologiaAttivita.length === 0" ng-click="bar.clear('tipologiaAttivita')">Clear</a>
+        <a ng-click="bar.showTypeForm()">Aggiungi tipologia</a>
+      </div>
+      <div>
+        <label for="zona">Zona</label>
+        <select ng-model="bar.bar.zona" ng-change="bar.pushId('zona')" ng-options="option.id as option.name for option in bar.zones">
+        </select>
+        <a ng-hide="!bar.bar.zona || bar.bar.zona.length === 0" ng-click="bar.clear('zona')">Clear</a>
+        <a ng-click="bar.showZoneForm()">Aggiungi zona</a>
+      </div>
+      <div>
+        <label for="denominazioneAttivita">Nome dell'attivita</label>
+        <input type="text" name="denominazioneAttivita" id="denominazioneAttivita" ng-model="bar.bar.denominazioneAttivita" value="bar.bar.denominazioneAttivita" disabled>
+      </div>
+      <div>
+        <h3>Foto</h3>
+        <div style="width: 200px; height: 200px; background-image: url('{{ bar.bar.fotoAttivita }}'); border: solid 1px black;">
+          <p ng-click="bar.changePhoto()">NEXT</p>
+        </div>
+      </div>
+      <div>
+        <label for="titolareAttivita">Titolare Attivita</label>
+        <input type="text" name="titolareAttivita" id="titolareAttivita" ng-model="bar.bar.titolareAttivita">
+      </div>
+      <div>
+        <label for="addressFormatted">Indirizzo</label>
+        <textarea name="addressFormatted" id="addressFormatted" rows="3" ng-model="bar.location.addressFormatted" disabled>{{ bar.location.addressFormatted }}</textarea>
+      </div>
+      <div>
+        <label for="referente">Referente</label>
+        <input type="text" name="referente" id="referente" ng-model="bar.bar.referente">
+      </div>
+      <div>
+        <label for="metriQuadrati">Metri Quadrati</label>
+        <input type="number" name="metriQuadrati" id="metriQuadrati" ng-model="bar.bar.metriQuadrati">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Magazzino</h3>
+      <div>
+        <label for="presente">Presente</label>
+        <input type="radio" ng-model="bar.bar.magazzino.presente" value="si">Si
+        <input type="radio" ng-model="bar.bar.magazzino.presente" value="no">No
+      </div>
+      <div>
+        <input type="radio" ng-model="bar.bar.magazzino.internoEsterno" value="interno">Interno
+        <input type="radio" ng-model="bar.bar.magazzino.internoEsterno" value="esterno">Esterno
+      </div>
+    </div>
+    <div class="page">
+      <h3>Richiesta totale</h3>
+      <div>
+        <label for="contanti">Contanti</label>
+        <input type="text" name="contanti" id="contanti" ng-model="bar.bar.richiestaTotale.contanti">
+      </div>
+      <div>
+        <label for="dilazioni">Dilazioni</label>
+        <input type="text" name="dilazioni" id="dilazioni" ng-model="bar.bar.richiestaTotale.dilazioni">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Incasso giornaliero</h3>
+      <div>
+        <label for="minimo">Minimo</label>
+        <input type="text" name="minimo" ng-model="bar.bar.incassoGiornaliero.minimo">
+      </div>
+      <div>
+        <label for="massimo">Massimo</label>
+        <input type="text" name="massimo" ng-model="bar.bar.incassoGiornaliero.massimo">
+      </div>
+      <h3>Incasso annuale</h3>
+      <div>
+        <label for="minimo">Minimo</label>
+        <input type="text" name="minimo" ng-model="bar.bar.incassoAnnuale.minimo">
+      </div>
+      <div>
+        <label for="massimo">Massimo</label>
+        <input type="text" name="massimo" ng-model="bar.bar.incassoAnnuale.massimo">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Canone Locazione</h3>
+      <div>
+        <label for="iva">Iva</label>
+        <input type="radio" name="iva" ng-model="bar.bar.canoneLocazione.iva" value="si">Si
+        <input type="radio" name="iva" ng-model="bar.bar.canoneLocazione.iva" value="no">No
+      </div>
+      <div>
+        <label for="scadenza">Scadenza</label>
+        <input type="number" name="scadenza" ng-model="bar.bar.canoneLocazione.scadenza">
+      </div>
+      <div>
+        <label for="depCauzionale">Deposito Cauzionale</label>
+        <input type="number" name="depCauzionale" ng-model="bar.bar.canoneLocazione.depCauzionale">
+      </div>
+      <div>
+        <label for="speseCondominio">Spese Condominio</label>
+        <input type="number" name="speseCondominio" ng-model="bar.bar.canoneLocazione.speseCondominio">
+      </div>
+    </div>
+    <div>
+      <label for="tassaSuoloPubb">Tassa Suolo Pubblico</label>
+      <input type="text" name="tassaSuoloPubb" ng-model="bar.bar.tassaSuoloPubb">
+    </div>
+    <div class="page">
+      <h3>Torrefazione</h3>
+      <div>
+        <label for="torrefazione">Torrefazione</label>
+        <input type="text" name="torrefazione" ng-model="bar.bar.torrefazione.torrefazione">
+      </div>
+      <div>
+        <label for="consumoMensile">Consumo Mensile</label>
+        <input type="number" name="consumoMensile" ng-model="bar.bar.torrefazione.consumoMensile">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Ristrutturato</h3>
+      <div>
+        <label for="ristrutturato">Ristrutturato</label>
+        <input type="number" name="ristrutturato" ng-model="bar.bar.ristrutturato.ristrutturato">
+      </div>
+      <div>
+        <input type="radio" name="vero" ng-model="bar.bar.ristrutturato.vero" value="si">Si
+        <input type="radio" name="vero" ng-model="bar.bar.ristrutturato.vero" value="no">No
+      </div>
+      <div>
+        <label for="impiantiCertificati">Impianti Certificati</label>
+        <input type="number" name="impiantiCertificati" ng-model="bar.bar.ristrutturato.impiantiCertificati">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Aggi</h3>
+      <div>
+        <label for="aggiTotali">Aggi Totali</label>
+        <input type="number" name="aggiTotali" ng-model="bar.bar.aggi.aggiTotali">
+      </div>
+      <div>
+        <label for="tabacco">Tobacco</label>
+        <input type="number" name="tabacco" ng-model="bar.bar.aggi.tabacco">
+      </div>
+      <div>
+        <label for="lotto">Lotto</label>
+        <input type="number" name="lotto" ng-model="bar.bar.aggi.lotto">
+      </div>
+      <div>
+        <label for="sisal">Sisal</label>
+        <input type="number" name="sisal" ng-model="bar.bar.aggi.sisal">
+      </div>
+      <div>
+        <label for="giochi">Giochi</label>
+        <input type="number" name="giochi" ng-model="bar.bar.aggi.giochi">
+      </div>
+      <div>
+        <label for="varie">Varie</label>
+        <input type="number" name="varie" ng-model="bar.bar.aggi.varie">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Slot</h3>
+      <div>
+        <label for="slot">Numero Slot</label>
+        <input type="number" name="slot" ng-model="bar.bar.slot.slot">
+      </div>
+      <div>
+        <label for="ditta">Ditta</label>
+        <input type="text" name="ditta" ng-model="bar.bar.slot.ditta">
+      </div>
+      <div>
+        <label for="percentuale">Percentuale</label>
+        <input type="text" name="percentuale" ng-model="bar.bar.slot.percentuale">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Commercialista</h3>
+      <div>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" ng-model="bar.bar.commercialista.nome">
+      </div>
+      <div>
+        <label for="telefono">Numbero di Telefono</label>
+        <input type="text" name="telefono" ng-model="bar.bar.commercialista.telefono">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" ng-model="bar.bar.commercialista.email">
+      </div>
+    </div>
+    <div class="page">
+      <h3>Affitto Azienda</h3>
+      <div>
+        <label for="affittoAzienda">Affitto Azienda</label>
+        <input type="radio" name="affittoAzienda" ng-model="bar.bar.affittoAzienda.affittoAzienda" value="si">Si
+        <input type="radio" name="affittoAzienda" ng-model="bar.bar.affittoAzienda.affittoAzienda" value="no">No
+      </div>
+      <div>
+        <label for="importo">Importo Affitto Azienda</label>
+        <input type="text" name="importo" ng-model="bar.bar.affittoAzienda.importo">
+      </div>
+      <div>
+        <label for="garanzie">Garanzie</label>
+        <input type="text" name="garanzie" ng-model="bar.bar.affittoAzienda.garanzie">
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <label for="orarioApertura">Orario Apertura</label>
+        <input type="text" name="orarioApertura" ng-model="bar.bar.orarioApertura">
+      </div>
+      <div>
+        <label for="giornoRiposo">Giorno Riposo</label>
+        <input type="text" name="giornoRiposo" ng-model="bar.bar.giornoRiposo">
+      </div>
+      <div>
+        <label for="postiInterni">Posti Interni</label>
+        <input type="text" name="postiInterni" ng-model="bar.bar.postiInterni">
+      </div>
+      <div>
+        <label for="postiEsterni">Posti Esterni</label>
+        <input type="text" name="postiEsterni" ng-model="bar.bar.postiEsterni.postiEsterni">
+      </div>
+      <div>
+        <label for="areaPrivata">Area Privata</label>
+        <input type="radio" name="areaPrivata" ng-model="bar.bar.postiEsterni.areaPrivata" value="si">Si
+        <input type="radio" name="areaPrivata" ng-model="bar.bar.postiEsterni.areaPrivata" value="no">No
+      </div>
+    </div>
+    <div class="page">
+      <h3>Addetti</h3>
+      <div>
+        <label for="numeroTitolari">Numero Titolari</label>
+        <input type="number" name="numeroTitolari" ngmodel="bar.bar.addetti.numeroTitolari">
+      </div>
+      <div>
+        <label for="dipendenti">Dipendenti</label>
+        <input type="number" name="dipendenti" ngmodel="bar.bar.addetti.dipendenti">
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <label for="cannaFumaria">Canna Fumaria</label>
+        <input type="radio" name="cannaFumaria" ng-model="bar.bar.cannaFumaria" value="si">Si
+        <input type="radio" name="cannaFumaria" ng-model="bar.bar.cannaFumaria" value="no">No
+      </div>
+      <div>
+        <label for="riservatoDominio">Riservato Dominio</label>
+        <input type="number" name="riservatoDominio" ng-model="bar.bar.riservatoDominio">
+      </div>
+      <div>
+        <label for="attrezzatureComodato">Attrezzature Comodato</label>
+        <input type="text" name="attrezzatureComodato" ng-model="bar.bar.attrezzatureComodato">
+      </div>
+    </div>
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>
+
+<div class="add-type-form" ng-show="bar.formTypeShown">
+  {{ bar.type }}
+  <h2>Aggiungi una tipologia di bar</h2>
+  <a ng-click="bar.showTypeForm()">cancel</a>
+  <form ng-submit="bar.typeNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="bar.type.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>
+<div class="add-type-form" ng-show="bar.formZoneShown">
+  <h2>Aggiungi una zona</h2>
+  <a ng-click="bar.showZoneForm()">cancel</a>
+  <form ng-submit="bar.zoneNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="bar.zone.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>

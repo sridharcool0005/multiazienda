@@ -1,0 +1,97 @@
+<h1>Aggiungi un nuovo cliente</h1>
+
+<form ng-submit="client.clientNew()">
+  <div class="page">
+    <div>
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" ng-model="client.client.nome">
+      <label for="cognome">Cognome</label>
+      <input type="text" name="cognome" ng-model="client.client.cognome">
+    </div>
+    <div>
+      <label for="telefono">Numero Di Telefono</label>
+      <input type="text" name="telefono" id="telefono" ng-model="client.client.telefono">
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" ng-model="client.client.email">
+    </div>
+  </div>
+  <div class="page">
+    <div ng-hide="client.location">
+      <label>Indirizzo: </label>
+      <input type="text" id="searchAddress" placeholder="cerca indirizzo">
+      <button type="button" name="button" id="searchBtn" ng-click="client.searchAddress()">Cerca</button>
+
+      <div ng-show="client.results">
+        <h3>Scegli l'indirizzo</h3>
+        <ul ng-repeat="result in client.results track by $index">
+          <li ng-click="client.chooseAddress($index)">{{ result.formatted_address }}</li>
+        </ul>
+      </div>
+    </div>
+    <div ng-show="client.location">
+      <p>Indirizzo: {{ client.location.addressFormatted }}</p>
+    </div>
+  </div>
+  <div class="page">
+    <div>
+      <label for="sab">Sab</label>
+      <input type="text" name="sab" id="sab" ng-model="client.client.sab">
+    </div>
+    <div>
+      <label for="tipologiaAttivita">Tipologia</label>
+      <select name="tipologiaAttivita" id="tipologiaAttivita"
+      ng-options="option.name for option in client.types track by option.id"
+      ng-model="client.client.tipologiaAttivita"></select>
+      <a ng-hide="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0" ng-click="client.clear('tipologiaAttivita')">Clear</a>
+      <a ng-click="client.showTypeForm()">Aggiungi tipologia</a>
+    </div>
+    <div>
+      <label for="zona">Zona</label>
+      <select name="zona" id="zona"
+      ng-options="option.name for option in client.zones track by option.id"
+      ng-model="client.client.zona"></select>
+      <a ng-hide="!client.client.zona || client.client.zona.length === 0" ng-click="client.clear('zona')">Clear</a>
+      <a ng-click="client.showZoneForm()">Aggiungi zona</a>
+    </div>
+    <h3>Importo Investimento</h3>
+    <div>
+      <label for="anticipo">Anticipo</label>
+      <input type="number" name="anticipo" ng-model="client.client.importoInvestimento.anticipo">
+    </div>
+    <div>
+      <label for="totale">Totale</label>
+      <input type="number" name="totale" ng-model="client.client.importoInvestimento.totale">
+    </div>
+    <div>
+      <label for="esperienza">Esperienza</label>
+      <input type="text" name="esperienza" ng-model="client.client.esperienza">
+    </div>
+    <div>
+      <label for="note">Note</label>
+      <textarea name="note" rows="3" ng-model="client.client.note"></textarea>
+    </div>
+  </div>
+  <input type="submit" value="AGGIUNGI CLIENTE">
+</form>
+
+<div class="add-type-form" ng-show="client.formTypeShown">
+  {{ client.type }}
+  <h2>Aggiungi una tipologia di attivita</h2>
+  <a ng-click="client.showTypeForm()">cancel</a>
+  <form ng-submit="client.typeNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="client.type.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>
+<div class="add-type-form" ng-show="client.formZoneShown">
+  <h2>Aggiungi una zona</h2>
+  <a ng-click="client.showZoneForm()">cancel</a>
+  <form ng-submit="client.zoneNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="client.zone.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>

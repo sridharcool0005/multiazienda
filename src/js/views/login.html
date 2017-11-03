@@ -1,0 +1,24 @@
+<section class="login-div">
+  <div class="row">
+    <div class="col-md-6 login-wrapper">
+      <div class="left-side">
+        <logo></logo>
+        <h1>Entra nel gestionale</h1>
+        <form ng-submit="login.login()">
+          <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" ng-model="login.user.email">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" ng-model="login.user.password">
+          </div>
+          <input type="submit" value="ENTRA">
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="login-image" style="background-image: url('https://static.pexels.com/photos/302902/pexels-photo-302902.jpeg');"></div>
+    </div>
+  </div>
+</section>

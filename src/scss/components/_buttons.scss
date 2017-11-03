@@ -1,0 +1,45 @@
+a {
+  color: $darkGrey;
+  @include trans(0.3s);
+  &:focus {
+    text-decoration: none;
+    color: $darkGrey;
+  }
+  &:hover {
+    span {
+      .back-arrow {
+        path {
+          fill: $red;
+        }
+      }
+    }
+  }
+}
+
+a:hover, button:hover {
+  cursor: pointer;
+  color: $red;
+  text-decoration: none;
+}
+
+.home-div {
+  a {
+    background: $red;
+    display: block;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: $white;
+    @include trans(0.3s);
+    &:hover {
+      background: $darkRed;
+    }
+  }
+}
+
+.selected {
+  background: $red;
+  color: $white;
+  &:hover {
+    color: white;
+  }
+}

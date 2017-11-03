@@ -1,0 +1,24 @@
+<h1>Attivita</h1>
+<a ui-sref="barNew">Aggiungi un nuovo bar</a>
+<div>
+  <h2>Filtra bar:</h2>
+  <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
+  <input type="search" ng-model="bars.zona" placeholder="Zona">
+  <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita">
+  <a ng-click="bars.clearSearch()">Clear search</a>
+  <ul ng-repeat="bar in bars.filtered">
+    <li>
+      <a ui-sref="barShow({ id: bar.id })">{{ bar.denominazioneAttivita }}</a>
+      <p>{{ bar.zona.name }}</p>
+      <p>{{ bar.tipologiaAttivita.name }}</p>
+    </li>
+  </ul>
+</div>
+
+<ul ng-repeat="bar in bars.bars" ng-hide="bars.searching">
+  <li>
+    <a ui-sref="barShow({ id: bar.id })">{{ bar.denominazioneAttivita }}</a>
+    <p>{{ bar.zona.name }}</p>
+    <p>{{ bar.tipologiaAttivita.name }}</p>
+  </li>
+</ul>

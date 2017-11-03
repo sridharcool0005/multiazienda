@@ -1,0 +1,98 @@
+<section>
+  <section class="row">
+    <div class="col-md-6">
+      <h1>{{ client.client.nome }} {{ client.client.cognome }}</h1>
+    </div>
+    <div class="col-md-6">
+      <a ui-sref="clientsIndex">Torna alla ricerca clienti</a>
+      <a ui-sref="clientEdit({ id: client.client.id })">Modifica i dettagli del cliente</a>
+      <a ng-hide="client.client.archiviato" ng-click="client.archive()">Archivia</a>
+      <a ng-show="client.client.archiviato" ng-click="client.archive()">Rimuovi dall'archivio</a>
+    </div>
+  </section>
+
+  <!-- DETTAGLI CLIENTE -->
+  <section class="row">
+    <div class="col-md-6">
+      <h2>Dettagli Personali</h2>
+      <p>Nome: {{ client.client.nome }}</p>
+      <p>Cognome: {{ client.client.cognome }}</p>
+      <p>Telefono: {{ client.client.telefono }}</p>
+      <p>Email: {{ client.client.email }}</p>
+      <p>Indirizzo: {{ client.client.indirizzo.addressFormatted }}</p>
+    </div>
+    <div class="col-md-6">
+      <h2>Mappa</h2>
+      <div style="height: 300px" ng-hide="client.client.indirizzo">
+        <p>Non esiste un valido indirizzo per questo cliente</p>
+      </div>
+      <div class="google-map" id="google-map" style="height: 300px;" ng-show="client.client.indirizzo"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Che cosa cerca</h2>
+    <p>Tipologia:
+      <span>{{ client.client.tipologiaAttivita.name }}</span>
+    </p>
+    <p>Zona:
+      <span>{{ client.client.zona.name }}</span>
+    </p>
+    <p>Importo investimento:
+      Anticipo -
+      <span>{{ client.client.importoInvestimento.anticipo }}</span>
+      Totale -
+      <span>{{ client.client.importoInvestimento.totale }}</span>
+    </p>
+    <p>Esperienza:
+      <span>{{ client.client.esperienza }}</span>
+    </p>
+  </section>
+
+  <section>
+    <h2>Note</h2>
+    <p>{{ client.client.note }}</p>
+  </section>
+
+  <section>
+    <h3>Attivita Viste <small>in orderine di data</small></h3>
+    <div ng-hide="client.client.attivitaViste.length > 0">
+      <p>{{ client.client.nome }} non ha hancora visto nemmeno un'attivita!</p>
+    </div>
+    <ul ng-repeat="seenBar in client.client.attivitaViste | orderBy:client.orderBy:true" ng-show="client.client.attivitaViste[0]">
+      <a ui-sref="seenBarShow({ id: client.client.id, barId: seenBar._id })">
+        <li>
+            <h4>{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h4>
+            <p>Data: {{ seenBar.data | date : mediumDate }}</p>
+        </li>
+      </a>
+    </ul>
+    <button type="button" ui-sref="seenBarNew({ id: client.client.id })">Aggiungine una</button>
+  </section>
+
+  <section>
+    <h2>Attivita Potenziali</h2>
+    <p ng-if="!client.filteredBars[0]">Al momento non sembra che ci siano bar che possono matchare con questo cliente</p>
+    <ul ng-repeat="filteredBar in client.filteredBars">
+      <li>
+        <a ui-sref="barShow({ id: filteredBar.id })">{{ filteredBar.denominazioneAttivita }}</a>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Note:</h3>
+    <ul>
+      <li ng-repeat="comment in client.client.comments">
+        <p>{{ comment.createdBy.username }}</p>
+        <p>{{ comment.body }}</p>
+        <a ng-click="client.deleteComment(comment)">DELETE</a>
+      </li>
+    </ul>
+    <h3>Aggiungi una nota:</h3>
+    <form ng-submit="client.addComment()">
+      <textarea name="name" rows="3" ng-model="client.comment.body"></textarea>
+      <input type="submit" value="AGGIUNGI UNA NOTA">
+    </form>
+  </section>
+</section>

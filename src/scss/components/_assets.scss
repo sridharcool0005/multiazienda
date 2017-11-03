@@ -1,0 +1,27 @@
+.login-div {
+  .logo-img {
+    width: 300px;
+    margin-bottom: 60px;
+  }
+  .login-image {
+    height: 100vh;
+    @include backgroundImagePosition;
+  }
+}
+
+nav {
+  .logo-img {
+    width: 90px;
+  }
+}
+
+.back-arrow {
+  width: 10px;
+  margin-right: 10px;
+}
+
+.header-img {
+  height: 11em;
+  background-image: url('https://static.pexels.com/photos/440182/pexels-photo-440182.jpeg');
+  @include backgroundImagePosition;
+}

@@ -1,0 +1,50 @@
+nav {
+  background: $lightGrey;
+  .sub-nav {
+    background: $white;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    a {
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: $darkGrey;
+    }
+    li {
+      float: left;
+      &.infocus {
+        background: $red;
+        a {
+          color: $white;
+          &:hover {
+            color: $white;
+            background: $darkRed;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sub-nav {
+  padding: 20px;
+  text-align: center;
+}
+
+.middle-bit {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 30px;
+  text-align: center;
+  background: $grey;
+  color: $white;
+}

@@ -1,0 +1,181 @@
+<h1>{{ bar.bar.denominazioneAttivita }}</h1>
+<section class="row">
+  <div class="col-md-6">
+    <h2>Codice <span>{{ bar.bar.codiceAttivita }}</span></h2>
+  </div>
+  <div class="col-md-6">
+    <a ui-sref="barEdit({ id: bar.bar.id })">EDIT</a>
+    <a ng-hide="bar.bar.archiviato" ng-click="bar.archive()">Archivia</a>
+    <a ng-show="bar.bar.archiviato" ng-click="bar.archive()">Rimuovi dall'archivio</a>
+  </div>
+</section>
+
+<!-- DETTAGLI ATTIVITA -->
+<section class="row">
+  <div class="col-md-6">
+    <div style="height: 300px; background-image: url('{{ bar.bar.fotoAttivita }}');"></div>
+  </div>
+  <div class="col-md-6">
+    <div class="google-map" id="google-map" style="height: 300px;"></div>
+  </div>
+</section>
+<section class="">
+  <p>Tipologia:
+    <span>{{ bar.bar.tipologiaAttivita.name }}</span>
+  </p>
+  <p>Zona:
+    <span>{{ bar.bar.zona.name }}</span>
+  </p>
+  <p>Titolare:
+    <span>{{ bar.bar.titolareAttivita }}</span>
+  </p>
+  <p id="indirizzo"></p>
+  <p>Referente:
+    <span>{{ bar.bar.referente }}</span>
+  </p>
+  <p>Metri Quadrati:
+    <span>{{ bar.bar.metriQuadrati }}</span>
+  </p>
+  <p>Magazzino:
+    <span>{{ bar.bar.magazzino.presente }}</span>,
+    <span>{{ bar.bar.magazzino.internoEsterno }}</span>
+  </p>
+  <p>Richiesta Totale: Contanti -
+    <span>{{ bar.bar.richiestaTotale.contanti }}</span>,
+    Dilazioni -
+    <span>{{ bar.bar.richiestaTotale.dilazioni }}</span>
+  </p>
+  <p>Incasso Giornaliero: Minimo -
+    <span>{{ bar.bar.incassoGiornaliero.minimo }}</span>,
+    Massimo -
+    <span>{{ bar.bar.incassoGiornaliero.massimo }}</span>
+  </p>
+  <p>Incasso Annuale: Minimo -
+    <span>{{ bar.bar.incassoAnnuale.minimo }}</span>,
+    Massimo -
+    <span>{{ bar.bar.incassoAnnuale.massimo }}</span>
+  </p>
+  <p>Canone Locazione: IVA -
+    <span>{{ bar.bar.canoneLocazione.iva }}</span>,
+    Scadenza -
+    <span>{{ bar.bar.canoneLocazione.scadenza }}</span>,
+    Deposito Cauzionale -
+    <span>{{ bar.bar.canoneLocazione.depCauzionale }}</span>,
+    Spese Condominio -
+    <span>{{ bar.bar.canoneLocazione.speseCondominio }}</span>
+  </p>
+  <p>Tassa Suolo Pubblico:
+    <span>{{ bar.bar.tassaSuoloPubb }}</span>
+  </p>
+  <p>Torrefazione:
+    <span>{{ bar.bar.torrefazione.torrefazione }}</span>,
+    Consumo Mensile:
+    <span>{{ bar.bar.torrefazione.consumoMensile }}</span>
+  </p>
+  <p>Ristrutturato:
+    <span>{{ bar.bar.ristrutturato.vero }}</span>,
+    <span>{{ bar.bar.ristrutturato.ristrutturato }}</span>,
+    Impianti Certificati:
+    <span>{{ bar.bar.ristrutturato.impiantiCertificati }}</span>
+  </p>
+  <p>Aggi: Aggi Totali -
+    <span>{{ bar.bar.aggi.aggiTotali }}</span>,
+    Tabacco -
+    <span>{{ bar.bar.aggi.tabacco }}</span>,
+    Lotto -
+    <span>{{ bar.bar.aggi.lotto }}</span>,
+    Sisal -
+    <span>{{ bar.bar.aggi.sisal }}</span>,
+    Giochi -
+    <span>{{ bar.bar.aggi.giochi }}</span>,
+    Varie -
+    <span>{{ bar.bar.aggi.varie }}</span>
+  </p>
+  <p>Slot:
+    <span>{{ bar.bar.slot.slot }}</span>,
+    Ditta -
+    <span>{{ bar.bar.slot.ditta }}</span>,
+    Percentuale -
+    <span>{{ bar.bar.slot.percentuale }}</span>
+  </p>
+  <p>Commercialista:
+    Nome -
+    <span>{{ bar.bar.commercialista.nome }}</span>,
+    Telefono -
+    <span>{{ bar.bar.commercialista.telefono }}</span>,
+    Email -
+    <span>{{ bar.bar.commercialista.email }}</span>
+  </p>
+  <p>Affitto Azienda:
+    <span>{{ bar.bar.affittoAzienda.affittoAzienda }}</span>,
+    Importo -
+    <span>{{ bar.bar.affittoAzienda.importo }}</span>,
+    Garanzie -
+    <span>{{ bar.bar.affittoAzienda.garanzie }}</span>
+  </p>
+  <p>Orario Apertura:
+    <span>{{ bar.bar.orarioApertura }}</span>
+  </p>
+  <p>Giorno Di Riposo:
+    <span>{{ bar.bar.giornoRiposo }}</span>
+  </p>
+  <p>Posti Interni:
+    <span>{{ bar.bar.postiInterni }}</span>
+  </p>
+  <p>Posti Esterni:
+    <span>{{ bar.bar.postiEsterni.postiEsterni }}</span>,
+    Area Privata -
+    <span>{{ bar.bar.postiEsterni.areaPrivata }}</span>
+  </p>
+  <p>Addetti:
+    Numero Titolari -
+    <span>{{ bar.bar.addetti.numeroTitolari }}</span>,
+    Dipendenti -
+    <span>{{ bar.bar.addetti.dipendenti }}</span>
+  </p>
+  <p>Canna Fumaria:
+    <span>{{ bar.bar.cannaFumaria }}</span>
+  </p>
+  <p>Riservato Dominio:
+    <span>{{ bar.bar.riservatoDominio }}</span>
+  </p>
+  <p>Attrezzature Comodato:
+    <span>{{ bar.bar.attrezzatureComodato }}</span>
+  </p>
+</section>
+
+<section ng-show="bar.bar.clienti.length > 0">
+  <h3>Lista Clienti che hanno visto il bar</h3>
+  <ul ng-repeat="client in bar.bar.clienti">
+    <li>
+      <a ui-sref="clientShow({ id: client.id })">{{ client.nome }} {{ client.cognome }}</a>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h3>Lista potenziali clienti</h3>
+  <ul ng-repeat="potentialClient in bar.potentialClients">
+    <li>
+      <a ui-sref="clientShow({id: potentialClient.id})">{{ potentialClient.nome }} {{ potentialClient.cognome }}</a>
+      <p>Sta cercando: {{ potentialClient.tipologiaAttivita.name }} nella zona {{ potentialClient.zona.name }}</p>
+      <p>Anticipo: {{ potentialClient.importoInvestimento.anticipo }}</p>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h3>Note:</h3>
+  <ul>
+    <li ng-repeat="comment in bar.bar.comments">
+      <p>{{ comment.createdBy.username }}</p>
+      <p>{{ comment.body }}</p>
+      <a ng-click="bar.deleteComment(comment)">DELETE</a>
+    </li>
+  </ul>
+  <h3>Aggiungi una nota:</h3>
+  <form ng-submit="bar.addComment()">
+    <textarea name="name" rows="3" ng-model="bar.comment.body"></textarea>
+    <input type="submit" value="AGGIUNGI UNA NOTA">
+  </form>
+</section>

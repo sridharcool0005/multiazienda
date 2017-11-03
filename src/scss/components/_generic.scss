@@ -1,0 +1,8 @@
+main {
+  @include trans(0.3s);
+  min-height: 80vh;
+  .home-div {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+}
