@@ -2,10 +2,14 @@ angular
   .module('multiazienda')
   .controller('MainCtrl', MainCtrl);
 
-MainCtrl.$inject = ['$rootScope', 'CurrentUserService', '$window', '$state', '$location', '$scope'];
+MainCtrl.$inject = ['$rootScope', 'CurrentUserService', '$window', '$state', '$location', '$scope', '$transitions'];
 
-function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $scope) {
+function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $scope, $transitions) {
   const vm = this;
+
+  $transitions.onSuccess({}, function() {
+    console.log('statechange success');
+  });
 
   $scope.$watch(function () {
     return $location.path();

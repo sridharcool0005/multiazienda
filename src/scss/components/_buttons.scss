@@ -43,3 +43,15 @@ a:hover, button:hover {
     color: white;
   }
 }
+
+.nav-btn {
+  display: inline-block;
+  padding: 13px;
+  background: $red;
+  color: $white;
+  text-transform: uppercase;
+  &:hover {
+    color: $white;
+    background: $darkRed;
+  }
+}

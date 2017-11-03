@@ -6,3 +6,34 @@ main {
     margin-bottom: 10px;
   }
 }
+
+.title-row {
+  padding: 30px 0;
+  h1 {
+    padding: 7px 0px;
+  }
+  div:last-child {
+    text-align: right;
+  }
+}
+
+.header-row { // header and search bar in CLIENT INDEX && BAR INDEX
+  .filter-bar {
+    margin: 0 20px;
+    margin-top: -60px;
+    padding: 20px 25px 0 20px;
+    background: $lightGrey;
+    div.row:first-child {
+      margin-bottom: 10px;
+      div:last-child {
+        text-align: right;
+        span {
+          color: $red;
+        }
+      }
+    }
+    input {
+      background: $white;
+    }
+  }
+}

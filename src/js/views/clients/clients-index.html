@@ -1,4 +1,4 @@
-<section class="container" style="background: yellow;">
+<section class="container">
   <div class="row title-row">
     <div class="col-md-6">
       <h1>LISTA CLIENTI</h1>
@@ -7,15 +7,15 @@
       <a class="nav-btn" ui-sref="clientNew">Aggiungi un nuovo cliente</a>
     </div>
   </div>
-  <div class="search-bar">
+  <div class="header-row">
     <div class="header-img"></div>
-    <div class="container">
+    <div class="filter-bar">
       <div class="row">
         <div class="col-sm-6">
-          <h2>Filtra:</h2>
+          <h2>Filtra i clienti:</h2>
         </div>
         <div class="col-sm-6">
-          <a ng-click="clients.clearSearch()">Svota la ricerca <span></span></a>
+          <a ng-click="clients.clearSearch()" ng-show="clients.searching">Svuota la ricerca <span>x</span></a>
         </div>
       </div>
       <div class="row">
@@ -36,11 +36,15 @@
   </div>
   <ul class="row grid-list">
     <li class="col-md-3" ng-repeat="client in clients.filtered">
-      <div style="background: pink;">
-        <a ui-sref="clientShow({ id: client.id })">{{ client.nome }} {{ client.cognome }}</a>
+      <div>
+        <a ui-sref="clientShow({ id: client.id })">
+          {{ client.nome }}<br>
+          {{ client.cognome }}
+        </a>
         <p>{{ client.tipologiaAttivita.name }}</p>
         <p>{{ client.zona.name }}</p>
       </div>
     </li>
+    <li ng-show="clients.filtered.length === 0" class="no-results">Nessun risultato</li>
   </ul>
 </section>

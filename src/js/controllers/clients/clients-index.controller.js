@@ -19,7 +19,7 @@ function ClientsIndexCtrl(Client, filterFilter, $scope) {
   vm.cognome = '';
   vm.zona = '';
   vm.tipologiaAttivita = '';
-  // vm.searching = false;
+  vm.searching = false;
   vm.clearSearch = clearSearch;
 
   function filterClients(){
@@ -34,13 +34,12 @@ function ClientsIndexCtrl(Client, filterFilter, $scope) {
       }
     };
 
-    // if (vm.q === '' && vm.cognome === '' && vm.zona === '' && vm.tipologiaAttivita === '') {
-    //   vm.filtered = [];
-    //   vm.searching = false;
-    // } else {
     vm.filtered = filterFilter(vm.clients, params);
-    //   vm.searching = true;
-    // }
+    if (vm.q === '' && vm.cognome === '' && vm.zona === '' && vm.tipologiaAttivita === '') {
+      vm.searching = false;
+    } else {
+      vm.searching = true;
+    }
   }
 
   $scope.$watchGroup([

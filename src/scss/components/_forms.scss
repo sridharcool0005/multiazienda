@@ -8,10 +8,12 @@ form {
 }
 
 input {
-  margin: auto;
+  margin:0;
+  // margin: auto;
   margin-bottom: 20px;
   padding: 10px;
   display: block;
+  width: 100%;
   background: $lightGrey;
   border: none;
   border-bottom: solid 2px $lightGrey;
