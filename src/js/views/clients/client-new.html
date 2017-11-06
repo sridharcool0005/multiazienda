@@ -56,8 +56,8 @@
     </div>
     <div class="page">
       <div ng-hide="client.location" class="row">
-        <div class="col-md-8">
-          <label>Indirizzo: </label>
+        <div class="col-md-9">
+          <label for="searchAddress">Indirizzo: </label>
           <input type="text" id="searchAddress" placeholder="cerca indirizzo">
 
           <div ng-show="client.results">
@@ -67,7 +67,8 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <label style="color: white;">Indirizzo: </label>
           <button type="button" name="button" id="searchBtn" ng-click="client.searchAddress()">Cerca</button>
         </div>
       </div>

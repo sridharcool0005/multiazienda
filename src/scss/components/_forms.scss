@@ -31,3 +31,14 @@ input {
     border-bottom: solid 2px $red;
   }
 }
+
+.new-form {
+  button {
+    width: 100%;
+    padding: 12px;
+    background: $grey;
+    color: $white;
+    border: none;
+    border-bottom: solid 2px $lightGrey;
+  }
+}

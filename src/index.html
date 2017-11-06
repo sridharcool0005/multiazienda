@@ -35,9 +35,9 @@
           </li>
         </ul>
       </div>
-      <div class="sub-nav">
+      <div class="sub-nav" ng-show="main.canGoBack">
         <div class="container">
-          <a ng-show="main.canGoBack" ng-click="main.goBack()">
+          <a ng-click="main.goBack()">
             <span><back-arrow></back-arrow></span>TORNA INDIETRO
           </a>
         </div>
