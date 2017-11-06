@@ -10,6 +10,7 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
   vm.chooseAddress = chooseAddress;
   vm.clientNew = clientNew;
   vm.clear = clear;
+  vm.cancel = cancel;
   vm.showTypeForm = showTypeForm;
   vm.showZoneForm = showZoneForm;
   vm.typeNew = typeNew;
@@ -71,6 +72,11 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
 
   function clear(input) {
     vm.client[input] = '';
+  }
+
+  function cancel() {
+    vm.results = null;
+    vm.location = null;
   }
 
   function showTypeForm() {

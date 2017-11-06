@@ -1,5 +1,6 @@
 .new-form {
   .modal-div {
+    z-index: 1;
     margin-top: 60px;
     position: fixed;
     padding: 20px;
@@ -34,6 +35,28 @@
       &:hover {
         background: $darkRed;
         color: $white;
+      }
+    }
+    &.choose-address {
+      margin-top: 0;
+      padding: 30px;
+      background: $white;
+      border: solid 2px $grey;
+      text-align: left;
+      p {
+        display: inline-block;
+        padding: 3px 3px 6px 3px;
+        background: $red;
+        color: white;
+        line-height: 0.6;
+        &:hover {
+          cursor: pointer;
+          background: $darkRed;
+        }
+      }
+      li:hover {
+        cursor: pointer;
+        color: $red;
       }
     }
   }

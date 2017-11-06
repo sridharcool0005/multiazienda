@@ -56,12 +56,10 @@ a:hover, button:hover {
   }
 }
 
-button {
-  @include trans(0.3s);
+.form-btn {
+  display: block;
+  background: $grey;
   &:hover {
     background: $darkGrey;
-  }
-  &:focus {
-    outline: none;
   }
 }
