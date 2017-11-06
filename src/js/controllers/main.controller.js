@@ -24,6 +24,10 @@ function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $s
   vm.logout = logout;
   vm.goBack = goBack;
 
+  $rootScope.$on('showing modal', () => {
+    (vm.showing) ? vm.showing = false : vm.showing = true;
+  });
+
   $rootScope.$on('loggedIn', () => {
     vm.user = CurrentUserService.currentUser;
   });

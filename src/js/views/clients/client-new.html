@@ -36,6 +36,9 @@
   </div>
 
   <form ng-submit="client.clientNew()">
+    <div>
+      <h3 style="margin-top: 0;"><span>1.</span> Dettagli personali</h3>
+    </div>
     <div class="page row">
       <div class="col-md-3 col-sm-6">
         <label for="nome">Nome</label>
@@ -63,17 +66,20 @@
           </div>
 
           <div ng-show="client.results" class="modal-div choose-address">
-            <div class="row">
-              <div class="col-sm-6">
-                <h3>Scegli l'indirizzo</h3>
+            <div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h2 ng-show="client.results.length > 0">Scegli l'indirizzo</h2>
+                  <h2 ng-hide="client.results.length > 0">Please add an address first</h2>
+                </div>
+                <div class="col-sm-6">
+                  <p ng-click="client.cancel()">x</p>
+                </div>
               </div>
-              <div class="col-sm-6">
-                <p ng-click="client.cancel()">x</p>
-              </div>
+              <ul ng-repeat="result in client.results track by $index">
+                <li ng-click="client.chooseAddress($index)">{{ result.formatted_address }}</li>
+              </ul>
             </div>
-            <ul ng-repeat="result in client.results track by $index">
-              <li ng-click="client.chooseAddress($index)">{{ result.formatted_address }}</li>
-            </ul>
           </div>
         </div>
         <div class="col-md-3">
@@ -92,16 +98,20 @@
         </div>
       </div>
     </div>
+    <hr>
+    <div>
+      <h3><span>2.</span> Zona e Tipologia</h3>
+    </div>
     <div class="page row">
       <div class="col-md-6">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <label for="tipologiaAttivita">Tipologia</label>
             <select name="tipologiaAttivita" id="tipologiaAttivita"
             ng-options="option.name for option in client.types track by option.id"
             ng-model="client.client.tipologiaAttivita"></select>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-options no-label-above">
               <a ng-hide="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0" ng-click="client.clear('tipologiaAttivita')">Svuota casella</a>
               <a ng-click="client.showTypeForm()" ng-show="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
@@ -111,25 +121,26 @@
       </div>
       <div class="col-md-6">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <label for="zona">Zona</label>
             <select name="zona" id="zona"
             ng-options="option.name for option in client.zones track by option.id"
             ng-model="client.client.zona"></select>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-options no-label-above">
-              <a ng-hide="!client.client.zona || client.client.zona.length === 0" ng-click="client.clear('zona')">Clear</a>
-              <a ng-click="client.showZoneForm()" ng-show="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0">Aggiungi nuova zona</a>
+              <a ng-hide="!client.client.zona || client.client.zona.length === 0" ng-click="client.clear('zona')">Svuota casella</a>
+              <a ng-click="client.showZoneForm()" ng-show="!client.client.zona || client.client.zona.length === 0">Aggiungi nuova zona</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <hr>
+    <div>
+      <h3><span>3.</span> Importo Investimento</h3>
+    </div>
     <div class="row">
-      <div  class="col-12">
-        <h3>Importo Investimento</h3>
-      </div>
       <div class="col-md-6">
         <label for="anticipo">Anticipo</label>
         <input type="number" name="anticipo" ng-model="client.client.importoInvestimento.anticipo">
@@ -138,6 +149,10 @@
         <label for="totale">Totale</label>
         <input type="number" name="totale" ng-model="client.client.importoInvestimento.totale">
       </div>
+    </div>
+    <hr>
+    <div>
+      <h3><span>4.</span> Altre informazioni</h3>
     </div>
     <div class="row">
       <div class="col-md-6">

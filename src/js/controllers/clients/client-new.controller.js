@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('ClientNewCtrl', ClientNewCtrl);
 
-ClientNewCtrl.$inject = ['Client', 'Location', 'Type', 'Zone', '$window', '$http', '$state'];
+ClientNewCtrl.$inject = ['Client', 'Location', 'Type', 'Zone', '$window', '$http', '$state', '$rootScope'];
 
-function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
+function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $rootScope) {
   const vm = this;
   vm.searchAddress = searchAddress;
   vm.chooseAddress = chooseAddress;
@@ -33,15 +33,21 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
   });
 
   function searchAddress() {
+    sendMessage();
     const address = document.getElementById('searchAddress').value;
 
-    $http
-      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g,'+')}&region=it&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`)
-      .then(response => vm.results = response.data.results)
-      .then(() => document.getElementById('searchAddress').value = '');
+    if (address.length > 0) {
+      $http
+        .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g,'+')}&region=it&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`)
+        .then(response => vm.results = response.data.results)
+        .then(() => document.getElementById('searchAddress').value = '');
+    } else {
+      vm.results = [];
+    }
   }
 
   function chooseAddress(index) {
+    sendMessage();
     const chosenAddress = vm.results[index];
     vm.location = {
       locationId: chosenAddress.place_id,
@@ -76,7 +82,10 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
 
   function cancel() {
     vm.results = null;
-    vm.location = null;
+    if (vm.location) {
+      return vm.location = null;
+    }
+    sendMessage();
   }
 
   function showTypeForm() {
@@ -85,6 +94,7 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
     } else {
       vm.formTypeShown = true;
     }
+    sendMessage();
   }
   function showZoneForm() {
     if (vm.formZoneShown) {
@@ -92,6 +102,11 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state) {
     } else {
       vm.formZoneShown = true;
     }
+    sendMessage();
+  }
+
+  function sendMessage() {
+    $rootScope.$broadcast('showing modal');
   }
 
   function typeNew() {
