@@ -36,13 +36,15 @@
   </div>
   <ul class="row grid-list">
     <li class="col-md-3" ng-repeat="client in clients.filtered">
-      <div>
-        <a ui-sref="clientShow({ id: client.id })">
-          {{ client.nome }}<br>
-          {{ client.cognome }}
-        </a>
-        <p>{{ client.tipologiaAttivita.name }}</p>
-        <p>{{ client.zona.name }}</p>
+      <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
+        <div class="content">
+          <h2>
+            {{ client.nome }}<br>
+            {{ client.cognome }}
+          </h2>
+          <p>{{ client.tipologiaAttivita.name }}</p>
+          <p>{{ client.zona.name }}</p>
+        </div>
       </div>
     </li>
     <li ng-show="clients.filtered.length === 0" class="no-results">Nessun risultato</li>

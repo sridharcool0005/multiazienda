@@ -11,30 +11,38 @@ ul {
       text-align: center;
     }
     div {
-      padding: 20px;
-      border-bottom: solid 4px $red;
-      background: $lightGrey;
       @include trans(0.3s);
-      a {
-        font-size: 25px;
-        display: block;
-        margin-bottom: 20px;
-        &:hover {
+      &:hover {
+        cursor: pointer;
+        h2 {
           color: $red;
         }
       }
-      p {
-        display: inline-block;
-        padding: 7px;
-        font-size: 16px;
-        color: $white;
-        background: $red;
-        &:last-child {
-          margin-top: 10px;
-          background: $grey;
+      &.content {
+        padding: 20px;
+        border-bottom: solid 4px $red;
+        background: $lightGrey;
+        h2 {
+          margin-bottom: 20px;
+        }
+        p {
+          display: inline-block;
+          padding: 7px;
+          font-size: 16px;
+          color: $white;
+          background: $red;
+          &:last-child {
+            margin-top: 10px;
+            background: $grey;
+          }
         }
       }
-      &:hover {
+      &.bar-img-div {
+        height: 100px;
+        border-bottom: none;
+        @include backgroundImagePosition;
+      }
+      &.hover-effect:hover {
         box-shadow: 0px 0px 10px $grey;
       }
     }

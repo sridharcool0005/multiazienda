@@ -1,24 +1,46 @@
-<h1>Attivita</h1>
-<a ui-sref="barNew">Aggiungi un nuovo bar</a>
-<div>
-  <h2>Filtra bar:</h2>
-  <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
-  <input type="search" ng-model="bars.zona" placeholder="Zona">
-  <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita">
-  <a ng-click="bars.clearSearch()">Clear search</a>
-  <ul ng-repeat="bar in bars.filtered">
-    <li>
-      <a ui-sref="barShow({ id: bar.id })">{{ bar.denominazioneAttivita }}</a>
-      <p>{{ bar.zona.name }}</p>
-      <p>{{ bar.tipologiaAttivita.name }}</p>
+<section class="container">
+  <div class="row title-row">
+    <div class="col-md-6">
+      <h1>LISTA ATTIVITA</h1>
+    </div>
+    <div class="col-md-6">
+      <a class="nav-btn" ui-sref="barNew">Aggiungi un nuovo bar</a>
+    </div>
+  </div>
+  <div class="header-row">
+    <div class="header-img"></div>
+    <div class="filter-bar">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>Filtra le attivita:</h2>
+        </div>
+        <div class="col-sm-6">
+          <a ng-click="bars.clearSearch()" ng-show="bars.searching">Svuota la ricerca <span>x</span></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
+        </div>
+        <div class="col-md-4">
+          <input type="search" ng-model="bars.zona" placeholder="Zona">
+        </div>
+        <div class="col-md-4">
+          <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita">
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="row grid-list">
+    <li class="col-md-3" ng-repeat="bar in bars.filtered">
+      <div class="hover-effect" ui-sref="barShow({ id: bar.id })">
+        <div class="bar-img-div" style="background-image: url('{{ bar.fotoAttivita }}');"></div>
+        <div class="content">
+          <h2>{{ bar.denominazioneAttivita }}</h2>
+          <p>{{ bar.zona.name }}</p>
+          <p>{{ bar.tipologiaAttivita.name }}</p>
+        </div>
+      </div>
     </li>
   </ul>
-</div>
-
-<ul ng-repeat="bar in bars.bars" ng-hide="bars.searching">
-  <li>
-    <a ui-sref="barShow({ id: bar.id })">{{ bar.denominazioneAttivita }}</a>
-    <p>{{ bar.zona.name }}</p>
-    <p>{{ bar.tipologiaAttivita.name }}</p>
-  </li>
-</ul>
+</section>

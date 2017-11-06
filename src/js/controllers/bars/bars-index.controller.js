@@ -12,6 +12,7 @@ function BarsIndexCtrl(Bar, filterFilter, $scope) {
     .$promise
     .then(bars => {
       vm.bars = bars;
+      filterBars();
     });
 
   vm.q = '';
@@ -30,11 +31,10 @@ function BarsIndexCtrl(Bar, filterFilter, $scope) {
         name: vm.tipologiaAttivita
       }
     };
+    vm.filtered = filterFilter(vm.bars, params);
     if (vm.q === '' && vm.zona === '' && vm.tipologiaAttivita === '') {
-      vm.filtered = [];
       vm.searching = false;
     } else {
-      vm.filtered = filterFilter(vm.bars, params);
       vm.searching = true;
     }
   }
