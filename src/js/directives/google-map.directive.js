@@ -8,7 +8,7 @@ function googlePlace($window, $rootScope) {
   const directive = {
     restrict: 'E',
     replace: true,
-    template: '<input type="text" id="google-places" style="width: 300px" />',
+    template: '<input type="text" id="google-places" style="width: 100%" />',
     scope: {
     },
     link($scope, element) {

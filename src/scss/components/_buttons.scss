@@ -6,11 +6,9 @@ a {
     color: $darkGrey;
   }
   &:hover {
-    span {
-      .back-arrow {
-        path {
-          fill: $red;
-        }
+    .back-arrow {
+      path {
+        fill: $red;
       }
     }
   }
@@ -63,4 +61,11 @@ a:hover, button:hover {
   &:hover {
     background: $darkGrey;
   }
+}
+
+.change-photo-btn {
+  display: block;
+  text-align: right;
+  font-size: smaller;
+  padding: 2px 0;
 }

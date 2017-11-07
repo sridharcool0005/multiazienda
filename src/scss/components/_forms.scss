@@ -1,5 +1,5 @@
 form {
-  text-align: center;
+  // text-align: center;
   label {
     display: block;
     text-align: left;
@@ -25,6 +25,12 @@ input {
     &:hover {
       background-color: $darkRed;
     }
+  }
+  &[type="radio"] {
+    display: inline-block;
+    width: 18px;
+    margin-right: 10px;
+    margin-bottom: 5px;
   }
   &:focus {
     outline: none;
@@ -54,8 +60,20 @@ select {
   }
 }
 
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  background: $lightGrey;
+}
+
 .no-label-above {
   margin-top: 28px;
+}
+
+.no-label-radio {
+  padding: 10px;
 }
 
 .form-options {
@@ -70,10 +88,13 @@ select {
   h2 {
     color: $darkGrey!important;
   }
-  h3 {
+  p {
     margin-bottom: 20px;
     margin-top: 40px;
     text-align: left;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: $darkGrey;
   }
   span {
     font-size: 150%;
@@ -83,4 +104,21 @@ select {
   input[type="submit"] {
     margin-top: 35px;
   }
+  .search-bar {
+    h2 {
+      margin-bottom: 20px;
+      span {
+        font-size: 100%;
+        color: $darkGrey;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+
+.checkbox-label {
+  display: inline-block;
+  color: $grey;
+  margin-right: 20px;
 }

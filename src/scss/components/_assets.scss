@@ -25,3 +25,15 @@ nav {
   background-image: url('https://static.pexels.com/photos/440182/pexels-photo-440182.jpeg');
   @include backgroundImagePosition;
 }
+
+.bar-choose-photo-div {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+  border: solid 2px $grey;
+  @include backgroundImagePosition;
+}
+
+.flip-this {
+  transform: scaleX(-1);
+}
