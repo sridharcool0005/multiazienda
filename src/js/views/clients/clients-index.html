@@ -1,15 +1,15 @@
 <section class="container">
   <div class="row title-row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
       <h1>LISTA CLIENTI</h1>
     </div>
-    <div class="col-md-6">
-      <a class="nav-btn" ui-sref="clientNew">Aggiungi un nuovo cliente</a>
+    <div class="col-sm-6">
+      <a class="nav-btn responsive-btn" ui-sref="clientNew">Aggiungi un nuovo cliente</a>
     </div>
   </div>
   <div class="header-row">
     <div class="header-img"></div>
-    <div class="filter-bar">
+    <div class="filter-bar" ng-hide="clients.filtered.length === 0">
       <div class="row">
         <div class="col-sm-6">
           <h2>Filtra i clienti:</h2>

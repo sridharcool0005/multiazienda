@@ -128,7 +128,8 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
     try {
       const user = await CurrentUserService.getUser();
       if (!user) {
-        return $q.reject('Not Authorized');
+        $rootScope.$broadcast('loggedOut');
+        // return $q.reject('Not Authorized');
       } else {
         $rootScope.$broadcast('loggedIn');
       }

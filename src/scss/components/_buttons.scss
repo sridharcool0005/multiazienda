@@ -69,3 +69,17 @@ a:hover, button:hover {
   font-size: smaller;
   padding: 2px 0;
 }
+
+.filter {
+  color: $red;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .responsive-btn {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+  }
+}

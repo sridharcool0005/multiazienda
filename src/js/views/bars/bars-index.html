@@ -4,21 +4,21 @@
       <h1>LISTA ATTIVITA</h1>
     </div>
     <div class="col-sm-6">
-      <a class="nav-btn" ui-sref="barNew">Aggiungi un nuovo bar</a>
+      <a class="nav-btn responsive-btn" ui-sref="barNew">Aggiungi un nuovo bar</a>
     </div>
   </div>
   <div class="header-row">
     <div class="header-img"></div>
-    <div class="filter-bar">
+    <div class="filter-bar" ng-hide="bars.filtered.length === 0">
       <div class="row">
         <div class="col-sm-6">
-          <h2>Filtra le attivita:</h2>
+          <h2 ng-click="bars.expandFilters()" ng-class="{ filter: !bars.showingFilters }">Filtra le attivita</h2>
         </div>
         <div class="col-sm-6">
           <a ng-click="bars.clearSearch()" ng-show="bars.searching">Svuota la ricerca <span>x</span></a>
         </div>
       </div>
-      <div class="row">
+      <div class="row" ng-show="bars.showingFilters">
         <div class="col-md-4">
           <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
         </div>
@@ -48,5 +48,6 @@
         </div>
       </div>
     </li>
+    <li ng-show="bars.filtered.length === 0" class="no-results">Nessun risultato</li>
   </ul>
 </section>
