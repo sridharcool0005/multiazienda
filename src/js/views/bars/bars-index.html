@@ -1,9 +1,9 @@
 <section class="container">
   <div class="row title-row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
       <h1>LISTA ATTIVITA</h1>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
       <a class="nav-btn" ui-sref="barNew">Aggiungi un nuovo bar</a>
     </div>
   </div>
@@ -32,13 +32,19 @@
     </div>
   </div>
   <ul class="row grid-list">
-    <li class="col-md-3" ng-repeat="bar in bars.filtered">
+    <li class="col-md-3 col-sm-4" ng-repeat="bar in bars.filtered">
       <div class="hover-effect" ui-sref="barShow({ id: bar.id })">
         <div class="bar-img-div" style="background-image: url('{{ bar.fotoAttivita }}');"></div>
         <div class="content">
-          <h2>{{ bar.denominazioneAttivita }}</h2>
-          <p>{{ bar.zona.name }}</p>
-          <p>{{ bar.tipologiaAttivita.name }}</p>
+          <div class="row">
+            <div class="col-xs-6 col-sm-12">
+              <h2>{{ bar.denominazioneAttivita }}</h2>
+            </div>
+            <div class="col-xs-6 col-sm-12">
+              <p>{{ bar.zona.name }}</p><br>
+              <p>{{ bar.tipologiaAttivita.name }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </li>
