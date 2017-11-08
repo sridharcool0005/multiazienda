@@ -116,13 +116,11 @@ textarea {
   }
 }
 
-
 .checkbox-label {
   display: inline-block;
   color: $grey;
   margin-right: 20px;
 }
-
 
 @media (max-width: 576px) {
   select {
@@ -135,5 +133,13 @@ textarea {
   .no-label-above {
     margin-top: 0px;
     margin-bottom: 20px;
+  }
+}
+
+.ng-message-error {
+  p {
+    margin-top: 0;
+    font-size: 12px;
+    color: $red;
   }
 }
