@@ -26,7 +26,7 @@
       <div style="height: 300px" ng-hide="client.client.indirizzo">
         <p>Non esiste un valido indirizzo per questo cliente</p>
       </div>
-      <div class="google-map" id="google-map" style="height: 300px;" ng-show="client.client.indirizzo"></div>
+      <street-map center="client.center" style="height: 300px;"></street-map>
     </div>
   </section>
 
