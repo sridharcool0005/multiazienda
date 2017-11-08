@@ -19,20 +19,17 @@ function locationsShow(req, res) {
 }
 
 function locationsCreate(req, res) {
+  if (req.headers.referer.includes('attivita')) {
+    req.body.type = 'attivita';
+  } else {
+    req.body.type = 'cliente';
+  }
   Location
-    .findOne({ locationId: req.body.locationId })
+    .create(req.body)
     .then(location => {
-      if (!location) {
-        Location
-          .create(req.body)
-          .then(location => {
-            res.status(201).json(location);
-          })
-          .catch(err => res.status(500).json(err));
-      } else {
-        res.status(301).json({ message: 'location already exists'});
-      }
-    });
+      res.status(201).json(location);
+    })
+    .catch(() => res.status(500).json({ message: 'Questo luogo esiste gia' }));
 }
 
 function locationsUpdate(req, res) {

@@ -10,6 +10,7 @@ const barSchema = new mongoose.Schema({
   archiviato: Boolean,
   tipologiaAttivita: { type: mongoose.Schema.ObjectId, ref: 'Type' },
   zona: { type: mongoose.Schema.ObjectId, ref: 'Zone' },
+  locationId: String,
   denominazioneAttivita: String,
   fotoAttivita: String,
   titolareAttivita: String,

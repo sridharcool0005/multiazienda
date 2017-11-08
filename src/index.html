@@ -44,7 +44,10 @@
         </div>
       </div>
     </nav>
-    <main  class="" ui-view></main>
+    <div class="container messages" ng-show="main.message">
+      <p class="{{ main.messageType }}">{{ main.message }}</p>
+    </div>
+    <main  ui-view></main>
     <footer ng-show="main.nav">
       Copyright © 2017 Multiazienda Tutti diritti riservati
     </footer>

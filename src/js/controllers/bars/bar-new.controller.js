@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('BarNewCtrl', BarNewCtrl);
 
-BarNewCtrl.$inject = ['Type','Zone', 'Location', 'Bar', '$state', '$rootScope', '$scope'];
+BarNewCtrl.$inject = ['Type','Zone', 'Location', 'Bar', '$state', '$rootScope', '$scope', '$window'];
 
-function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope) {
+function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $window) {
   const vm = this;
 
   vm.pushId = pushId;
@@ -68,20 +68,33 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope) {
   }
 
   function barNew() {
-    Location
-      .save(vm.location)
-      .$promise
-      .then(location => {
-        vm.bar.indirizzo = location.id;
-      })
-      .then(() => {
-        Bar
-          .save(vm.bar)
-          .$promise
-          .then(() => {
-            $state.go('barsIndex');
+    if (vm.barForm.$invalid) {
+      $window.scrollTo(0, 0);
+    }
+    if (vm.barForm.$valid) {
+      Location
+        .save(vm.location)
+        .$promise
+        .then(location => {
+          vm.bar.indirizzo = location.id;
+          vm.bar.locationId = location.locationId;
+        })
+        .then(() => {
+          Bar
+            .save(vm.bar)
+            .$promise
+            .then(() => {
+              $state.go('barsIndex');
+            });
+        })
+        .catch(() => {
+          $window.scrollTo(0, 0);
+          $rootScope.$broadcast('displayMessage', {
+            type: 'danger',
+            content: 'Attenzione: l\'attivita e gia esistente'
           });
-      });
+        });
+    }
   }
 
   function showTypeForm() {

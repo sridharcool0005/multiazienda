@@ -1,0 +1,16 @@
+.messages {
+  p {
+    padding: 10px;
+    color: white;
+    &.danger {
+      background: red;
+    }
+    &.warning {
+      background: gold;
+      color: $darkGrey;
+    }
+    &.success {
+      background: green;
+    }
+  }
+}

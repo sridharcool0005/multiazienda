@@ -9,10 +9,7 @@
 @import "components/lists";
 @import "components/assets";
 @import "components/modals";
+@import "components/messages";
 
 @import "partials/nav";
 @import "partials/login";
-
-#google-map {
-  overflow:auto;
-}

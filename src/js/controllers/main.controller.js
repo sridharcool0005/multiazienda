@@ -2,13 +2,13 @@ angular
   .module('multiazienda')
   .controller('MainCtrl', MainCtrl);
 
-MainCtrl.$inject = ['$rootScope', 'CurrentUserService', '$window', '$state', '$location', '$scope', '$transitions'];
+MainCtrl.$inject = ['$rootScope', 'CurrentUserService', '$window', '$state', '$location', '$scope', '$transitions', '$timeout'];
 
-function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $scope, $transitions) {
+function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $scope, $transitions, $timeout) {
   const vm = this;
 
   $transitions.onSuccess({}, function() {
-    console.log('statechange success');
+    $window.scrollTo(0, 0);
   });
 
   $scope.$watch(function () {
@@ -37,12 +37,34 @@ function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $s
     $state.go('login');
   });
 
+  $rootScope.$on('error', (e, err) => {
+    if(err.status === 401) {
+      $state.go('login');
+      $rootScope.$broadcast('displayMessage', {
+        type: 'danger',
+        content: err.data.message
+      });
+    }
+  });
+
+  $rootScope.$on('displayMessage', (e, message) => {
+    vm.message = message.content;
+    vm.messageType = message.type;
+
+    $timeout(closeMessage, 5000);
+  });
+
   function logout() {
     CurrentUserService.removeUser();
   }
 
   function goBack() {
     $window.history.back();
+  }
+
+  function closeMessage() {
+    vm.message     = null;
+    vm.messageType = null;
   }
 
 }

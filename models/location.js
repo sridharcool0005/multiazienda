@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const locationSchema = new mongoose.Schema({
-  locationId: String,
+  locationId: { type: String, unique: true },
   addressHTML: String,
   addressFormatted: String,
   lat: Number,

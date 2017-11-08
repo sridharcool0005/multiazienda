@@ -137,7 +137,8 @@ textarea {
 }
 
 .ng-message-error {
-  p {
+  p, span {
+    text-transform: none;
     margin-top: 0;
     font-size: 12px;
     color: $red;
