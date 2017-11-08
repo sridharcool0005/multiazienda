@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('BarsIndexCtrl', BarsIndexCtrl);
 
-BarsIndexCtrl.$inject = ['Bar', 'filterFilter', '$scope', '$window'];
+BarsIndexCtrl.$inject = ['Bar', 'filterFilter', '$scope', '$window', 'CommonService'];
 
-function BarsIndexCtrl(Bar, filterFilter, $scope, $window) {
+function BarsIndexCtrl(Bar, filterFilter, $scope, $window, CommonService) {
   const vm = this;
 
   vm.q = '';
@@ -12,7 +12,6 @@ function BarsIndexCtrl(Bar, filterFilter, $scope, $window) {
   vm.tipologiaAttivita = '';
   vm.searching = false;
   vm.clearSearch = clearSearch;
-  vm.showFilters = showFilters;
   vm.expandFilters = expandFilters;
 
   Bar
@@ -54,20 +53,14 @@ function BarsIndexCtrl(Bar, filterFilter, $scope, $window) {
   }
 
   $window.addEventListener('resize', () => {
-    showFilters();
+    vm.showingFilters = CommonService.showFilters();
+    vm.smallDevices = CommonService.smallDevices();
+    if(!$scope.$$phase) $scope.$apply();
   });
 
-  showFilters();
-
-  function showFilters() {
-    if ($window.innerWidth < 576) {
-      vm.showingFilters = false;
-      if(!$scope.$$phase) $scope.$apply();
-    } else {
-      vm.showingFilters = true;
-      if(!$scope.$$phase) $scope.$apply();
-    }
-  }
+  vm.showingFilters = CommonService.showFilters();
+  vm.smallDevices = CommonService.smallDevices();
+  if(!$scope.$$phase) $scope.$apply();
 
   function expandFilters() {
     if ($window.innerWidth < 576) {

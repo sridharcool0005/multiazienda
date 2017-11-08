@@ -18,8 +18,7 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
     .then(bar => {
       vm.bar = bar;
 
-      const indirizzoDiv = document.getElementById('indirizzo');
-      indirizzoDiv.innerHTML = `<span>Indirizzo: </span>${vm.bar.indirizzo.addressHTML}`;
+      document.getElementById('indirizzo').innerHTML = `<span>Indirizzo: </span>${vm.bar.indirizzo.addressHTML}`;
 
       vm.icon = {
         url: 'https://image.flaticon.com/icons/svg/33/33622.svg',

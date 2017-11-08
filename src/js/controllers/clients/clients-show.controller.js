@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('ClientShowCtrl', ClientShowCtrl);
 
-ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state'];
+ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state', '$scope'];
 
-function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state) {
+function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state, $scope) {
   const vm = this;
 
   vm.orderBy = 'data';
@@ -18,6 +18,7 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
     .get({ id: $stateParams.id })
     .$promise
     .then(client => {
+      console.log('first promise');
       vm.client = client;
       for (var i = 0; i < vm.client.attivitaViste.length; i++) {
         vm.attivitaVisteIds.push(`${vm.client.attivitaViste[i].bar.id}`);
@@ -30,7 +31,10 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
       }
     })
     .then(() => {
-      if (vm.client.indirizzo) {
+      console.log('second promise');
+      console.log(vm.client.indirizzo);
+      if (vm.client.indirizzo.lat) {
+        console.log('it has an address');
         const map = new $window.google.maps.Map(document.getElementById('google-map'), {
           zoom: 14,
           center: { lat: vm.client.indirizzo.lat, lng: vm.client.indirizzo.lng },
@@ -50,7 +54,6 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
           animation: $window.google.maps.Animation.DROP
         });
       }
-
     })
     .then(() => {
       if (vm.client.importoInvestimento && vm.client.importoInvestimento.anticipo) {

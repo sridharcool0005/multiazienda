@@ -12,13 +12,13 @@
     <div class="filter-bar" ng-hide="clients.filtered.length === 0">
       <div class="row">
         <div class="col-sm-6">
-          <h2>Filtra i clienti:</h2>
+          <h2 ng-click="clients.expandFilters()" ng-class="{ filter: !clients.showingFilters }">Filtra i clienti</h2>
         </div>
         <div class="col-sm-6">
           <a ng-click="clients.clearSearch()" ng-show="clients.searching">Svuota la ricerca <span>x</span></a>
         </div>
       </div>
-      <div class="row">
+      <div class="row" ng-show="clients.showingFilters">
         <div class="col-md-3">
           <input type="search" ng-model="clients.q" placeholder="Nome del cliente">
         </div>
@@ -38,12 +38,18 @@
     <li class="col-md-3" ng-repeat="client in clients.filtered">
       <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
         <div class="content">
-          <h2>
-            {{ client.nome }}<br>
-            {{ client.cognome }}
-          </h2>
-          <p>{{ client.tipologiaAttivita.name }}</p>
-          <p>{{ client.zona.name }}</p>
+          <div class="row">
+            <div class="col-xs-6 col-sm-12">
+              <h2>
+                {{ client.nome }}<br>
+                {{ client.cognome }}
+              </h2>
+            </div>
+            <div class="col-xs-6 col-sm-12">
+              <p>{{ client.tipologiaAttivita.name }}</p><br>
+              <p>{{ client.zona.name }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </li>
