@@ -1,3 +1,7 @@
+path {
+  @include trans(0.3s);
+}
+
 .login-div {
   .logo-img {
     width: 300px;
@@ -36,4 +40,9 @@ nav {
 
 .flip-this {
   transform: scaleX(-1);
+}
+
+.bar-img {
+  position: relative;
+  @include backgroundImagePosition;
 }

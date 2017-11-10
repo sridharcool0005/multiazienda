@@ -81,7 +81,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <h2 ng-show="client.results.length > 0">Scegli l'indirizzo</h2>
-                  <h2 ng-hide="client.results.length > 0">Please add an address first</h2>
+                  <h2 ng-hide="client.results.length > 0">Come prima cosa inserisci l'indirizzo</h2>
                 </div>
                 <div class="col-sm-6">
                   <p ng-click="client.cancel()">x</p>
@@ -156,35 +156,42 @@
       </div>
     </div>
     <hr>
-    <div>
-      <p><span>3.</span> Importo Investimento</p>
-    </div>
     <div class="row">
       <div class="col-md-6">
-        <label for="anticipo">Anticipo</label>
-        <input type="number" name="anticipo" ng-model="client.client.importoInvestimento.anticipo" required>
-
-        <div class="ng-message-error" ng-messages="client.clientForm.anticipo.$error" ng-show="client.clientForm.$submitted || client.clientForm.anticipo.$invalid && client.clientForm.anticipo.$touched" role="alert">
-          <p ng-message="required">* L'anticipo dev'essere inserito</p>
+        <div>
+          <p><span>3.</span> Importo Investimento</p>
         </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="anticipo">Anticipo</label>
+            <input type="number" name="anticipo" ng-model="client.client.importoInvestimento.anticipo" required>
+
+            <div class="ng-message-error" ng-messages="client.clientForm.anticipo.$error" ng-show="client.clientForm.$submitted || client.clientForm.anticipo.$invalid && client.clientForm.anticipo.$touched" role="alert">
+              <p ng-message="required">* L'anticipo dev'essere inserito</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label for="totale">Totale</label>
+            <input type="number" name="totale" ng-model="client.client.importoInvestimento.totale">
+          </div>
+        </div>
+        <hr>
       </div>
       <div class="col-md-6">
-        <label for="totale">Totale</label>
-        <input type="number" name="totale" ng-model="client.client.importoInvestimento.totale">
-      </div>
-    </div>
-    <hr>
-    <div>
-      <p><span>4.</span> Altre informazioni</p>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <label for="sab">Sab</label>
-        <input type="text" name="sab" id="sab" ng-model="client.client.sab">
-      </div>
-      <div class="col-md-6">
-        <label for="esperienza">Esperienza</label>
-        <input type="text" name="esperienza" ng-model="client.client.esperienza">
+        <div>
+          <p><span>4.</span> Altre informazioni</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="sab">Sab</label>
+            <input type="text" name="sab" id="sab" ng-model="client.client.sab">
+          </div>
+          <div class="col-sm-6">
+            <label for="esperienza">Esperienza</label>
+            <input type="text" name="esperienza" ng-model="client.client.esperienza">
+          </div>
+        </div>
+        <hr>
       </div>
     </div>
     <input type="submit" value="AGGIUNGI CLIENTE">

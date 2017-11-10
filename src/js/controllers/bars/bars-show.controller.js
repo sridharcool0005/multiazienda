@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('BarShowCtrl', BarShowCtrl);
 
-BarShowCtrl.$inject = ['Bar', 'Client', '$stateParams', '$window', 'CurrentUserService', '$state'];
+BarShowCtrl.$inject = ['Bar', 'Client', '$stateParams', '$window', 'CurrentUserService', '$state', '$timeout'];
 
-function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $state) {
+function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $state, $timeout) {
   const vm = this;
 
   vm.potentialClients = [];
@@ -12,39 +12,19 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
   vm.deleteComment = deleteComm;
   vm.archive = archive;
 
+  $timeout(() => {
+    const mapDivHeight = 300 - document.getElementById('indirizzo').offsetHeight;
+    document.getElementsByClassName('details-map')[0].style.height = `${mapDivHeight}px`;
+  }, 50);
+
   Bar
     .get({ id: $stateParams.id })
     .$promise
     .then(bar => {
       vm.bar = bar;
       vm.center = { lat: bar.indirizzo.lat, lng: bar.indirizzo.lng };
-      document.getElementById('indirizzo').innerHTML = `<span>Indirizzo: </span>${vm.bar.indirizzo.addressHTML}`;
-
-      // vm.icon = {
-      //   url: 'https://image.flaticon.com/icons/svg/33/33622.svg',
-      //   scaledSize: new $window.google.maps.Size(50, 50)
-      // };
+      document.getElementById('indirizzo').innerHTML = `${vm.bar.indirizzo.addressHTML}`;
     })
-    // .then(() => {
-    //   const map = new $window.google.maps.Map(document.getElementById('google-map'), {
-    //     zoom: 14,
-    //     center: { lat: vm.bar.indirizzo.lat, lng: vm.bar.indirizzo.lng },
-    //     scrollwheel: false,
-    //     styles: [
-    //       { 'elementType': 'geometry', 'stylers': [{ 'saturation': -100 }]},
-    //       { 'elementType': 'labels.text.stroke', 'stylers': [{'color': '#FFFFFF'}]},
-    //       { 'elementType': 'labels.text.fill', 'stylers': [{'color': '#242f3e'}]}
-    //     ]
-    //   });
-    //
-    //   new $window.google.maps.Marker({
-    //     position: { lat: vm.bar.indirizzo.lat, lng: vm.bar.indirizzo.lng },
-    //     map: map,
-    //     title: 'Hello world',
-    //     icon: vm.icon,
-    //     animation: $window.google.maps.Animation.DROP
-    //   });
-    // })
     .then(() => {
       Client
         .query()

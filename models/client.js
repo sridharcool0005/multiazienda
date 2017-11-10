@@ -34,6 +34,8 @@ const clientSchema = new mongoose.Schema({
   note: String,
   attivitaViste: [ activitySchema ],
   comments: [ commentClientSchema ]
+}, {
+  timestamps: true
 });
 
 clientSchema.set('toJSON', {

@@ -9,7 +9,7 @@ main {
 
 .title-row {
   padding: 30px 0;
-  h1 {
+  h1, h2 {
     padding: 7px 0px;
   }
   div:last-child {
@@ -40,4 +40,47 @@ main {
 
 hr {
   margin-top: 0;
+}
+
+p.indirizzo {
+  // position: absolute;
+  // bottom: 0;
+  // width: 100%;
+  background: $lightGrey;
+  color: $darkGrey;
+  padding: 15px;
+}
+
+.details {
+  div.row {
+    h3 {
+      margin-bottom: 10px;
+      text-transform: none;
+    }
+    p {
+      min-height: 48px;
+      margin: 10px 0;
+      padding: 15px;
+      background: $lightGrey;
+      color: $darkGrey;
+    }
+  }
+  .divider, div.row .divider {
+    p {
+      min-height: initial;
+      margin-bottom: 20px;
+      margin-top: 40px;
+      text-align: left;
+      font-size: 20px;
+      text-transform: uppercase;
+      color: $darkGrey;
+      background: none;
+      padding: 0;
+    }
+    span {
+      font-size: 150%;
+      color: $red;
+      font-weight: bold;
+    }
+  }
 }
