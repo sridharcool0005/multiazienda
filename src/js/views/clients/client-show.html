@@ -4,8 +4,7 @@
       <h1>{{ client.client.nome }} {{ client.client.cognome }}</h1>
     </div>
     <div class="col-md-6">
-      <a ui-sref="clientsIndex">Torna alla ricerca clienti</a>
-      <a ui-sref="clientEdit({ id: client.client.id })">Modifica i dettagli del cliente</a>
+      <a ui-sref="clientEdit({ id: client.client.id })">Modifica</a>
       <a ng-hide="client.client.archiviato" ng-click="client.archive()">Archivia</a>
       <a ng-show="client.client.archiviato" ng-click="client.archive()">Rimuovi dall'archivio</a>
     </div>

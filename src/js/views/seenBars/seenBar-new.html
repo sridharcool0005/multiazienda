@@ -1,20 +1,42 @@
-<h1>Add a new bar seen</h1>
-
-<form ng-submit="seenBar.saveSeenBar()">
-  <div>
-    <input type="search" ng-model="seenBar.q" placeholder="Search bar...">
-    <div ng-repeat="bar in seenBar.filtered">
-      <p ng-click="seenBar.addSeenBar(bar)">{{ bar.denominazioneAttivita }}</p>
-    </div>
-    <div ng-show="seenBar.seenBar.bar.denominazioneAttivita">
-      <p>Bar selezionato: {{ seenBar.seenBar.bar.denominazioneAttivita }}</p>
-    </div>
+<section class="container">
+  <div class="title-row">
+    <h1>Aggiungi un nuovo bar a {{ seenBar.client.nome }}</h1>
   </div>
-  <div>
-    <label for="data">Data in cui e stato visto</label>
-    <input type="date" name="data" ng-model="seenBar.seenBar.data">
-  </div>
-  <input type="submit" value="AGGIUNGI QUESTO BAR">
-</form>
 
-<a ui-sref="clientShow({ id: seenBar.client.id })">CANCEL</a>
+  <div class="ng-message-error" ng-show="seenBar.seenBarForm.$submitted && seenBar.seenBarForm.$invalid">
+    <p><b>Errori:</b><br>
+      <span>Aggiungi la data;</span><br>
+      <span ng-hide="seenBar.seenBar.bar">{{ seenBar.needToAddBar }};</span>
+    </p>
+  </div>
+
+  <form name="seenBar.seenBarForm" ng-submit="seenBar.saveSeenBar()" novalidate class="seenbar-form">
+    <div class="row">
+      <div class="col-sm-6 search-part">
+        <label>
+          <span ng-hide="seenBar.seenBar.bar">Ricerca bar</span>
+          <span ng-show="seenBar.seenBar.bar">Bar selezionato</span>
+        </label>
+        <input type="search" ng-model="seenBar.q" placeholder="Cerca un bar..." ng-hide="seenBar.seenBar.bar" class="seenbar-search-bar">
+        <div class="search-results" ng-show="seenBar.filtered.length > 0">
+          <p class="result-number">Risultati: {{ seenBar.filtered.length }}</p>
+          <div ng-repeat="bar in seenBar.filtered track by $index">
+            <p ng-click="seenBar.addSeenBar(bar)">{{ bar.denominazioneAttivita }}</p>
+          </div>
+        </div>
+        <div ng-show="seenBar.seenBar.bar.denominazioneAttivita" class="bar-selezionato">
+          <p>{{ seenBar.seenBar.bar.denominazioneAttivita }} <span ng-click="seenBar.resetSearch()">x</span></p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <label for="data">Data in cui e stato visto</label>
+        <input type="date" name="data" ng-model="seenBar.seenBar.data" required>
+
+        <div class="ng-message-error" ng-messages="seenBar.seenBar.data.$error" ng-show="seenBar.seenBarForm.$submitted && seenBar.seenBarForm.data.$invalid || seenBar.seenBarForm.data.$invalid && seenBar.seenBarForm.data.$touched" role="alert">
+          <p ng-message="required">* La data dev'essere inserita</p>
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="AGGIUNGI QUESTO BAR">
+  </form>
+</section>

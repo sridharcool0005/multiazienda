@@ -12,7 +12,13 @@ function CurrentUserService(TokenService, User, $rootScope) { // (a)
     if (decoded) {
       self.currentUser = await User
         .get({ id: decoded.id })
-        .$promise;
+        .$promise
+        .catch(() => {
+          $rootScope.$broadcast('displayMessage', {
+            type: 'danger',
+            content: 'Unauthorized!!!'
+          });
+        });
 
       if (self.currentUser) return true;
       return false;

@@ -26,6 +26,13 @@ input {
       background-color: $darkRed;
     }
   }
+  &[type="search"] {
+    padding: 12px 10px;
+    color: $darkGrey;
+    &.seenbar-search-bar {
+      margin-bottom: 0px;
+    }
+  }
   &[type="radio"] {
     display: inline-block;
     width: 18px;
@@ -120,6 +127,57 @@ textarea {
   margin-right: 20px;
 }
 
+// BARS SEEN SPECIFIC RULES
+.seenbar-form {
+  position: relative;
+  .search-results {
+    height: 95px;
+    overflow: scroll;
+    width: 100%;
+    border: solid 1px $lightGrey;
+    margin-bottom: 20px;
+    p {
+      padding: 14px 10px;
+      background: $white;
+      border-bottom: solid 1px $lightGrey;
+      border-top: none;
+      @include trans(0.3s);
+      &:hover {
+        cursor: pointer;
+        color: $red;
+      }
+      &.result-number {
+        background: $lightGrey;
+        color: $darkGrey;
+        &:hover {
+          cursor: default;
+          color: $darkGrey;
+        }
+      }
+    }
+  }
+  // input[type="submit"] {
+  //   position: absolute;
+  //   top: 100px;
+  //   // z-index: -1;
+  // }
+}
+
+.bar-selezionato {
+  @extend input;
+  padding: 14px 10px;
+  span {
+    float: right;
+    color: $red;
+    &:hover {
+      cursor: pointer;
+      color: $darkRed;
+    }
+  }
+}
+
+// END BARS SEEN
+
 @media (max-width: 576px) {
   select {
     margin-bottom: 0px;
@@ -135,6 +193,7 @@ textarea {
 }
 
 .ng-message-error {
+  margin-bottom: 20px;
   p, span {
     text-transform: none;
     margin-top: 0;

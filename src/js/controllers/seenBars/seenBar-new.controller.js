@@ -10,12 +10,15 @@ function SeenBarNewCtrl(SeenBar, Client, Bar, filterFilter, $scope, $http, API, 
   vm.seenBar = {};
   vm.addSeenBar = addSeenBar;
   vm.saveSeenBar = saveSeenBar;
+  vm.resetSearch = resetSearch;
 
   Bar // only query the bars which haven't been added to the client yet
     .query()
     .$promise
     .then(bars => {
-      vm.bars = [];
+      vm.bars = bars;
+      vm.barsNotSeen = [];
+      vm.attivitaVisteIds = [];
 
       Client
         .get({ id: $stateParams.id })
@@ -26,20 +29,21 @@ function SeenBarNewCtrl(SeenBar, Client, Bar, filterFilter, $scope, $http, API, 
             vm.bars = bars;
           } else {
             for (var j = 0; j < client.attivitaViste.length; j++) {
-              for (var i = 0; i < bars.length; i++) {
-                if (`${client.attivitaViste[j].bar.id}` !== `${bars[i].id}`) vm.bars.push(bars[i]);
-              }
+              vm.attivitaVisteIds.push(`${client.attivitaViste[j].bar.id}`);
+            }
+            for (var i = 0; i < vm.bars.length; i++) {
+              if (!vm.attivitaVisteIds.includes(vm.bars[i].id)) vm.barsNotSeen.push(vm.bars[i]);
             }
           }
         });
     });
 
   function filterBars(){
-    const params = { denominazioneAttivita: vm.q};
+    const params = { denominazioneAttivita: vm.q };
     if (vm.q === '') {
       vm.filtered = [];
     } else {
-      vm.filtered = filterFilter(vm.bars, params);
+      vm.filtered = filterFilter(vm.barsNotSeen, params);
     }
   }
 
@@ -52,13 +56,25 @@ function SeenBarNewCtrl(SeenBar, Client, Bar, filterFilter, $scope, $http, API, 
   }
 
   function saveSeenBar() {
-    vm.seenBar.bar = vm.seenBar.bar.id;
-    vm.seenBar.data = new Date(vm.seenBar.data);
-    $http({
-      method: 'POST',
-      url: `${API}/clients/${$stateParams.id}/bars`,
-      data: vm.seenBar
-    })
-      .then(() => $state.go('clientShow', { id: $stateParams.id }));
+    if (vm.seenBar.bar) {
+      vm.needToAddBar = null;
+      if (vm.seenBarForm.$valid) {
+        console.log('im hit');
+        vm.seenBar.bar = vm.seenBar.bar.id;
+        vm.seenBar.data = new Date(vm.seenBar.data);
+        $http({
+          method: 'POST',
+          url: `${API}/clients/${$stateParams.id}/bars`,
+          data: vm.seenBar
+        })
+          .then(() => $state.go('clientShow', { id: $stateParams.id }));
+      }
+    } else {
+      vm.needToAddBar = 'Aggiungi il bar';
+    }
+  }
+
+  function resetSearch() {
+    vm.seenBar = {};
   }
 }
