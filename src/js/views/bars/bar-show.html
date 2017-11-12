@@ -7,9 +7,7 @@
   <!-- DETTAGLI ATTIVITA -->
   <section class="row">
     <div class="col-md-6">
-      <div class="bar-img" style="background-image: url('{{ bar.bar.fotoAttivita }}');">
-        <!-- <p id="indirizzo"></p> -->
-      </div>
+      <div class="bar-img" style="background-image: url('{{ bar.bar.fotoAttivita }}');"></div>
     </div>
     <div class="col-md-6">
       <street-map class="details-map" center="bar.center"></street-map>
@@ -19,8 +17,10 @@
   <hr>
   <div class="row pointer" ng-click="bar.expandDetails()">
     <div class="col-xs-6">
-      <h2 ng-hide="bar.expandedDetails">Mostra dettagli</h2>
-      <h2 ng-show="bar.expandedDetails">Nascondi dettagli</h2>
+      <h2>
+        <span><i class="fa fa-address-card-o" aria-hidden="true"></i> </span>
+        <span ng-hide="bar.expandedDetails">Mostra dettagli</span>
+        <span ng-show="bar.expandedDetails">Nascondi dettagli</span></h2>
     </div>
     <div class="col-xs-6" style="text-align: right;">
       <h2>
@@ -329,9 +329,9 @@
   </section>
   <hr>
   <section>
-    <h2>Lista Clienti che hanno visto il bar</h2>
-    <ul class="grid-list">
-      <li class="" ng-repeat="client in bar.bar.clienti">
+    <h2><i class="fa fa-users" aria-hidden="true"></i> Lista Clienti che hanno visto il bar</h2>
+    <ul class="row grid-list">
+      <li class="col-md-3" ng-repeat="client in bar.bar.clienti">
         <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
           <div class="content">
               <h2>
@@ -341,12 +341,12 @@
           </div>
         </div>
       </li>
-      <li ng-hide="bar.bar.clienti.length > 0">Nessun cliente ha ancora visto questo bar</li>
+      <li class="col-xs-12" ng-hide="bar.bar.clienti.length > 0">Nessun cliente ha ancora visto questo bar</li>
     </ul>
   </section>
-  <hr>
+  <hr style="margin-top: 0px;">
   <section>
-    <h2>Lista potenziali clienti</h2>
+    <h2><i class="fa fa-users" aria-hidden="true"></i> Lista potenziali clienti</h2>
     <ul class="row grid-list">
       <li class="col-md-3" ng-repeat="potentialClient in bar.potentialClients">
         <div class="hover-effect" ui-sref="clientShow({id: potentialClient.id})">
@@ -366,12 +366,12 @@
           </div>
         </div>
       </li>
-      <li ng-hide="bar.potentialClients.length > 0">Pare che non ci siano potenziali clienti per questo bar</li>
+      <li class="col-xs-12" ng-hide="bar.potentialClients.length > 0" style="margin-bottom: 0px;">Pare che non ci siano potenziali clienti per questo bar</li>
     </ul>
   </section>
   <hr>
   <section class="comments">
-    <h2>Note</h2>
+    <h2><i class="fa fa-comments-o" aria-hidden="true"></i> Note</h2>
     <ul>
       <li ng-repeat="comment in bar.bar.comments" class="row">
         <div class="col-xs-3 col-sm-2 col-md-1">
@@ -393,16 +393,19 @@
       <li ng-hide="bar.bar.comments.length > 0">Non ci sono note al momento</li>
     </ul>
     <h3>Aggiungi una nota:</h3>
-    <form ng-submit="bar.addComment()">
-      <textarea name="name" rows="3" ng-model="bar.comment.body"></textarea>
+    <form name="bar.commentForm" ng-submit="bar.addComment()" novalidate>
+      <textarea name="name" rows="3" ng-model="bar.comment.body" required></textarea>
+      <div class="ng-message-error" ng-messages="bar.commentForm.name.$error" ng-show="bar.commentForm.$submitted && bar.commentForm.name.$invalid || bar.commentForm.name.$invalid && bar.commentForm.name.$touched" role="alert">
+        <p ng-message="required">* Inserisci un commento prima</p>
+      </div>
       <input type="submit" value="AGGIUNGI UNA NOTA">
     </form>
   </section>
   <hr>
-  <h2 class="opts-title">Opzioni</h2>
+  <h2 class="opts-title"><i class="fa fa-cog" aria-hidden="true"></i> Opzioni</h2>
   <div class="row">
     <div class="col-sm-6">
-      <a class="nav-btn options-btn" ui-sref="barEdit({ id: bar.bar.id })">Modifica</a>
+      <a class="nav-btn options-btn" ui-sref="barEdit({ id: bar.bar.id })">Modifica dettagli</a>
     </div>
     <div class="col-sm-6">
       <a class="nav-btn options-btn" ng-hide="bar.bar.archiviato" ng-click="bar.archive()">Archivia</a>

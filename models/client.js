@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const commentActivitySchema = new mongoose.Schema({
   body: String,
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
+}, {
+  timestamps: true
 });
 
 const activitySchema = new mongoose.Schema({
@@ -14,6 +16,8 @@ const activitySchema = new mongoose.Schema({
 const commentClientSchema = new mongoose.Schema({
   body: String,
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
+}, {
+  timestamps: true
 });
 
 const clientSchema = new mongoose.Schema({
