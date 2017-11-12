@@ -42,10 +42,19 @@ hr {
   margin-top: 0;
 }
 
+.bar-show-page {
+  hr {
+    margin-top: 20px;
+  }
+  ul {
+    margin-top: 20px;
+  }
+  .opts-title {
+    margin-bottom: 20px;
+  }
+}
+
 p.indirizzo {
-  // position: absolute;
-  // bottom: 0;
-  // width: 100%;
   background: $lightGrey;
   color: $darkGrey;
   padding: 15px;

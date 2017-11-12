@@ -20,6 +20,20 @@ a:hover, button:hover {
   text-decoration: none;
 }
 
+.pointer {
+  cursor: pointer;
+  @include trans(0.3s);
+  &:hover {
+    h2 {
+      color: $red;
+    }
+    .expand {
+      background: $darkRed;
+      color: $white;
+    }
+  }
+}
+
 .home-div {
   a {
     background: $red;
@@ -54,6 +68,12 @@ a:hover, button:hover {
   }
 }
 
+.options-btn {
+  display: block;
+  text-align: center;
+  border-bottom: solid 2px $lightGrey;
+}
+
 .form-btn {
   display: block;
   margin-bottom: 20px;
@@ -74,6 +94,20 @@ a:hover, button:hover {
   color: $red;
   text-decoration: underline;
   margin-bottom: 20px;
+}
+
+.expand {
+  background: $red;
+  color: $white;
+  border-radius: 50%;
+  padding: 3px 11px 5px 11px;
+  @include trans(0.3s);
+}
+
+.unexpand {
+  @extend .expand;
+  padding: 3px 14px 5px 14px;
+
 }
 
 @media (max-width: 768px) {

@@ -11,6 +11,7 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
   vm.addComment = comment;
   vm.deleteComment = deleteComm;
   vm.archive = archive;
+  vm.expandDetails = expandDetails;
 
   $timeout(() => {
     const mapDivHeight = 300 - document.getElementById('indirizzo').offsetHeight;
@@ -84,5 +85,13 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
       .archiveBar({ id: $stateParams.id }, vm.bar)
       .$promise
       .then(() => $state.go('barsIndex'));
+  }
+
+  function expandDetails() {
+    if (vm.expandedDetails) {
+      vm.expandedDetails = false;
+    } else {
+      vm.expandedDetails = true;
+    }
   }
 }

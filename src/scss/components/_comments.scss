@@ -1,0 +1,17 @@
+.comments {
+  li {
+    margin-bottom: 20px;
+  }
+  h3 {
+    margin: 20px 0 10px 0;
+  }
+  p {
+    margin-bottom: 10px;
+    &:nth-child(2), &:last-of-type {
+      color: $darkGrey;
+    }
+    &:first-of-type {
+      font-size: 70%;
+    }
+  }
+}

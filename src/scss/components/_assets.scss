@@ -44,5 +44,26 @@ nav {
 
 .bar-img {
   position: relative;
+  height: 300px;
   @include backgroundImagePosition;
+}
+
+.profile-photo {
+  width: 100%;
+  background: $red;
+  background-image: url('http://s3.amazonaws.com/37assets/svn/765-default-avatar.png');
+  @include backgroundImagePosition;
+  border-radius: 50%;
+  border: solid 3px $lightGrey;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .bar-img {
+    height: 150px;
+  }
 }

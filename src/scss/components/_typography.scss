@@ -6,6 +6,7 @@ body {
 
 h1, h2, h3, label, input {
   color: $darkGrey;
+  @include trans(0.3s);
 }
 
 h1, h2, h3 {
