@@ -2,30 +2,28 @@ angular
   .module('multiazienda')
   .controller('BarNewCtrl', BarNewCtrl);
 
-BarNewCtrl.$inject = ['Type','Zone', 'Location', 'Bar', '$state', '$rootScope', '$scope', '$window'];
+BarNewCtrl.$inject = ['Type', 'Zone', 'Location', 'Bar', '$state', '$rootScope', '$scope', '$window'];
 
 function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $window) {
   const vm = this;
 
-  vm.pushId = pushId;
+  // vm.pushId = pushId;
   vm.changePhoto = changePhoto;
   let startCounter = 0;
-  vm.barNew = barNew;
+  vm.barSubmit = barNew;
   vm.clear = clear;
-  vm.showTypeForm = showTypeForm;
-  vm.showZoneForm = showZoneForm;
-  vm.typeNew = typeNew;
-  vm.zoneNew = zoneNew;
+  vm.showForm = showForm;
+  vm.inNew = true;
+  fetchTypes();
+  fetchZones();
 
-  Type
-    .query()
-    .$promise
-    .then(types => vm.types = types);
+  $rootScope.$on('zones added', () => {
+    fetchZones();
+  });
 
-  Zone
-    .query()
-    .$promise
-    .then(zones => vm.zones = zones);
+  $rootScope.$on('types added', () => {
+    fetchTypes();
+  });
 
   $rootScope.$on('new place', function(event, args) {
     vm.photoArray = args.photoArray;
@@ -48,13 +46,13 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
     $scope.$apply();
   });
 
-  function pushId(type) {
-    const parseId = vm.bar[type];
-    vm.bar[type] = parseId;
-  }
-
   function clear(input) {
-    vm.bar[input] = '';
+    if (input.includes('.')) {
+      const decomposed = input.split('.');
+      vm.bar[decomposed[0]][decomposed[1]] = '';
+    } else {
+      vm.bar[input] = '';
+    }
   }
 
   function changePhoto() {
@@ -97,42 +95,23 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
     }
   }
 
-  function showTypeForm() {
-    (vm.formTypeShown) ? vm.formTypeShown = false : vm.formTypeShown = true;
-  }
-  function showZoneForm() {
-    (vm.formZoneShown) ? vm.formZoneShown = false : vm.formZoneShown = true;
+  function showForm(which) {
+    $rootScope.$broadcast('showing modal', {
+      which: which
+    });
   }
 
-  function typeNew() {
+  function fetchTypes() {
     Type
-      .save(vm.type)
+      .query()
       .$promise
-      .then(() => {
-        Type
-          .query()
-          .$promise
-          .then(types => {
-            vm.type = {};
-            vm.types = types;
-            vm.formTypeShown = false;
-          });
-      });
+      .then(types => vm.types = types);
   }
 
-  function zoneNew() {
+  function fetchZones() {
     Zone
-      .save(vm.zone)
+      .query()
       .$promise
-      .then(() => {
-        Zone
-          .query()
-          .$promise
-          .then(zones => {
-            vm.zone = {};
-            vm.zones = zones;
-            vm.formZoneShown = false;
-          });
-      });
+      .then(zones => vm.zones = zones);
   }
 }

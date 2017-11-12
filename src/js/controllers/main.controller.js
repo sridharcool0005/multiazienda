@@ -29,8 +29,14 @@ function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $s
   vm.logout = logout;
   vm.goBack = goBack;
 
-  $rootScope.$on('showing modal', () => {
+  $rootScope.$on('showing modal', function(event, args) {
     (vm.showing) ? vm.showing = false : vm.showing = true;
+    
+    if (args.which === 'type') {
+      (vm.showTypeForm) ? vm.showTypeForm = false : vm.showTypeForm = true;
+    } else if (args.which === 'zone') {
+      (vm.showZoneForm) ? vm.showZoneForm = false : vm.showZoneForm = true;
+    }
   });
 
   $rootScope.$on('loggedIn', () => {

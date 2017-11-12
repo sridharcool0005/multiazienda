@@ -1,0 +1,15 @@
+<div class="modal-div" ng-controller="ZoneNewCtrl as zone" ng-show="main.showZoneForm">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>Aggiungi una zona</h2>
+    </div>
+    <div class="col-sm-4">
+      <a ng-click="zone.showZoneForm()">X</a>
+    </div>
+  </div>
+  <form ng-submit="zone.zoneNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="zone.zone.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>

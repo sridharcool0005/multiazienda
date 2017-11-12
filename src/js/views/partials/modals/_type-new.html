@@ -1,0 +1,15 @@
+<div ng-controller="TypeNewCtrl as type" class="modal-div" ng-show="main.showTypeForm">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>Aggiungi una tipologia di bar</h2>
+    </div>
+    <div class="col-sm-4">
+      <a ng-click="type.showTypeForm()">X</a>
+    </div>
+  </div>
+  <form ng-submit="type.typeNew()">
+    <label for="name">Nome</label>
+    <input type="text" name="name" ng-model="type.type.name">
+    <input type="submit" value="AGGIUNGI">
+  </form>
+</div>

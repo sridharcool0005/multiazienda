@@ -1,34 +1,6 @@
 <section class="container new-form">
-  <div class="modal-div" ng-show="bar.formTypeShown">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2>Aggiungi una tipologia di bar</h2>
-      </div>
-      <div class="col-sm-4">
-        <a ng-click="bar.showTypeForm()">X</a>
-      </div>
-    </div>
-    <form ng-submit="bar.typeNew()">
-      <label for="name">Nome</label>
-      <input type="text" name="name" ng-model="bar.type.name">
-      <input type="submit" value="AGGIUNGI">
-    </form>
-  </div>
-  <div class="modal-div" ng-show="bar.formZoneShown">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2>Aggiungi una zona</h2>
-      </div>
-      <div class="col-sm-4">
-        <a ng-click="bar.showZoneForm()">X</a>
-      </div>
-    </div>
-    <form ng-submit="bar.zoneNew()">
-      <label for="name">Nome</label>
-      <input type="text" name="name" ng-model="bar.zone.name">
-      <input type="submit" value="AGGIUNGI">
-    </form>
-  </div>
+  <ng-include src="'/js/views/partials/modals/_type-new.html'"></ng-include>
+  <ng-include src="'/js/views/partials/modals/_zone-new.html'"></ng-include>
 
   <div class="title-row">
     <h1>Aggiungi un nuovo bar</h1>
@@ -50,9 +22,9 @@
     </div>
   </div>
 
-  <!-- <div ng-show="bar.location"> -->
-  <div>
-    <form name="bar.barForm" ng-submit="bar.barNew()" novalidate>
+  <div ng-show="bar.location">
+    <bars-forms controller="bar"></bars-forms>
+    <!-- <form name="bar.barForm" ng-submit="bar.barNew()" novalidate>
       <div>
         <p><span>1.</span> Dettagli generali</p>
       </div>
@@ -302,7 +274,6 @@
             <input type="radio" name="vero" ng-model="bar.bar.ristrutturato.impiantiCertificati" value="si">Si
             <input type="radio" name="vero" ng-model="bar.bar.ristrutturato.impiantiCertificati" value="no">No
           </div>
-          <!-- <input type="number" name="impiantiCertificati" ng-model="bar.bar.ristrutturato.impiantiCertificati"> -->
         </div>
       </div>
       <hr>
@@ -464,6 +435,6 @@
       </div>
       <p style="margin-top: 20px; text-align: center;">Potrai aggiungere commenti dopo aver creato l'attivita</p>
       <input type="submit" value="AGGIUNGI">
-    </form>
+    </form> -->
   </div>
 </section>
