@@ -20,7 +20,8 @@
       <h2>
         <span><i class="fa fa-address-card-o" aria-hidden="true"></i> </span>
         <span ng-hide="bar.expandedDetails">Mostra dettagli</span>
-        <span ng-show="bar.expandedDetails">Nascondi dettagli</span></h2>
+        <span ng-show="bar.expandedDetails">Nascondi dettagli</span>
+      </h2>
     </div>
     <div class="col-xs-6" style="text-align: right;">
       <h2>
@@ -329,7 +330,7 @@
   </section>
   <hr>
   <section>
-    <h2><i class="fa fa-users" aria-hidden="true"></i> Lista Clienti che hanno visto il bar</h2>
+    <h2><i class="fa fa-eye" aria-hidden="true"></i> Lista Clienti che hanno visto il bar</h2>
     <ul class="row grid-list">
       <li class="col-md-3" ng-repeat="client in bar.bar.clienti">
         <div class="hover-effect" ui-sref="clientShow({ id: client.id })">

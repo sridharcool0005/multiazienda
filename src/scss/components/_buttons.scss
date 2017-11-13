@@ -97,11 +97,10 @@ a:hover, button:hover {
 }
 
 .expand {
-  background: $red;
+  background-color: $red;
   color: $white;
   border-radius: 50%;
   padding: 3px 11px 5px 11px;
-  @include trans(0.3s);
 }
 
 .unexpand {
