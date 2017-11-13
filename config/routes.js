@@ -83,7 +83,8 @@ router.route('/locations')
 router.route('/locations/:id')
   .get(locations.show)
   .put(locations.update)
-  .patch(locations.update);
+  .patch(locations.update)
+  .delete(locations.delete);
 
 router.route('/types')
   .get(types.index)

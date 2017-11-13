@@ -31,7 +31,7 @@ function MainCtrl($rootScope, CurrentUserService, $window, $state, $location, $s
 
   $rootScope.$on('showing modal', function(event, args) {
     (vm.showing) ? vm.showing = false : vm.showing = true;
-    
+
     if (args.which === 'type') {
       (vm.showTypeForm) ? vm.showTypeForm = false : vm.showTypeForm = true;
     } else if (args.which === 'zone') {

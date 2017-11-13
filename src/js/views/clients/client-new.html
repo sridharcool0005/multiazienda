@@ -1,41 +1,14 @@
 <section class="container new-form">
-  <!-- <div class="modal-div" ng-show="client.formTypeShown"> -->
-  <div class="modal-div" ng-show="client.formTypeShown">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2>Aggiungi una tipologia di attivita</h2>
-      </div>
-      <div class="col-sm-4">
-        <a ng-click="client.showTypeForm()">X</a>
-      </div>
-    </div>
-    <form ng-submit="client.typeNew()">
-      <label for="name">Nome</label>
-      <input type="text" name="name" ng-model="client.type.name">
-      <input type="submit" value="AGGIUNGI">
-    </form>
-  </div>
-  <div class="modal-div" ng-show="client.formZoneShown">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2>Aggiungi una zona</h2>
-      </div>
-      <div class="col-sm-4">
-        <a ng-click="client.showZoneForm()">X</a>
-      </div>
-    </div>
-    <form ng-submit="client.zoneNew()">
-      <label for="name">Nome della zona</label>
-      <input type="text" name="name" ng-model="client.zone.name">
-      <input type="submit" value="AGGIUNGI">
-    </form>
-  </div>
+  <ng-include src="'/js/views/partials/modals/_type-new.html'"></ng-include>
+  <ng-include src="'/js/views/partials/modals/_zone-new.html'"></ng-include>
+
+<!-- <pre>client.clientForm.$error = {{ client.clientForm.$error | json }}</pre> -->
 
   <div class="title-row">
     <h1>Aggiungi un nuovo cliente</h1>
   </div>
-
-  <form name="client.clientForm" ng-submit="client.clientNew()" novalidate>
+  <clients-forms controller="client"></clients-forms>
+  <!-- <form name="client.clientForm" ng-submit="client.clientNew()" novalidate>
     <div>
       <p style="margin-top: 0;"><span>1.</span> Dettagli personali</p>
     </div>
@@ -43,7 +16,6 @@
       <div class="col-md-3 col-sm-6">
         <label for="nome">Nome</label>
         <input type="text" name="nome" ng-model="client.client.nome" required>
-        <!-- <pre>client.clientForm.$error = {{ client.clientForm.$error | json }}</pre> -->
         <div class="ng-message-error" ng-messages="client.clientForm.nome.$error" ng-show="client.clientForm.$submitted || client.clientForm.nome.$invalid && client.clientForm.nome.$touched" role="alert">
           <p ng-message="required">* Il nome dev'essere inserito</p>
         </div>
@@ -51,7 +23,6 @@
       <div class="col-md-3 col-sm-6">
         <label for="cognome">Cognome</label>
         <input type="text" name="cognome" ng-model="client.client.cognome" required>
-
         <div class="ng-message-error" ng-messages="client.clientForm.cognome.$error" ng-show="client.clientForm.$submitted || client.clientForm.cognome.$invalid && client.clientForm.cognome.$touched" role="alert">
           <p ng-message="required">* Il cognome dev'essere inserito</p>
         </div>
@@ -71,17 +42,18 @@
           <div ng-hide="client.results">
             <label for="searchAddress">Indirizzo</label>
             <input type="text" name="searchAddress" id="searchAddress" placeholder="cerca indirizzo" ng-model="client.random" required>
+            <div class="ng-message-error">
+              <p>{{ client.errorMessage }}</p>
+            </div>
             <div class="ng-message-error" ng-messages="client.clientForm.searchAddress.$error" ng-show="client.clientForm.$submitted || client.clientForm.searchAddress.$invalid && client.clientForm.searchAddress.$touched" role="alert">
               <p ng-message="required">* L'indirizzo dev'essere inserito</p>
             </div>
           </div>
-
           <div ng-show="client.results" class="modal-div choose-address">
             <div>
               <div class="row">
                 <div class="col-sm-6">
                   <h2 ng-show="client.results.length > 0">Scegli l'indirizzo</h2>
-                  <h2 ng-hide="client.results.length > 0">Come prima cosa inserisci l'indirizzo</h2>
                 </div>
                 <div class="col-sm-6">
                   <p ng-click="client.cancel()">x</p>
@@ -121,7 +93,6 @@
             <select name="tipologiaAttivita" id="tipologiaAttivita"
             ng-options="option.name for option in client.types track by option.id"
             ng-model="client.client.tipologiaAttivita" required></select>
-
             <div class="ng-message-error" ng-messages="client.clientForm.tipologiaAttivita.$error" ng-show="client.clientForm.$submitted || client.clientForm.tipologiaAttivita.$invalid && client.clientForm.tipologiaAttivita.$touched" role="alert">
               <p ng-message="required">* La tipologia dev'essere inserita</p>
             </div>
@@ -129,7 +100,7 @@
           <div class="col-sm-6">
             <div class="form-options no-label-above">
               <a ng-hide="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0" ng-click="client.clear('tipologiaAttivita')">Svuota casella</a>
-              <a ng-click="client.showTypeForm()" ng-show="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
+              <a ng-click="client.showForm('type')" ng-show="!client.client.tipologiaAttivita || client.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
             </div>
           </div>
         </div>
@@ -141,7 +112,6 @@
             <select name="zona" id="zona"
             ng-options="option.name for option in client.zones track by option.id"
             ng-model="client.client.zona" required></select>
-
             <div class="ng-message-error" ng-messages="client.clientForm.zona.$error" ng-show="client.clientForm.$submitted || client.clientForm.zona.$invalid && client.clientForm.zona.$touched" role="alert">
               <p ng-message="required">* La zona dev'essere inserita</p>
             </div>
@@ -149,7 +119,7 @@
           <div class="col-sm-6">
             <div class="form-options no-label-above">
               <a ng-hide="!client.client.zona || client.client.zona.length === 0" ng-click="client.clear('zona')">Svuota casella</a>
-              <a ng-click="client.showZoneForm()" ng-show="!client.client.zona || client.client.zona.length === 0">Aggiungi nuova zona</a>
+              <a ng-click="client.showForm('zone')" ng-show="!client.client.zona || client.client.zona.length === 0">Aggiungi nuova zona</a>
             </div>
           </div>
         </div>
@@ -165,7 +135,6 @@
           <div class="col-sm-6">
             <label for="anticipo">Anticipo</label>
             <input type="number" name="anticipo" ng-model="client.client.importoInvestimento.anticipo" required>
-
             <div class="ng-message-error" ng-messages="client.clientForm.anticipo.$error" ng-show="client.clientForm.$submitted || client.clientForm.anticipo.$invalid && client.clientForm.anticipo.$touched" role="alert">
               <p ng-message="required">* L'anticipo dev'essere inserito</p>
             </div>
@@ -195,5 +164,5 @@
       </div>
     </div>
     <input type="submit" value="AGGIUNGI CLIENTE">
-  </form>
+  </form> -->
 </section>

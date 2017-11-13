@@ -78,12 +78,10 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
           vm.bar.locationId = location.locationId;
         })
         .then(() => {
-          Bar
-            .save(vm.bar)
-            .$promise
-            .then(() => {
-              $state.go('barsIndex');
-            });
+          return Bar.save(vm.bar);
+        })
+        .then(() => {
+          $state.go('barsIndex');
         })
         .catch(() => {
           $window.scrollTo(0, 0);

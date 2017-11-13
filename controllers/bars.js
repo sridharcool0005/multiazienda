@@ -24,7 +24,10 @@ function barsShow(req, res) {
 }
 
 function barsCreate(req, res) {
+  console.log(req.body);
   req.body.archiviato = false;
+  req.body.tipologiaAttivita = req.body.tipologiaAttivita.id;
+  req.body.zona = req.body.zona.id;
   Bar
     .create(req.body)
     .then(bar => {

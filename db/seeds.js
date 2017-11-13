@@ -24,9 +24,9 @@ Type.collection.drop();
 User
   .create([{
     username: 'multiazienda',
-    email: 'm@m.com',
-    password: 'pw',
-    passwordConfirmation: 'pw'
+    email: config.access.user1.email,
+    password: config.access.user1.password,
+    passwordConfirmation: config.access.user1.password
   }])
   .then(users => {
     console.log(`${users.length} users were created!`);

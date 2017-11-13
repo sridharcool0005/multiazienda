@@ -32,6 +32,7 @@ function clientsCreate(req, res) {
 }
 
 function clientsUpdate(req, res) {
+  console.log(req.body);
   Client
     .findById(req.params.id)
     .then(client => {
@@ -41,7 +42,7 @@ function clientsUpdate(req, res) {
 
       if (req.body.tipologiaAttivita) client.tipologiaAttivita = req.body.tipologiaAttivita.id;
       if (req.body.zona) client.zona = req.body.zona.id;
-      if (req.body.indirizzo) client.indirizzo = req.body.indirizzo.id;
+      if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 
       if (client.attivitaViste.length > 0) {
         for (var i = 0; i < client.attivitaViste.length; i++) {

@@ -76,9 +76,6 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
 
   function comment() {
     if (vm.commentForm.$valid) {
-      const user = CurrentUserService.currentUser.id;
-      vm.comment.createdBy = user;
-
       Client
         .addComment({ id: $stateParams.id }, vm.comment)
         .$promise

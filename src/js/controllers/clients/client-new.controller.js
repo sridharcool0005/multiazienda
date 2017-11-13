@@ -8,46 +8,46 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   const vm = this;
   vm.searchAddress = searchAddress;
   vm.chooseAddress = chooseAddress;
-  vm.clientNew = clientNew;
+  vm.clientSubmit = clientNew;
   vm.clear = clear;
   vm.cancel = cancel;
-  vm.showTypeForm = showTypeForm;
-  vm.showZoneForm = showZoneForm;
-  vm.typeNew = typeNew;
-  vm.zoneNew = zoneNew;
+  vm.showForm = showForm;
   vm.client = {};
-  Zone
-    .query()
-    .$promise
-    .then(zones => vm.zones = zones);
+  fetchTypes();
+  fetchZones();
 
-  Type
-    .query()
-    .$promise
-    .then(types => vm.types = types);
+  $rootScope.$on('zones added', () => {
+    fetchZones();
+  });
 
-  $window.addEventListener('load', () => {
-    vm.searchBtn = document.getElementById('searchBtn');
-
-    vm.searchInput = document.getElementById('searchAddress');
+  $rootScope.$on('types added', () => {
+    fetchTypes();
   });
 
   function searchAddress() {
-    sendMessage();
+    console.log('i fired');
     const address = document.getElementById('searchAddress').value;
 
     if (address.length > 0) {
+      console.log('address is entered');
+      vm.errorMessage = null;
       $http
         .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g,'+')}&region=it&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`)
-        .then(response => vm.results = response.data.results)
+        .then(response => {
+          showForm('address');
+          vm.results = response.data.results;
+          console.log(typeof(vm.results));
+        })
         .then(() => document.getElementById('searchAddress').value = '');
     } else {
-      vm.results = [];
+      console.log('address is not entered');
+      vm.results = null;
+      vm.errorMessage = 'Please start typing an address first';
     }
   }
 
   function chooseAddress(index) {
-    sendMessage();
+    showForm('address');
     const chosenAddress = vm.results[index];
     vm.location = {
       locationId: chosenAddress.place_id,
@@ -66,7 +66,6 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
         vm.client.indirizzo = location.id;
         vm.client.tipologiaAttivita = vm.client.tipologiaAttivita.id;
         vm.client.zona = vm.client.zona.id;
-        vm.client.archiviato = false;
       })
       .then(() => {
         Client
@@ -85,59 +84,26 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
     if (vm.location) {
       return vm.location = null;
     }
-    sendMessage();
+    showForm('address');
   }
 
-  function showTypeForm() {
-    if (vm.formTypeShown) {
-      vm.formTypeShown = false;
-    } else {
-      vm.formTypeShown = true;
-    }
-    sendMessage();
-  }
-  function showZoneForm() {
-    if (vm.formZoneShown) {
-      vm.formZoneShown = false;
-    } else {
-      vm.formZoneShown = true;
-    }
-    sendMessage();
+  function showForm(which) {
+    $rootScope.$broadcast('showing modal', {
+      which: which
+    });
   }
 
-  function sendMessage() {
-    $rootScope.$broadcast('showing modal');
-  }
-
-  function typeNew() {
-    Type
-      .save(vm.type)
-      .$promise
-      .then(() => {
-        Type
-          .query()
-          .$promise
-          .then(types => {
-            vm.type = {};
-            vm.types = types;
-            vm.formTypeShown = false;
-          });
-      });
-  }
-
-  function zoneNew() {
+  function fetchZones() {
     Zone
-      .save(vm.zone)
+      .query()
       .$promise
-      .then(() => {
-        Zone
-          .query()
-          .$promise
-          .then(zones => {
-            vm.zone = {};
-            vm.zones = zones;
-            vm.formZoneShown = false;
-          });
-      });
+      .then(zones => vm.zones = zones);
+  }
+
+  function fetchTypes() {
+    Type
+      .query()
+      .$promise
+      .then(types => vm.types = types);
   }
 }

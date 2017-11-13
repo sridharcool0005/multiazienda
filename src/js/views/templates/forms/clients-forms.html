@@ -1,0 +1,159 @@
+<form name="controller.clientForm" ng-submit="controller.clientSubmit()" novalidate>
+  <!-- <pre>{{ controller.clientForm.$valid }}</pre> -->
+  <!-- <pre>controller.clientForm.$error = {{ controller.clientForm.$error | json }}</pre> -->
+  <div>
+    <p style="margin-top: 0;"><span>1.</span> Dettagli personali</p>
+  </div>
+  <div class="page row">
+    <div class="col-md-3 col-sm-6">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" ng-model="controller.client.nome" required>
+      <div class="ng-message-error" ng-messages="controller.clientForm.nome.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.nome.$invalid && controller.clientForm.nome.$touched" role="alert">
+        <p ng-message="required">* Il nome dev'essere inserito</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <label for="cognome">Cognome</label>
+      <input type="text" name="cognome" ng-model="controller.client.cognome" required>
+      <div class="ng-message-error" ng-messages="controller.clientForm.cognome.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.cognome.$invalid && controller.clientForm.cognome.$touched" role="alert">
+        <p ng-message="required">* Il cognome dev'essere inserito</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <label for="telefono">Numero di telefono</label>
+      <input type="text" name="telefono" id="telefono" ng-model="controller.client.telefono">
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" ng-model="controller.client.email">
+    </div>
+  </div>
+  <div class="page">
+    <div ng-hide="controller.location" class="row">
+      <div class="col-md-9">
+        <div ng-hide="controller.results">
+          <label for="searchAddress">Indirizzo</label>
+          <input type="text" name="searchAddress" id="searchAddress" placeholder="cerca indirizzo" ng-model="controller.random.searchAddress" required>
+          <div class="ng-message-error">
+            <p>{{ controller.errorMessage }}</p>
+          </div>
+          <div class="ng-message-error" ng-messages="controller.clientForm.searchAddress.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.searchAddress.$invalid && controller.clientForm.searchAddress.$touched" role="alert">
+            <p ng-message="required">* L'indirizzo dev'essere inserito</p>
+          </div>
+        </div>
+        <div ng-show="controller.results && typeof(controller.results) !== 'string'" class="modal-div choose-address">
+          <div>
+            <div class="row">
+              <div class="col-sm-6">
+                <h2 ng-show="controller.results.length > 0">Scegli l'indirizzo</h2>
+              </div>
+              <div class="col-sm-6">
+                <p ng-click="controller.cancel()">x</p>
+              </div>
+            </div>
+            <ul ng-repeat="result in controller.results track by $index">
+              <li ng-click="controller.chooseAddress($index)">{{ result.formatted_address }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div ng-hide="controller.results">
+          <a class="nav-btn form-btn no-label-above" id="searchBtn" ng-click="controller.searchAddress()">Cerca</a>
+        </div>
+      </div>
+    </div>
+    <div ng-show="controller.location" class="row">
+      <div class="col-md-9">
+        <label>Indirizzo scelto</label>
+        <input class="chosen-address" type="text" value="{{ controller.location.addressFormatted }}" disabled>
+      </div>
+      <div class="col-md-3">
+        <a class="nav-btn form-btn no-label-above" ng-click="controller.cancel()">Cerca un altro</a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div>
+    <p><span>2.</span> Zona e Tipologia</p>
+  </div>
+  <div class="page row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="tipologiaAttivita">Tipologia</label>
+          <select name="tipologiaAttivita" id="tipologiaAttivita"
+          ng-options="option.name for option in controller.types track by option.id"
+          ng-model="controller.client.tipologiaAttivita" required></select>
+          <div class="ng-message-error" ng-messages="controller.clientForm.tipologiaAttivita.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.tipologiaAttivita.$invalid && controller.clientForm.tipologiaAttivita.$touched" role="alert">
+            <p ng-message="required">* La tipologia dev'essere inserita</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-options no-label-above">
+            <a ng-hide="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0" ng-click="controller.clear('tipologiaAttivita')">Svuota casella</a>
+            <a ng-click="controller.showForm('type')" ng-show="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="zona">Zona</label>
+          <select name="zona" id="zona"
+          ng-options="option.name for option in controller.zones track by option.id"
+          ng-model="controller.client.zona" required></select>
+          <div class="ng-message-error" ng-messages="controller.clientForm.zona.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.zona.$invalid && controller.clientForm.zona.$touched" role="alert">
+            <p ng-message="required">* La zona dev'essere inserita</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-options no-label-above">
+            <a ng-hide="!controller.client.zona || controller.client.zona.length === 0" ng-click="controller.clear('zona')">Svuota casella</a>
+            <a ng-click="controller.showForm('zone')" ng-show="!controller.client.zona || controller.client.zona.length === 0">Aggiungi nuova zona</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <p><span>3.</span> Importo Investimento</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="anticipo">Anticipo</label>
+          <input type="number" name="anticipo" ng-model="controller.client.importoInvestimento.anticipo" required>
+          <div class="ng-message-error" ng-messages="controller.clientForm.anticipo.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.anticipo.$invalid && controller.clientForm.anticipo.$touched" role="alert">
+            <p ng-message="required">* L'anticipo dev'essere inserito</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="totale">Totale</label>
+          <input type="number" name="totale" ng-model="controller.client.importoInvestimento.totale">
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="col-md-6">
+      <div>
+        <p><span>4.</span> Altre informazioni</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="sab">Sab</label>
+          <input type="text" name="sab" id="sab" ng-model="controller.client.sab">
+        </div>
+        <div class="col-sm-6">
+          <label for="esperienza">Esperienza</label>
+          <input type="text" name="esperienza" ng-model="controller.client.esperienza">
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+  <input type="submit" value="AGGIUNGI CLIENTE">
+</form>

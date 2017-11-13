@@ -7,6 +7,7 @@ function commentBarCreate(req, res) {
     .exec()
     .then(bar => {
       if(!bar) return res.status(404).json({ message: 'No bar found!'});
+      req.body.createdBy = req.user.id;
       bar.comments.push(req.body);
       bar.save();
     })
@@ -29,11 +30,14 @@ function commentBarDelete(req, res) {
 }
 
 function commentClientCreate(req, res) {
+  console.log(req.body);
   Client
     .findById(req.params.id)
     .exec()
     .then(client => {
       if(!client) return res.status(404).json({ message: 'No client found!'});
+      console.log(req.user);
+      req.body.createdBy = req.user.id;
       client.comments.push(req.body);
       client.save();
     })
@@ -62,6 +66,7 @@ function commentActivityCreate(req, res) {
     .then(client => {
       if(!client) return res.status(404).json({ message: 'No client found!'});
       const activity = client.attivitaViste.find(obj => obj.id);
+      req.body.createdBy = req.user.id;
       activity.comments.push(req.body);
       client.save();
     })

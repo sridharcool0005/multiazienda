@@ -19,6 +19,8 @@ function locationsShow(req, res) {
 }
 
 function locationsCreate(req, res) {
+  console.log('here');
+  console.log(req.body);
   if (req.headers.referer.includes('attivita')) {
     req.body.type = 'attivita';
   } else {
@@ -29,7 +31,7 @@ function locationsCreate(req, res) {
     .then(location => {
       res.status(201).json(location);
     })
-    .catch(() => res.status(500).json({ message: 'Questo luogo esiste gia' }));
+    .catch((err) => res.status(500).json({ message: err }));
 }
 
 function locationsUpdate(req, res) {
@@ -46,9 +48,20 @@ function locationsUpdate(req, res) {
     .catch(err => res.status(500).json(err));
 }
 
+function locationsDelete(req, res) {
+  Location
+    .findById(req.params.id)
+    .then(location => {
+      location.remove();
+    })
+    .then(location => res.status(200).json(location))
+    .catch(err => res.status(500).json(err));
+}
+
 module.exports = {
   index: locationsIndex,
   create: locationsCreate,
   update: locationsUpdate,
-  show: locationsShow
+  show: locationsShow,
+  delete: locationsDelete
 };

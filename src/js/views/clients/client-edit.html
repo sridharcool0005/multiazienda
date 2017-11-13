@@ -1,6 +1,14 @@
-<h1>Client Edit</h1>
+<section class="container new-form">
+  <ng-include src="'/js/views/partials/modals/_type-new.html'"></ng-include>
+  <ng-include src="'/js/views/partials/modals/_zone-new.html'"></ng-include>
 
-<form ng-submit="client.clientEdit()">
+  <div class="title-row">
+    <h1>Modifica {{ client.client.nome }}</h1>
+  </div>
+  <clients-forms controller="client"></clients-forms>
+</section>
+
+<!-- <form ng-submit="client.clientEdit()">
   <div class="page">
     <div>
       <label for="nome">Nome</label>
@@ -69,4 +77,4 @@
     </div>
   </div>
   <input type="submit" value="AGGIUNGI CLIENTE">
-</form>
+</form> -->
