@@ -82,11 +82,13 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
       });
   }
 
-  function archive() {
+  function archive(addOrRemove) {
     Bar
       .archiveBar({ id: $stateParams.id }, vm.bar)
       .$promise
-      .then(() => $state.go('barsIndex'));
+      .then(() => {
+        (addOrRemove === 'aggiungi') ? $state.go('archive') : $state.go('barsIndex');
+      });
   }
 
   function expandDetails() {

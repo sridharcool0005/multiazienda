@@ -42,7 +42,7 @@ hr {
   margin-top: 0;
 }
 
-.bar-show-page {
+.show-pages {
   hr {
     margin-top: 20px;
   }
@@ -54,9 +54,44 @@ hr {
   }
 }
 
+.client-show-page {
+  .client-details {
+    background: $lightGrey;
+    font-weight: bold;
+    .right-side {
+      height: 300px;
+      i {
+        width: 30px;
+        text-align: center;
+        display: inline-block;
+      }
+    }
+    .edges {
+      padding: 20px;
+      h1 {
+        text-transform: none;
+        padding: 20px 0;
+      }
+      .link {
+        padding: 20px 0;
+        a {
+          color: $red;
+          font-size: 20px;
+        }
+      }
+      p {
+        font-size: 20px;
+        padding: 20px 0;
+      }
+    }
+  }
+  // hr {
+  //   margin-top: 20px;
+  // }
+}
+
 p.indirizzo {
   background: $lightGrey;
-  color: $darkGrey;
   padding: 15px;
 }
 

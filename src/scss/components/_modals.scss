@@ -8,6 +8,12 @@
   z-index: 1;
 }
 
+.copied-to-clipboard {
+  position: fixed;
+  background: green;
+  padding: 20px;
+}
+
 .new-form {
   .modal-div {
     z-index: 1;

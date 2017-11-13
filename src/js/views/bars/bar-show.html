@@ -1,4 +1,4 @@
-<section class="container bar-show-page">
+<section class="container show-pages">
   <div class="title-row align-items-center">
     <h1>{{ bar.bar.denominazioneAttivita }}</h1>
     <h2>Codice <span>{{ bar.bar.codiceAttivita }}</span></h2>
@@ -408,8 +408,8 @@
       <a class="nav-btn options-btn" ui-sref="barEdit({ id: bar.bar.id })">Modifica dettagli</a>
     </div>
     <div class="col-sm-6">
-      <a class="nav-btn options-btn" ng-hide="bar.bar.archiviato" ng-click="bar.archive()">Archivia</a>
-      <a class="nav-btn options-btn" ng-show="bar.bar.archiviato" ng-click="bar.archive()">Rimuovi dall'archivio</a>
+      <a class="nav-btn options-btn" ng-hide="bar.bar.archiviato" ng-click="bar.archive('aggiungi')">Archivia</a>
+      <a class="nav-btn options-btn" ng-show="bar.bar.archiviato" ng-click="bar.archive('rimuovi')">Rimuovi dall'archivio</a>
     </div>
   </div>
 </section>

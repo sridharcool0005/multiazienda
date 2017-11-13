@@ -26,7 +26,7 @@ function SeenBarNewCtrl(SeenBar, Client, Bar, filterFilter, $scope, $http, API, 
         .then(client => {
           vm.client = client;
           if (client.attivitaViste.length === 0) {
-            vm.bars = bars;
+            vm.barsNotSeen = bars;
           } else {
             for (var j = 0; j < client.attivitaViste.length; j++) {
               vm.attivitaVisteIds.push(`${client.attivitaViste[j].bar.id}`);
@@ -34,11 +34,15 @@ function SeenBarNewCtrl(SeenBar, Client, Bar, filterFilter, $scope, $http, API, 
             for (var i = 0; i < vm.bars.length; i++) {
               if (!vm.attivitaVisteIds.includes(vm.bars[i].id)) vm.barsNotSeen.push(vm.bars[i]);
             }
+            console.log('bars not seen', vm.barsNotSeen);
+            filterBars();
           }
         });
     });
 
   function filterBars(){
+    console.log('working');
+    console.log(vm.q);
     const params = { denominazioneAttivita: vm.q };
     if (vm.q === '') {
       vm.filtered = [];

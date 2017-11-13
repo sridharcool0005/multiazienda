@@ -1,97 +1,181 @@
-<section>
-  <section class="row">
-    <div class="col-md-6">
-      <h1>{{ client.client.nome }} {{ client.client.cognome }}</h1>
-    </div>
-    <div class="col-md-6">
-      <a ui-sref="clientEdit({ id: client.client.id })">Modifica</a>
-      <a ng-hide="client.client.archiviato" ng-click="client.archive()">Archivia</a>
-      <a ng-show="client.client.archiviato" ng-click="client.archive()">Rimuovi dall'archivio</a>
-    </div>
-  </section>
-
+<section class="container client-show-page show-pages">
+  <!-- <div class="title-row align-items-center">
+    <h1>{{ client.client.nome }} {{ client.client.cognome }}</h1>
+  </div> -->
   <!-- DETTAGLI CLIENTE -->
-  <section class="row">
-    <div class="col-md-6">
-      <h2>Dettagli Personali</h2>
-      <p>Nome: {{ client.client.nome }}</p>
-      <p>Cognome: {{ client.client.cognome }}</p>
-      <p>Telefono: {{ client.client.telefono }}</p>
-      <p>Email: {{ client.client.email }}</p>
-      <p>Indirizzo: {{ client.client.indirizzo.addressFormatted }}</p>
+  <div class="copied-to-clipboard" ng-show="client.copySuccessful">
+    <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+    <h2>Copied to clipboard</h2>
+  </div>
+  <div class="row client-details">
+    <div class="col-xs-12 edges">
+      <h2>Profile cliente</h2>
     </div>
-    <div class="col-md-6">
-      <h2>Mappa</h2>
-      <div style="height: 300px" ng-hide="client.client.indirizzo">
-        <p>Non esiste un valido indirizzo per questo cliente</p>
+  </div>
+  <section class="row client-details" style="margin-bottom: 20px;">
+    <div class="col-md-6 edges">
+      <div class="right-side">
+        <h1>{{ client.client.nome }} {{ client.client.cognome}}</h1>
+        <div class="link">
+          <a href="tel:{{ client.client.telefono }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ client.client.telefono }}</a>
+        </div>
+        <div class="link">
+          <!-- <input type="text" id="copyEmail" value="{{ client.client.email }}"> -->
+          <a class="copy-email" href="mailto:gianni@gianni.com"><i class="fa fa-envelope" aria-hidden="true"></i> {{ client.client.email }}
+            <!-- <a class="copia-btn">copia</a> -->
+          </a>
+        </div>
+        <p ng-show="client.client.indirizzo"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }}</p>
       </div>
+    </div>
+    <div class="col-md-6 edges">
+      <article style="height: 300px" ng-hide="client.client.indirizzo">
+        <p>Non esiste un valido indirizzo per questo cliente</p>
+      </article>
       <street-map center="client.center" style="height: 300px;"></street-map>
     </div>
   </section>
-
   <section>
-    <h2>Che cosa cerca</h2>
-    <p>Tipologia:
-      <span>{{ client.client.tipologiaAttivita.name }}</span>
-    </p>
-    <p>Zona:
-      <span>{{ client.client.zona.name }}</span>
-    </p>
-    <p>Importo investimento:
-      Anticipo -
-      <span>{{ client.client.importoInvestimento.anticipo }}</span>
-      Totale -
-      <span>{{ client.client.importoInvestimento.totale }}</span>
-    </p>
-    <p>Esperienza:
-      <span>{{ client.client.esperienza }}</span>
-    </p>
-  </section>
-
-  <section>
-    <h2>Note</h2>
-    <p>{{ client.client.note }}</p>
-  </section>
-
-  <section>
-    <h3>Attivita Viste <small>in orderine di data</small></h3>
-    <div ng-hide="client.client.attivitaViste.length > 0">
-      <p>{{ client.client.nome }} non ha hancora visto nemmeno un'attivita!</p>
+    <h2><i class="fa fa-address-card-o" aria-hidden="true"></i> Che cosa cerca</h2>
+    <div class="details">
+      <div class="divider">
+        <p>
+          <!-- <span>1.</span>  -->
+          Zona e tipologia</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>Tipologia</h3>
+          <p>{{ client.client.tipologiaAttivita.name }}</p>
+        </div>
+        <div class="col-sm-6">
+          <h3>Zona</h3>
+          <p>{{ client.client.zona.name }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="divider">
+            <p>Importo investimento</p>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h3>Anticipo</h3>
+              <p>{{ client.client.importoInvestimento.anticipo }}</p>
+            </div>
+            <div class="col-sm-6">
+              <div class="detail-section">
+                <h3>Totale</h3>
+                <p>{{ client.client.importoInvestimento.totale }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="divider">
+            <p>Altre informazioni</p>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h3>Sab</h3>
+              <p>{{ client.client.sab }}</p>
+            </div>
+            <div class="col-sm-6">
+              <div class="detail-section">
+                <h3>Esperienza</h3>
+                <p>{{ client.client.esperienza }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul ng-repeat="seenBar in client.client.attivitaViste | orderBy:client.orderBy:true" ng-show="client.client.attivitaViste[0]">
-      <a ui-sref="seenBarShow({ id: client.client.id, barId: seenBar._id })">
-        <li>
-            <h4>{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h4>
-            <p>Data: {{ seenBar.data | date : mediumDate }}</p>
-        </li>
-      </a>
-    </ul>
-    <button type="button" ui-sref="seenBarNew({ id: client.client.id })">Aggiungine una</button>
   </section>
-
+  <hr>
+  <section>
+    <h2><i class="fa fa-eye" aria-hidden="true"></i> Attivita Viste <small>in ordine di data</small></h2>
+    <ul class="row grid-list">
+      <li class="col-md-3" ng-repeat="seenBar in client.client.attivitaViste | orderBy:client.orderBy:true" ui-sref="seenBarShow({ id: client.client.id, barId: seenBar._id })">
+        <div class="hover-effect">
+          <div class="content">
+            <div class="row">
+              <div class="col-xs-6 col-sm-12">
+                <h3>{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h3>
+              </div>
+              <div class="col-xs-6 col-sm-12">
+                <p>Data: {{ seenBar.data | date : mediumDate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="col-xs-12" ng-hide="client.client.attivitaViste.length > 0">
+        <p>{{ client.client.nome }} non ha hancora visto nemmeno un'attivita!</p>
+      </li>
+    </ul>
+    <a class="nav-btn options-btn" ui-sref="seenBarNew({ id: client.client.id })">Aggiungi un'attivita vista</a>
+  </section>
+  <hr>
   <section>
     <h2>Attivita Potenziali</h2>
-    <p ng-if="!client.filteredBars[0]">Al momento non sembra che ci siano bar che possono matchare con questo cliente</p>
-    <ul ng-repeat="filteredBar in client.filteredBars">
-      <li>
-        <a ui-sref="barShow({ id: filteredBar.id })">{{ filteredBar.denominazioneAttivita }}</a>
+    <ul class="row grid-list">
+      <li class="col-md-3 col-sm-4" ng-repeat="filteredBar in client.filteredBars">
+        <div class="hover-effect" ui-sref="barShow({ id: filteredBar.id })">
+          <div class="bar-img-div" style="background-image: url('{{ filteredBar.fotoAttivita }}');" ng-hide="client.smallDevices"></div>
+          <div class="content">
+            <div class="row">
+              <div class="col-xs-6 col-sm-12">
+                <h2>{{ filteredBar.denominazioneAttivita }}, {{ filteredBar.codiceAttivita }}</h2>
+              </div>
+              <div class="col-xs-6 col-sm-12">
+                <p>{{ filteredBar.zona.name }}</p><br>
+                <p>{{ filteredBar.tipologiaAttivita.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
+      <li ng-show="client.filteredBars.length === 0" class="no-results">Nessun risultato</li>
     </ul>
   </section>
-
-  <section>
-    <h3>Note:</h3>
+  <hr>
+  <section class="comments">
+    <h2 style="margin-bottom: 20px;"><i class="fa fa-comments-o" aria-hidden="true"></i> Note</h2>
     <ul>
-      <li ng-repeat="comment in client.client.comments">
-        <p>{{ comment.createdBy.username }}</p>
-        <p>{{ comment.body }}</p>
-        <a ng-click="client.deleteComment(comment)">DELETE</a>
+      <li ng-repeat="comment in client.client.comments" class="row">
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="profile-photo"></div>
+        </div>
+        <div class="col-xs-9 col-sm-10 col-md-11">
+          <div class="row">
+            <div class="col-sm-10">
+              <p>{{ comment.createdAt | date : "yyyy MMM dd 'alle' HH:mm" : '+0100' }}</p>
+              <p>{{ comment.createdBy.username }} dice:</p>
+              <p>{{ comment.body }}</p>
+            </div>
+            <div class="col-sm-2">
+              <a ng-if="comment.createdBy.id === main.user.id" ng-click="client.deleteComment(comment)"><i class="fa fa-trash-o" aria-hidden="true"></i> ELIMINA</a>
+            </div>
+          </div>
+        </div>
       </li>
+      <li ng-hide="client.client.comments.length > 0">Non ci sono note al momento</li>
     </ul>
     <h3>Aggiungi una nota:</h3>
-    <form ng-submit="client.addComment()">
-      <textarea name="name" rows="3" ng-model="client.comment.body"></textarea>
+    <form name="client.commentForm" ng-submit="client.addComment()" novalidate>
+      <textarea name="name" rows="3" ng-model="client.comment.body" required></textarea>
       <input type="submit" value="AGGIUNGI UNA NOTA">
     </form>
   </section>
+  <hr>
+  <h2 class="opts-title"><i class="fa fa-cog" aria-hidden="true"></i> Opzioni</h2>
+  <div class="row">
+    <div class="col-sm-6">
+      <a class="nav-btn options-btn" ui-sref="clientEdit({ id: client.client.id })">Modifica dettagli</a>
+    </div>
+    <div class="col-sm-6">
+      <a class="nav-btn options-btn" ng-hide="client.client.archiviato" ng-click="client.archive()">Archivia</a>
+      <a class="nav-btn options-btn" ng-show="client.client.archiviato" ng-click="client.archive()">Rimuovi dall'archivio</a>
+    </div>
+  </div>
 </section>

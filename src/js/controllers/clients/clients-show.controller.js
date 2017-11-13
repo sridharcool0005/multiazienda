@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('ClientShowCtrl', ClientShowCtrl);
 
-ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state', '$scope'];
+ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state', '$scope', 'CommonService', '$timeout'];
 
-function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state, $scope) {
+function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state, $scope, CommonService, $timeout) {
   const vm = this;
 
   vm.orderBy = 'data';
@@ -13,78 +13,80 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
   vm.addComment = comment;
   vm.deleteComment = deleteComm;
   vm.archive = archive;
+  vm.expandFilters = expandFilters;
+  // vm.copyToClipboard = copyToClipboard;
+  fetchClient();
 
-  Client
-    .get({ id: $stateParams.id })
-    .$promise
-    .then(client => {
-      vm.client = client;
-      vm.center = { lat: client.indirizzo.lat, lng: client.indirizzo.lng };
-      for (var i = 0; i < vm.client.attivitaViste.length; i++) {
-        vm.attivitaVisteIds.push(`${vm.client.attivitaViste[i].bar.id}`);
-      }
-      // if (client.indirizzo) {
-      //   vm.icon = {
-      //     url: 'https://image.flaticon.com/icons/svg/33/33622.svg',
-      //     scaledSize: new $window.google.maps.Size(50, 50)
-      //   };
-      // }
-    })
-    // .then(() => {
-    //   if (vm.client.indirizzo.lat) {
-    //     console.log('it has an address');
-    //     const map = new $window.google.maps.Map(document.getElementById('google-map'), {
-    //       zoom: 14,
-    //       center: { lat: vm.client.indirizzo.lat, lng: vm.client.indirizzo.lng },
-    //       scrollwheel: false,
-    //       styles: [
-    //         { 'elementType': 'geometry', 'stylers': [{ 'saturation': -100 }]},
-    //         { 'elementType': 'labels.text.stroke', 'stylers': [{'color': '#FFFFFF'}]},
-    //         { 'elementType': 'labels.text.fill', 'stylers': [{'color': '#242f3e'}]}
-    //       ]
-    //     });
-    //
-    //     new $window.google.maps.Marker({
-    //       position: { lat: vm.client.indirizzo.lat, lng: vm.client.indirizzo.lng },
-    //       map: map,
-    //       title: 'Hello world',
-    //       icon: vm.icon,
-    //       animation: $window.google.maps.Animation.DROP
-    //     });
-    //   }
-    // })
-    .then(() => {
-      if (vm.client.importoInvestimento && vm.client.importoInvestimento.anticipo) {
-        vm.anticipo = vm.client.importoInvestimento.anticipo;
-      } else {
-        vm.anticipo = '';
-      }
-      Bar
-        .query()
-        .$promise
-        .then(bars => {
-          for (var i = 0; i < bars.length; i++) {
-            const bar = bars[i];
-            if (bar.richiestaTotale&& bar.richiestaTotale.contanti) {
-              if (parseFloat(bar.richiestaTotale.contanti) === parseFloat(vm.anticipo)) { // only query the bars who match between richiestaTotale and anticipo
-                if(!vm.attivitaVisteIds.includes(`${bar.id}`) && `${bar.tipologiaAttivita.name}` === `${vm.client.tipologiaAttivita.name}`) vm.filteredBars.push(bar);
+  function fetchClient() {
+    Client
+      .get({ id: $stateParams.id })
+      .$promise
+      .then(client => {
+        vm.client = client;
+        vm.center = { lat: client.indirizzo.lat, lng: client.indirizzo.lng };
+        for (var i = 0; i < vm.client.attivitaViste.length; i++) {
+          vm.attivitaVisteIds.push(`${vm.client.attivitaViste[i].bar.id}`);
+        }
+      })
+      .then(() => {
+        if (vm.client.importoInvestimento && vm.client.importoInvestimento.anticipo) {
+          vm.anticipo = vm.client.importoInvestimento.anticipo;
+        } else {
+          vm.anticipo = '';
+        }
+        Bar
+          .query()
+          .$promise
+          .then(bars => {
+            for (var i = 0; i < bars.length; i++) {
+              const bar = bars[i];
+              if (bar.richiestaTotale&& bar.richiestaTotale.contanti) {
+                if (parseFloat(bar.richiestaTotale.contanti) === parseFloat(vm.anticipo)) { // only query the bars who match between richiestaTotale and anticipo
+                  if(!vm.attivitaVisteIds.includes(`${bar.id}`) && `${bar.tipologiaAttivita.name}` === `${vm.client.tipologiaAttivita.name}`) vm.filteredBars.push(bar);
+                }
               }
             }
-          }
-        });
-    });
+          });
+      });
+  }
+
+  // $timeout(() => {
+  //   var copyEmailBtn = document.querySelector('.copia-btn');
+  //   copyEmailBtn.addEventListener('click', function(event) {
+  //     // Select the email link anchor text
+  //     var emailLink = document.querySelector('#copyEmail');
+  //     console.log(emailLink);
+  //     emailLink.select();
+  //     // var range = document.createRange();
+  //     // range.selectNode(emailLink);
+  //     // $window.getSelection().addRange(range);
+  //
+  //     try {
+  //       // Now that we've selected the anchor text, execute the copy command
+  //       var successful = document.execCommand('copy');
+  //       var msg = successful ? 'successful' : 'unsuccessful';
+  //       console.log('Copy email command was ' + msg + successful);
+  //     } catch(err) {
+  //       console.log('Oops, unable to copy');
+  //     }
+  //
+  //     $window.getSelection().removeAllRanges();
+  //   });
+  // }, 50);
 
   function comment() {
-    const user = CurrentUserService.currentUser.id;
-    vm.comment.createdBy = user;
+    if (vm.commentForm.$valid) {
+      const user = CurrentUserService.currentUser.id;
+      vm.comment.createdBy = user;
 
-    Client
-      .addComment({ id: $stateParams.id }, vm.comment)
-      .$promise
-      .then(() => {
-        vm.comment = '';
-        vm.client = Client.get({ id: $stateParams.id });
-      });
+      Client
+        .addComment({ id: $stateParams.id }, vm.comment)
+        .$promise
+        .then(() => {
+          vm.comment = '';
+          vm.client = Client.get({ id: $stateParams.id });
+        });
+    }
   }
 
   function deleteComm(comment) {
@@ -103,6 +105,28 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
     Client
       .archiveClient({ id: $stateParams.id }, vm.client)
       .$promise
-      .then(() => $state.go('clientsIndex'));
+      .then(() => {
+        fetchClient();
+      });
+  }
+
+  $window.addEventListener('resize', () => {
+    vm.showingFilters = CommonService.showFilters();
+    vm.smallDevices = CommonService.smallDevices();
+    if(!$scope.$$phase) $scope.$apply();
+  });
+
+  vm.showingFilters = CommonService.showFilters();
+  vm.smallDevices = CommonService.smallDevices();
+  if(!$scope.$$phase) $scope.$apply();
+
+  function expandFilters() {
+    if ($window.innerWidth < 576) {
+      if (vm.showingFilters) {
+        vm.showingFilters = false;
+      } else {
+        vm.showingFilters = true;
+      }
+    }
   }
 }
