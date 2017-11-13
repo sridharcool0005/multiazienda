@@ -12,6 +12,7 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   vm.clear = clear;
   vm.cancel = cancel;
   vm.showForm = showForm;
+  vm.inClientNew = true;
   vm.client = {};
   fetchTypes();
   fetchZones();

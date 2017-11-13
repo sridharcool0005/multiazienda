@@ -83,6 +83,12 @@ hr {
         font-size: 20px;
         padding: 20px 0;
       }
+      .no-map-present {
+        height: 300px;
+        border: solid 3px $red;
+        padding: 20px;
+        text-align: center;
+      }
     }
   }
   // hr {

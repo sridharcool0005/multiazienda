@@ -14,6 +14,7 @@ function ClientEditCtrl(Client, Type, Zone, Location, $window, $stateParams, $ht
   vm.showForm = showForm;
   vm.clientSubmit = clientEdit;
   vm.wasLocationDeleted = false;
+  vm.inClientNew = false;
 
   fetchTypes();
   fetchZones();

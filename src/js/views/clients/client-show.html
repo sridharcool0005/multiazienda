@@ -1,7 +1,4 @@
 <section class="container client-show-page show-pages">
-  <!-- <div class="title-row align-items-center">
-    <h1>{{ client.client.nome }} {{ client.client.cognome }}</h1>
-  </div> -->
   <!-- DETTAGLI CLIENTE -->
   <div class="copied-to-clipboard" ng-show="client.copySuccessful">
     <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
@@ -17,22 +14,22 @@
       <div class="right-side">
         <h1>{{ client.client.nome }} {{ client.client.cognome}}</h1>
         <div class="link">
-          <a href="tel:{{ client.client.telefono }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ client.client.telefono }}</a>
+          <a href="tel:{{ client.client.telefono }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ client.client.telefono }}</a><span ng-show="!client.client.telefono">No telefono</span>
         </div>
         <div class="link">
           <!-- <input type="text" id="copyEmail" value="{{ client.client.email }}"> -->
           <a class="copy-email" href="mailto:gianni@gianni.com"><i class="fa fa-envelope" aria-hidden="true"></i> {{ client.client.email }}
             <!-- <a class="copia-btn">copia</a> -->
-          </a>
+          </a><span ng-show="!client.client.email">No email</span>
         </div>
-        <p ng-show="client.client.indirizzo"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }}</p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }} <span ng-show="!client.client.indirizzo.addressFormatted">No indirizzo</span></p>
       </div>
     </div>
     <div class="col-md-6 edges">
-      <article style="height: 300px" ng-hide="client.client.indirizzo">
+      <article class="no-map-present" ng-hide="client.client.indirizzo">
         <p>Non esiste un valido indirizzo per questo cliente</p>
       </article>
-      <street-map center="client.center" style="height: 300px;"></street-map>
+      <street-map center="client.center" style="height: 300px;" ng-show="client.client.indirizzo"></street-map>
     </div>
   </section>
   <section>
@@ -117,7 +114,7 @@
   </section>
   <hr>
   <section>
-    <h2>Attivita Potenziali</h2>
+    <h2><i class="fa fa-users" aria-hidden="true"></i> Attivita Potenziali</h2>
     <ul class="row grid-list">
       <li class="col-md-3 col-sm-4" ng-repeat="filteredBar in client.filteredBars">
         <div class="hover-effect" ui-sref="barShow({ id: filteredBar.id })">
@@ -135,7 +132,7 @@
           </div>
         </div>
       </li>
-      <li ng-show="client.filteredBars.length === 0" class="no-results">Nessun risultato</li>
+      <li class="col-md-3 col-sm-4 no-results" ng-show="client.filteredBars.length === 0">Nessun risultato</li>
     </ul>
   </section>
   <hr>

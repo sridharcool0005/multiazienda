@@ -155,5 +155,6 @@
       <hr>
     </div>
   </div>
-  <input type="submit" value="AGGIUNGI CLIENTE">
+  <input ng-show="controller.inClientNew" type="submit" value="AGGIUNGI CLIENTE">
+  <input ng-hide="controller.inClientNew" type="submit" value="MODIFICA CLIENTE">
 </form>

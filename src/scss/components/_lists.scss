@@ -7,9 +7,6 @@ ul {
   margin-top: 30px;
   li {
     margin-bottom: 20px;
-    &.no-results {
-      text-align: center;
-    }
     div {
       @include trans(0.3s);
       &:hover {
