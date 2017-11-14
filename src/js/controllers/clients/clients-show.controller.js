@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('ClientShowCtrl', ClientShowCtrl);
 
-ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state', '$scope', 'CommonService', '$timeout'];
+ClientShowCtrl.$inject = ['Client', 'Bar', '$stateParams', '$window', 'CurrentUserService', '$state', '$scope', 'CommonService', '$rootScope'];
 
-function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state, $scope, CommonService, $timeout) {
+function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, $state, $scope, CommonService, $rootScope) {
   const vm = this;
 
   vm.orderBy = 'data';
@@ -98,12 +98,17 @@ function ClientShowCtrl(Client, Bar, $stateParams, $window, CurrentUserService, 
       });
   }
 
-  function archive() {
+  function archive(addOrRemove) {
     Client
       .archiveClient({ id: $stateParams.id }, vm.client)
       .$promise
       .then(() => {
-        fetchClient();
+        if (addOrRemove === 'aggiungi') {
+          $rootScope.$broadcast('archiving client');
+          $state.go('archive');
+        } else {
+          $state.go('ClientsIndex');
+        }
       });
   }
 

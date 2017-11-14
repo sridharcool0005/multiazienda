@@ -2,13 +2,12 @@ angular
   .module('multiazienda')
   .controller('HomeCtrl', HomeCtrl);
 
-HomeCtrl.$inject = ['Client', 'Bar', '$window'];
+HomeCtrl.$inject = ['Client', 'Bar', '$window', '$scope', '$compile'];
 
 /* global google:ignore */
 
-function HomeCtrl(Client, Bar, $window) {
+function HomeCtrl(Client, Bar, $window, $scope, $compile) {
   const vm = this;
-  console.log('HOME');
   vm.all = [];
 
   Client
@@ -22,8 +21,10 @@ function HomeCtrl(Client, Bar, $window) {
           return bars.concat(clients);
         })
         .then(all => {
+          var infoWindow = new google.maps.InfoWindow();
+
           const map = new $window.google.maps.Map(document.getElementById('google-map'), {
-            zoom: 6,
+            zoom: 14,
             center: new google.maps.LatLng(51.515113, -0.072051),
             scrollwheel: false,
             styles: [
@@ -32,8 +33,6 @@ function HomeCtrl(Client, Bar, $window) {
               { 'elementType': 'labels.text.fill', 'stylers': [{'color': '#242f3e'}]}
             ]
           });
-
-          const infoWindow = new google.maps.InfoWindow;
 
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -59,6 +58,18 @@ function HomeCtrl(Client, Bar, $window) {
             infoWindow.open(map);
           }
 
+          function createInfoWindow(marker, content) {
+            if(infoWindow) infoWindow.close();
+
+            const compiledContent = $compile(content)($scope);
+
+            infoWindow = new google.maps.InfoWindow({
+              content: compiledContent[0]
+            });
+
+            infoWindow.open(map, marker);
+          }
+
           all.forEach(thing => {
             let marker;
             let contentString;
@@ -81,7 +92,7 @@ function HomeCtrl(Client, Bar, $window) {
               contentString =
               `
               <div class="info-window">
-                <a ui-sref="clientShow({id: ${thing.id})" href="/clients/${thing.id}">
+                <a ui-sref="clientShow({id: '${thing.id}'})">
                   <h3>${thing.nome} ${thing.cognome}</h3>
                 </a>
                 <p>${thing.indirizzo.addressFormatted}</p>
@@ -107,21 +118,18 @@ function HomeCtrl(Client, Bar, $window) {
               contentString =
               `
               <div class="info-window">
-                <a ui-sref="barShow({id: ${thing.id})" href="/bars/${thing.id}">
+                <a ui-sref="barShow({id: '${thing.id}'})">
                   <h3>${thing.denominazioneAttivita}</h3>
                 </a>
                 <p>${thing.indirizzo.addressFormatted}</p>
                 <p>Tipologia: ${thing.tipologiaAttivita.name}</p>
               </div>
               `;
+
             }
 
-            const infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
+            marker.addListener('click', () => {
+              createInfoWindow(marker, contentString);
             });
           });
         });

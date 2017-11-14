@@ -1,0 +1,7 @@
+.animate-this {
+  transition: all linear 0.3s;
+}
+
+.animate-this.ng-hide {
+  opacity: 0;
+}

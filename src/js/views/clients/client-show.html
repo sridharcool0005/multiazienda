@@ -94,7 +94,7 @@
     <ul class="row grid-list">
       <li class="col-md-3" ng-repeat="seenBar in client.client.attivitaViste | orderBy:client.orderBy:true" ui-sref="seenBarShow({ id: client.client.id, barId: seenBar._id })">
         <div class="hover-effect">
-          <div class="content">
+          <div class="content seenbar-item" ng-class="{ archivedmarker : seenBar.bar.archiviato }">
             <div class="row">
               <div class="col-xs-6 col-sm-12">
                 <h3>{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h3>
@@ -171,8 +171,8 @@
       <a class="nav-btn options-btn" ui-sref="clientEdit({ id: client.client.id })">Modifica dettagli</a>
     </div>
     <div class="col-sm-6">
-      <a class="nav-btn options-btn" ng-hide="client.client.archiviato" ng-click="client.archive()">Archivia</a>
-      <a class="nav-btn options-btn" ng-show="client.client.archiviato" ng-click="client.archive()">Rimuovi dall'archivio</a>
+      <a class="nav-btn options-btn" ng-hide="client.client.archiviato" ng-click="client.archive('aggiungi')">Archivia</a>
+      <a class="nav-btn options-btn" ng-show="client.client.archiviato" ng-click="client.archive('rimuovi')">Rimuovi dall'archivio</a>
     </div>
   </div>
 </section>

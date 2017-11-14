@@ -35,6 +35,10 @@ ul {
           }
         }
       }
+      &.archivedmarker {
+        opacity: 0.6;
+        border-color: $darkGrey;
+      }
       &.bar-img-div {
         height: 100px;
         border-bottom: none;

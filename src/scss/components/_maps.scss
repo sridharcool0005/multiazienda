@@ -1,0 +1,14 @@
+.info-window {
+  a {
+    h3 {
+      margin: 5px 0;
+      font-weight: bold;
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+  p {
+    margin: 5px 0;
+  }
+}

@@ -29,7 +29,7 @@
       text-transform: uppercase;
     }
     h2, label {
-      color: $white
+      color: $white;
     }
     .row {
       margin-bottom: 30px;
@@ -60,11 +60,12 @@
       border: solid 2px $grey;
       text-align: left;
       p {
+        margin-bottom: 0;
+        margin-top: 0;
         display: inline-block;
-        padding: 3px 3px 6px 3px;
+        padding: 5px 8px 6px 8px;
         background: $red;
         color: white;
-        line-height: 0.6;
         &:hover {
           cursor: pointer;
           background: $darkRed;

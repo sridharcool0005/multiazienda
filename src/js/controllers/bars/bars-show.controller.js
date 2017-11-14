@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('BarShowCtrl', BarShowCtrl);
 
-BarShowCtrl.$inject = ['Bar', 'Client', '$stateParams', '$window', 'CurrentUserService', '$state', '$timeout'];
+BarShowCtrl.$inject = ['Bar', 'Client', '$stateParams', '$window', 'CurrentUserService', '$state', '$rootScope', '$timeout'];
 
-function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $state, $timeout) {
+function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $state, $rootScope, $timeout) {
   const vm = this;
 
   vm.potentialClients = [];
@@ -88,7 +88,12 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
       .archiveBar({ id: $stateParams.id }, vm.bar)
       .$promise
       .then(() => {
-        (addOrRemove === 'aggiungi') ? $state.go('archive') : $state.go('barsIndex');
+        if (addOrRemove === 'aggiungi') {
+          $state.go('archive');
+        } else {
+          $rootScope.$broadcast('archiving bar');
+          $state.go('barsIndex');
+        }
       });
   }
 

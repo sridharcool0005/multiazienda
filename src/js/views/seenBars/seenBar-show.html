@@ -1,7 +1,7 @@
 <section class="container seenbars-page">
   <div class="title-row row">
     <div class="col-sm-6">
-      <h1>{{ seenBar.seenBar.bar.denominazioneAttivita }}</h1>
+      <h1>{{ seenBar.seenBar.bar.denominazioneAttivita }}, <span>{{ seenBar.seenBar.bar.codiceAttivita }}</span> <span ng-show="seenBar.seenBar.bar.archiviato"><small>(Archiviato)</small></span></h1>
     </div>
     <div class="col-sm-6">
       <a class="nav-btn responsive-btn" ui-sref="barShow({ id: seenBar.seenBar.bar.id })">Vedi l'attivita</a>

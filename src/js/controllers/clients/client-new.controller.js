@@ -59,20 +59,24 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   }
 
   function clientNew() {
-    Location
-      .save(vm.location)
-      .$promise
-      .then(location => {
-        vm.client.indirizzo = location.id;
-        vm.client.tipologiaAttivita = vm.client.tipologiaAttivita.id;
-        vm.client.zona = vm.client.zona.id;
-      })
-      .then(() => {
-        Client
-          .save(vm.client)
-          .$promise
-          .then(() => $state.go('clientsIndex'));
-      });
+    if (vm.clientForm.$valid) {
+      Location
+        .save(vm.location)
+        .$promise
+        .then(location => {
+          vm.client.indirizzo = location.id;
+          vm.client.tipologiaAttivita = vm.client.tipologiaAttivita.id;
+          vm.client.zona = vm.client.zona.id;
+        })
+        .then(() => {
+          Client
+            .save(vm.client)
+            .$promise
+            .then(() => $state.go('clientsIndex'));
+        });
+    } else {
+      console.log('form is not valid');
+    }
   }
 
   function clear(input) {
