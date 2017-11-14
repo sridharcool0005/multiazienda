@@ -91,9 +91,6 @@ hr {
       }
     }
   }
-  // hr {
-  //   margin-top: 20px;
-  // }
 }
 
 p.indirizzo {
@@ -132,5 +129,34 @@ p.indirizzo {
       color: $red;
       font-weight: bold;
     }
+  }
+}
+
+.archiviati {
+  padding: 20px 0;
+  .subtitle {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    p {
+      padding: 20px 0;
+    }
+  }
+
+}
+
+// archived show
+
+//date
+
+.date-seen {
+  padding: 20px 0;
+  font-weight: bold;
+}
+
+// bars seen
+
+.seenbars-page {
+  .comments h2 {
+    margin: 20px 0;
   }
 }

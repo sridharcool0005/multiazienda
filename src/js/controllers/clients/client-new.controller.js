@@ -37,7 +37,6 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
         .then(response => {
           showForm('address');
           vm.results = response.data.results;
-          console.log(typeof(vm.results));
         })
         .then(() => document.getElementById('searchAddress').value = '');
     } else {

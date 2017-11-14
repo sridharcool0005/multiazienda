@@ -12,6 +12,7 @@ function indexClient(req, res) {
 }
 
 function archiveClient(req, res) {
+  // console.log(req.body);
   if (req.body.archiviato) {
     req.body.archiviato = false;
   } else {
@@ -22,7 +23,6 @@ function archiveClient(req, res) {
     .findById(req.params.id)
     .exec()
     .then(client => {
-
       for(const field in req.body) {
         client[field] = req.body[field];
       }

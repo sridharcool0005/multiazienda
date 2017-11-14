@@ -2,9 +2,9 @@ angular
   .module('multiazienda')
   .controller('SeenBarShowCtrl', SeenBarShowCtrl);
 
-SeenBarShowCtrl.$inject = ['SeenBar', '$stateParams', 'CurrentUserService'];
+SeenBarShowCtrl.$inject = ['SeenBar', '$stateParams'];
 
-function SeenBarShowCtrl(SeenBar, $stateParams, CurrentUserService) {
+function SeenBarShowCtrl(SeenBar, $stateParams) {
   const vm = this;
   vm.addComment = comment;
   vm.deleteComment = deleteComm;
@@ -14,14 +14,12 @@ function SeenBarShowCtrl(SeenBar, $stateParams, CurrentUserService) {
     .$promise
     .then(seenBar => {
       vm.seenBar = seenBar;
+      console.log(seenBar);
     });
 
   function comment() {
-    const user = CurrentUserService.currentUser.id;
-    vm.comment.createdBy = user;
-
     SeenBar
-      .addComment({ id: $stateParams.id, barId: $stateParams }, vm.comment)
+      .addComment({ id: $stateParams.id, barId: $stateParams.barId }, vm.comment)
       .$promise
       .then(() => {
         vm.comment = '';

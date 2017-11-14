@@ -60,14 +60,20 @@ function commentClientDelete(req, res) {
 }
 
 function commentActivityCreate(req, res) {
+  console.log('CREA IL COMMENTO');
   Client
     .findById(req.params.id)
     .exec()
     .then(client => {
+      console.log('CLIENT', client);
+      console.log('REQ BODY', req.body);
+      console.log('REQ USER', req.user);
       if(!client) return res.status(404).json({ message: 'No client found!'});
-      const activity = client.attivitaViste.find(obj => obj.id);
+      const activity = client.attivitaViste.id(req.params.barId);
+      console.log('ACTIVITY FOUND', activity);
       req.body.createdBy = req.user.id;
       activity.comments.push(req.body);
+      console.log(client);
       client.save();
     })
     .then(client => res.status(200).json(client))

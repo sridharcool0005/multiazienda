@@ -23,15 +23,12 @@ function attivitaVisteCreate(req, res) {
 function attivitaVisteShow(req, res) {
   Client
     .findById(req.params.id)
-    .populate('attivitaViste.bar')
+    .populate('attivitaViste.bar attivitaViste.comments.createdBy')
     .then(client => {
       if(!client) return res.status(404).json({ message: 'No client found!'});
-      for (var i = 0; i < client.attivitaViste.length; i++) {
-        if (`${client.attivitaViste[i]._id}` === req.params.barId) {
-          const attivita = client.attivitaViste[i];
-          return res.status(200).json(attivita);
-        }
-      }
+      const activity = client.attivitaViste.id(req.params.barId);
+
+      return res.status(200).json(activity);
     })
     .catch(err => res.status(500).json(err));
 }
@@ -41,7 +38,7 @@ function attivitaVisteUpdate(req, res) {
     .findById(req.params.id)
     .then(client => {
       if (!client) return res.status(404).json({message: 'No client found'});
-      const attivita = client.attivitaViste.find(obj => obj.id);
+      const attivita = client.attivitaViste.id(req.params.barId);
       for (const field in req.body) {
         attivita[field] = req.body[field];
       }
@@ -57,7 +54,7 @@ function attivitaVisteDelete(req, res) {
     .findById(req.params.id)
     .then(client => {
       if (!client) return res.status(404).json({message: 'No client found'});
-      const attivita = client.attivitaViste.find(obj => obj.id);
+      const attivita = client.attivitaViste.id(req.params.barId);
 
       attivita.remove();
 

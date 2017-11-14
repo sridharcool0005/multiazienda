@@ -1,28 +1,63 @@
-<h1>ARCHIVIO</h1>
-
-<a ng-click="archive.toggleView('bars')" ng-class="{selected: archive.toggleBars}">Vedi i bar</a>
-<a ng-click="archive.toggleView('clients')" ng-class="{selected: archive.toggleClients}">Vedi i clienti</a>
-
-<div ng-show="archive.toggleClients">
-  <h2>Clienti in Archivio</h2>
-  <p ng-hide="archive.clientArchived[0]">Non ci sono ancora clienti in archivio</p>
-  <ul class="row">
-    <li class="col-md-4" ng-repeat="client in archive.clientArchived">
-      <a ui-sref="clientShow({ id: client.id })">{{ client.nome }} {{ client.cognome }}</a>
-      <p>{{ client.tipologiaAttivita.name }}</p>
-      <p>{{ client.zona.name }}</p>
-    </li>
-  </ul>
-</div>
-
-<div ng-show="archive.toggleBars">
-  <h2>Bar in Archivio</h2>
-  <p ng-hide="archive.barArchived[0]">Non ci sono ancora bar in archivio</p>
-  <ul class="row">
-    <li class="col-md-4" ng-repeat="bar in archive.barArchived">
-      <a ui-sref="barShow({ id: bar.id })">{{ bar.denominazioneAttivita }}</a>
-      <p>{{ bar.tipologiaAttivita.name }}</p>
-      <p>{{ bar.zona.name }}</p>
-    </li>
-  </ul>
-</div>
+<section class="container">
+  <div class="title-row">
+      <h1>ARCHIVIO</h1>
+  </div>
+  <div class="cartelle row">
+    <a class="col-xs-6" ng-click="archive.toggleView('bars')" ng-class="{selected: archive.toggleBars}">Vedi i bar</a>
+    <a class="col-xs-6" ng-click="archive.toggleView('clients')" ng-class="{ selected: archive.toggleClients }">Vedi i clienti</a>
+  </div>
+  <div class="archiviati row" ng-show="archive.toggleClients">
+    <div class="col-xs-12 subtitle">
+      <h2>Clienti in Archivio</h2>
+      <p ng-hide="archive.clientArchived[0]">Non ci sono ancora clienti in archivio</p>
+    </div>
+    <div class="col-xs-12">
+      <ul ng-show="archive.clientArchived[0]" class="row grid-list">
+        <li class="col-md-4 col-lg-3" ng-repeat="client in archive.clientArchived">
+          <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-6 col-sm-12">
+                  <h2>
+                    {{ client.nome }}<br>
+                    {{ client.cognome }}
+                  </h2>
+                </div>
+                <div class="col-xs-6 col-sm-12">
+                  <p>{{ client.tipologiaAttivita.name }}</p><br>
+                  <p>{{ client.zona.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="archiviati row" ng-show="archive.toggleBars">
+    <div class="col-xs-12 subtitle">
+      <h2>Bar in Archivio</h2>
+      <p ng-hide="archive.barArchived[0]">Non ci sono ancora bar in archivio</p>
+    </div>
+    <div class="col-xs-12">
+      <ul ng-show="archive.barArchived[0]" class="row grid-list">
+        <li class="col-md-4 col-lg-3" ng-repeat="bar in archive.barArchived">
+          <div class="hover-effect" ui-sref="barShow({ id: bar.id })">
+            <div class="bar-img-div" style="background-image: url('{{ bar.fotoAttivita }}');" ng-hide="bars.smallDevices"></div>
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-6 col-sm-12">
+                  <h2>{{ bar.denominazioneAttivita }}, {{ bar.codiceAttivita }}</h2>
+                </div>
+                <div class="col-xs-6 col-sm-12">
+                  <p>{{ bar.zona.name }}</p><br>
+                  <p>{{ bar.tipologiaAttivita.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
