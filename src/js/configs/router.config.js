@@ -1,12 +1,9 @@
-angular
-  .module('multiazienda')
-  .config(Router);
+angular.module('multiazienda').config(Router);
 
 Router.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
 
 function Router($stateProvider, $locationProvider, $urlRouterProvider) {
   $locationProvider.html5Mode(true);
-  console.log('ROUTER');
   $stateProvider
     .state('login', {
       url: '/login',
@@ -123,20 +120,29 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     });
 
-  loginRequired.$inject = ['$q', '$location', 'CurrentUserService', '$rootScope'];
-  async function loginRequired($q, $location, CurrentUserService, $rootScope) {
-    try {
-      const user = await CurrentUserService.getUser();
-      if (!user) {
-        $rootScope.$broadcast('loggedOut');
-        // return $q.reject('Not Authorized');
-      } else {
-        $rootScope.$broadcast('loggedIn');
-      }
-    } catch (e) {
-      return $q.reject('Not Authorized');
+  loginRequired.$inject = ['$state', 'CurrentUserService', '$rootScope'];
+  function loginRequired($state, CurrentUserService, $rootScope) {
+    console.log('im hit');
+    if (!CurrentUserService.currentUser) {
+      $rootScope.$broadcast('loggedOut');
+    } else {
+      $rootScope.$broadcast('loggedIn');
     }
   }
+  // loginRequired.$inject = ['$q', '$location', 'CurrentUserService', '$rootScope'];
+  // async function loginRequired($q, $location, CurrentUserService, $rootScope) {
+  //   try {
+  //     const user = await CurrentUserService.getUser();
+  //     if (!user) {
+  //       $rootScope.$broadcast('loggedOut');
+  //       // return $q.reject('Not Authorized');
+  //     } else {
+  //       $rootScope.$broadcast('loggedIn');
+  //     }
+  //   } catch (e) {
+  //     return $q.reject('Not Authorized');
+  //   }
+  // }
 
   $urlRouterProvider.otherwise('/');
 }
