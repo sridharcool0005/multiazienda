@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const config = require('../config/environment');
+const express = require('express');
+const app = express();
+const env = app.get('env');
 
 mongoose.Promise = require('bluebird');
 
-const dbURL = config.db.development;
+const dbURL = config.db[env];
 
 mongoose.connect(dbURL);
 
@@ -23,10 +26,20 @@ Type.collection.drop();
 
 User
   .create([{
-    username: 'multiazienda',
+    username: config.access.user1.username,
     email: config.access.user1.email,
     password: config.access.user1.password,
     passwordConfirmation: config.access.user1.password
+  }, {
+    username: config.access.user2.username,
+    email: config.access.user2.email,
+    password: config.access.user2.password,
+    passwordConfirmation: config.access.user2.password
+  }, {
+    username: config.access.user3.username,
+    email: config.access.user3.email,
+    password: config.access.user3.password,
+    passwordConfirmation: config.access.user3.password
   }])
   .then(users => {
     console.log(`${users.length} users were created!`);
@@ -83,88 +96,3 @@ User
   .then(types => console.log(`${types.length} types were created!`))
   .catch(err => console.log(err))
   .finally(() => mongoose.connection.close());
-
-
-
-// return Bar
-//   .create([{
-//     codiceAttivita: 'c21',
-//     denominazioneAttivita: 'Bar Ristoria Pizzorante',
-//     titolareAttivita: 'Frengo'
-//   }])
-//   .then(bars => {
-//     console.log(`${bars.length} bars were created!`);
-//
-//     return Client
-//       .create([{
-//         nome: 'John',
-//         cognome: 'Oliver',
-//         email: 'john.oliver@gmail.com',
-//         attivitaViste: [{
-//           data: new Date('11/10/89'),
-//           bar: bars[0]
-//         }]
-//       }]);
-//   });
-
-// CLIENTS:
-
-// {
-// 	"nome": "John",
-// 	"cognome": "Oliver",
-// 	"indirizzo": "59f49637f3e95433b2b2333d",
-//   "telefono": "+397854067723",
-//   "email": "john.oliver@gmail.com",
-//   "sab": "boh",
-//   "tipologiaAttivita": "59f4aba65d95df37d806d853",
-//   "zona": "59f4ad2a1f0977384b9c502a",
-//   "importoInvestimento": {
-//     "anticipo": 1000,
-//     "totale": 2000
-//   },
-//   "esperienza": "nulla",
-//   "note": '"text"'
-// }
-
-
-// BARS:
-
-// {
-//   "codiceAttivita": "c21",
-//   "tipologiaAttivita": "59f4aba65d95df37d806d853",
-//   "zona": "59f4ad2a1f0977384b9c502a",
-//   "denominazioneAttivita": "Bar Ristoria Pizzorante",
-//   "titolareAttivita": "Frengo",
-//   "indirizzo": "59f49637f3e95433b2b2333d",
-//   "referente": "Frengo",
-//   "metriQuadrati": 40,
-//   "magazzino": {
-//     "presente": "si",
-//     "internoEsterno": "interno"
-//   },
-//   "richiestaTotale": {
-//     "contanti": "100p",
-//     "dilazioni": "300"
-//   },
-//   "incassoGiornaliero": {
-//     "minimo": 300,
-//     "massimo": 400
-//   },
-//   "incassoAnnuale": {
-//     "minimo": 2000,
-//     "massimo": 2500
-//   },
-//   "canoneLocazione": {
-//     "iva": "si",
-//     "scadenza": 2015,
-//     "depCauzionale": 500,
-//     "speseCondominio": 200
-//   },
-//   "clienti": ["59f4af6f37807c38c489f937"]
-// }
-
-
-// 59f59d9f18298e41e61994b5 bar created
-// 59f59deb297cdf41e30ccdcf bar 2 created
-// 59f59f7da02a81424de36eb6 bar 3 created
-// 59f59d9f18298e41e61994b6 client created

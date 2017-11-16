@@ -6,11 +6,12 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const expressJWT = require('express-jwt');
 const app = express();
+const env = app.get('env');
 const { port, db, secret } = require('./config/environment');
 const routes = require('./config/routes');
 const dest = `${__dirname}/public`;
 
-mongoose.connect(db.development);
+mongoose.connect(db[env]);
 mongoose.Promise = bluebird;
 
 if (app.get('env') !== 'production') app.use(cors());

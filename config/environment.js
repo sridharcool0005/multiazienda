@@ -8,15 +8,18 @@ module.exports = {
   access: {
     user1: {
       email: process.env.ADMIN_EMAIL1,
-      password: process.env.ADMIN_PASSWORD1
+      password: process.env.ADMIN_PASSWORD1,
+      username: process.env.ADMIN_USERNAME1
     },
     user2: {
       email: process.env.ADMIN_EMAIL2,
-      password: process.env.ADMIN_PASSWORD2
+      password: process.env.ADMIN_PASSWORD2,
+      username: process.env.ADMIN_USERNAME2
     },
     user3: {
       email: process.env.ADMIN_EMAIL3,
-      password: process.env.ADMIN_PASSWORD3
+      password: process.env.ADMIN_PASSWORD3,
+      username: process.env.ADMIN_USERNAME3
     }
   }
 };
