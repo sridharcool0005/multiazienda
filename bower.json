@@ -5,15 +5,8 @@
   "authors": [],
   "license": "ISC",
   "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
   "dependencies": {
-    "angular": "^1.5.8",
     "angular-jwt": "^0.1.8",
     "angular-ui-router": "^1.0.10",
     "bootstrap": "^3.3.7",
@@ -23,14 +16,12 @@
     "angular-slick": "^0.2.1",
     "bootstrap-css-only": "^3.3.7",
     "animate.css": "animate-css#^3.5.2",
-    "angular-route": "^1.6.6"
+    "angular-route": "^1.6.6",
+    "angular": "*"
   },
   "overrides": {
     "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
+      "main": ["dist/css/bootstrap.css", "dist/js/bootstrap.js"]
     },
     "slick-carousel": {
       "main": [
@@ -40,5 +31,8 @@
         "slick/fonts/*"
       ]
     }
+  },
+  "resolutions": {
+    "angular": "1.6.6"
   }
 }
