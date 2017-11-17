@@ -1,27 +1,25 @@
-angular
-  .module('multiazienda')
-  .service('TokenService', TokenService);
+angular.module('multiazienda').service('TokenService', TokenService);
 
 TokenService.$inject = ['$window', 'jwtHelper'];
 
 function TokenService($window, jwtHelper) {
   const self = this;
 
-  self.setToken = (token) => {
+  self.setToken = token => {
     return $window.localStorage.setItem('auth-token', token);
   };
 
-  self.getToken = function getToken() { // (a)
+  self.getToken = function getToken() {
     return $window.localStorage.getItem('auth-token');
   };
 
-  self.decodeToken = () => { // (b)
-    const token = self.getToken(); // (c)
+  self.decodeToken = () => {
+    const token = self.getToken();
 
-    return token ? jwtHelper.decodeToken(token) : null; // (d)
+    return token ? jwtHelper.decodeToken(token) : null;
   };
 
-  self.removeToken = () => { // <-- HERE
+  self.removeToken = () => {
     $window.localStorage.clear();
   };
 }

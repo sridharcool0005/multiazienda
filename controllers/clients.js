@@ -2,8 +2,7 @@ const Client = require('../models/client');
 const Bar = require('../models/bar');
 
 function clientsIndex(req, res) {
-  Client
-    .find({ archiviato: false })
+  Client.find({ archiviato: false })
     .populate('indirizzo zona tipologiaAttivita attivitaViste')
     .then(clients => {
       res.status(201).json(clients);
@@ -12,9 +11,10 @@ function clientsIndex(req, res) {
 }
 
 function clientsShow(req, res) {
-  Client
-    .findById(req.params.id)
-    .populate('indirizzo zona tipologiaAttivita attivitaViste attivitaViste.bar comments.createdBy')
+  Client.findById(req.params.id)
+    .populate(
+      'indirizzo zona tipologiaAttivita attivitaViste attivitaViste.bar comments.createdBy'
+    )
     .then(client => {
       res.status(201).json(client);
     })
@@ -23,8 +23,7 @@ function clientsShow(req, res) {
 
 function clientsCreate(req, res) {
   req.body.archiviato = false;
-  Client
-    .create(req.body)
+  Client.create(req.body)
     .then(client => {
       res.status(201).json(client);
     })
@@ -32,15 +31,14 @@ function clientsCreate(req, res) {
 }
 
 function clientsUpdate(req, res) {
-  console.log(req.body);
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .then(client => {
-      for(const field in req.body) {
+      for (const field in req.body) {
         client[field] = req.body[field];
       }
 
-      if (req.body.tipologiaAttivita) client.tipologiaAttivita = req.body.tipologiaAttivita.id;
+      if (req.body.tipologiaAttivita)
+        client.tipologiaAttivita = req.body.tipologiaAttivita.id;
       if (req.body.zona) client.zona = req.body.zona.id;
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 
@@ -66,20 +64,19 @@ function clientsUpdate(req, res) {
 }
 
 function clientsDelete(req, res) {
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .then(client => {
       client.remove();
 
-      Bar //once you remove the bar, also remove the bar form the ones seen by the clients
-        .find()
+      Bar.find() //once you remove the bar, also remove the bar form the ones seen by the clients
         .then(bars => {
           for (var i = 0; i < bars.length; i++) {
             const singleBar = bars[i];
 
             for (var j = 0; j < singleBar.attivitaViste.length; j++) {
               const singleBar = singleBar.clienti[j];
-              if (toString(singleBar.bar) === toString(req.params.id)) singleBar.remove();
+              if (toString(singleBar.bar) === toString(req.params.id))
+                singleBar.remove();
             }
 
             return singleBar.save();

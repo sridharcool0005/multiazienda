@@ -2,10 +2,9 @@ const Bar = require('../models/bar');
 const Client = require('../models/client');
 
 function barsIndex(req, res) {
-  Bar
-    .find({
-      archiviato: false
-    })
+  Bar.find({
+    archiviato: false
+  })
     .populate('indirizzo zona tipologiaAttivita clienti')
     .then(bars => {
       res.status(201).json(bars);
@@ -14,8 +13,7 @@ function barsIndex(req, res) {
 }
 
 function barsShow(req, res) {
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .populate('indirizzo zona tipologiaAttivita clienti comments.createdBy')
     .then(bar => {
       res.status(201).json(bar);
@@ -24,12 +22,10 @@ function barsShow(req, res) {
 }
 
 function barsCreate(req, res) {
-  console.log(req.body);
   req.body.archiviato = false;
   req.body.tipologiaAttivita = req.body.tipologiaAttivita.id;
   req.body.zona = req.body.zona.id;
-  Bar
-    .create(req.body)
+  Bar.create(req.body)
     .then(bar => {
       res.status(201).json(bar);
     })
@@ -37,13 +33,13 @@ function barsCreate(req, res) {
 }
 
 function barsUpdate(req, res) {
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .then(bar => {
-      for(const field in req.body) {
+      for (const field in req.body) {
         bar[field] = req.body[field];
       }
-      if (req.body.tipologiaAttivita) bar.tipologiaAttivita = req.body.tipologiaAttivita.id;
+      if (req.body.tipologiaAttivita)
+        bar.tipologiaAttivita = req.body.tipologiaAttivita.id;
       if (req.body.zona) bar.zona = req.body.zona.id;
       bar.indirizzo = req.body.indirizzo.id;
 
@@ -68,20 +64,19 @@ function barsUpdate(req, res) {
 }
 
 function barsDelete(req, res) {
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .then(bar => {
       bar.remove();
 
-      Client //once you remove the bar, also remove the bar form the ones seen by the clients
-        .find()
+      Client.find() //once you remove the bar, also remove the bar form the ones seen by the clients
         .then(clients => {
           for (var i = 0; i < clients.length; i++) {
             const singleClient = clients[i];
 
             for (var j = 0; j < singleClient.attivitaViste.length; j++) {
               const singleAtt = singleClient.attivitaViste[j];
-              if (toString(singleAtt.bar) === toString(req.params.id)) singleAtt.remove();
+              if (toString(singleAtt.bar) === toString(req.params.id))
+                singleAtt.remove();
             }
 
             return singleClient.save();

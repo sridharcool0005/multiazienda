@@ -120,29 +120,37 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     });
 
-  loginRequired.$inject = ['$state', 'CurrentUserService', '$rootScope'];
-  function loginRequired($state, CurrentUserService, $rootScope) {
-    console.log('im hit');
-    if (!CurrentUserService.currentUser) {
-      $rootScope.$broadcast('loggedOut');
+  loginRequired.$inject = [
+    '$q',
+    '$state',
+    'TokenService',
+    'CurrentUserService',
+    '$timeout',
+    '$rootScope'
+  ];
+  function loginRequired(
+    $q,
+    $state,
+    TokenService,
+    CurrentUserService,
+    $timeout,
+    $rootScope
+  ) {
+    var defer = $q.defer();
+    if (TokenService.getToken()) {
+      defer.resolve();
     } else {
-      $rootScope.$broadcast('loggedIn');
+      CurrentUserService.removeUser();
+      $rootScope.$broadcast('displayMessage', {
+        type: 'danger',
+        content: 'Attenzione! Devi fare il login per poter accedere.'
+      });
+      $timeout(() => {
+        $state.go('login');
+      });
     }
+    return defer.promise;
   }
-  // loginRequired.$inject = ['$q', '$location', 'CurrentUserService', '$rootScope'];
-  // async function loginRequired($q, $location, CurrentUserService, $rootScope) {
-  //   try {
-  //     const user = await CurrentUserService.getUser();
-  //     if (!user) {
-  //       $rootScope.$broadcast('loggedOut');
-  //       // return $q.reject('Not Authorized');
-  //     } else {
-  //       $rootScope.$broadcast('loggedIn');
-  //     }
-  //   } catch (e) {
-  //     return $q.reject('Not Authorized');
-  //   }
-  // }
 
   $urlRouterProvider.otherwise('/');
 }
