@@ -53,7 +53,6 @@ function HomeCtrl(Client, Bar, $window, $scope, $compile) {
           );
         } else {
           // Browser doesn't support Geolocation
-          console.log(navigator.geolocation);
           handleLocationError(false, infoWindow, map.getCenter());
         }
 

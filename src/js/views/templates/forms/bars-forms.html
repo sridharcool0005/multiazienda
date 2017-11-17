@@ -23,8 +23,9 @@
           <label ng-show="controller.inNew">Scegli una foto</label>
           <label ng-hide="controller.inNew">Foto del bar</label>
         </div>
-        <div class="col-sm-6">
-          <a ng-show="controller.inNew" ng-click="controller.changePhoto()" class="change-photo-btn">PROSSIMA <back-arrow class="flip-this"></back-arrow></a>
+        <div class="col-sm-6 choose-photo-arrows">
+          <a ng-show="controller.inNew" ng-click="controller.changePhoto('prev')" class="change-photo-btn"><back-arrow class="arrow-in-form"></back-arrow> PREC</a>
+          <a ng-show="controller.inNew" ng-click="controller.changePhoto('next')" class="change-photo-btn">PROX <back-arrow class="flip-this arrow-in-form"></back-arrow></a>
         </div>
       </div>
       <div class="bar-choose-photo-div" style="background-image: url('{{ controller.bar.fotoAttivita }}');"></div>

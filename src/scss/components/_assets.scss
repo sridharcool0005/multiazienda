@@ -21,7 +21,14 @@ nav {
 
 .back-arrow {
   width: 10px;
-  margin-right: 10px;
+  &.flip-this {
+    transform: scaleX(-1);
+  }
+  &.arrow-in-form {
+    path {
+      fill: $white;
+    }
+  }
 }
 
 .header-img {
@@ -36,10 +43,6 @@ nav {
   margin-bottom: 20px;
   border: solid 2px $grey;
   @include backgroundImagePosition;
-}
-
-.flip-this {
-  transform: scaleX(-1);
 }
 
 .bar-img {

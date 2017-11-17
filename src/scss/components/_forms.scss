@@ -89,6 +89,10 @@ textarea {
   padding: 13px 0;
 }
 
+.choose-photo-arrows {
+  text-align: right;
+}
+
 .new-form {
   .chosen-address:hover {
     cursor: not-allowed;
@@ -159,11 +163,6 @@ textarea {
       }
     }
   }
-  // input[type="submit"] {
-  //   position: absolute;
-  //   top: 100px;
-  //   // z-index: -1;
-  // }
 }
 
 .bar-selezionato {

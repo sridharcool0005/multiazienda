@@ -84,10 +84,18 @@ a:hover, button:hover {
 }
 
 .change-photo-btn {
-  display: block;
-  text-align: right;
   font-size: smaller;
-  padding: 2px 0;
+  padding: 2px;
+  background: $red;
+  color: $white;
+  border-radius: 2px;
+    &:hover {
+      background: $darkRed;
+      color: $white;
+      .arrow-in-form path {
+        fill: $white;
+      }
+    }
 }
 
 .filter {
