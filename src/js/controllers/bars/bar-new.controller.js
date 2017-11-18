@@ -1,13 +1,27 @@
-angular
-  .module('multiazienda')
-  .controller('BarNewCtrl', BarNewCtrl);
+angular.module('multiazienda').controller('BarNewCtrl', BarNewCtrl);
 
-BarNewCtrl.$inject = ['Type', 'Zone', 'Location', 'Bar', '$state', '$rootScope', '$scope', '$window'];
+BarNewCtrl.$inject = [
+  'Type',
+  'Zone',
+  'Location',
+  'Bar',
+  '$state',
+  '$rootScope',
+  '$scope',
+  '$window'
+];
 
-function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $window) {
+function BarNewCtrl(
+  Type,
+  Zone,
+  Location,
+  Bar,
+  $state,
+  $rootScope,
+  $scope,
+  $window
+) {
   const vm = this;
-
-  // vm.pushId = pushId;
   vm.changePhoto = changePhoto;
   let startCounter = 0;
   vm.barSubmit = barNew;
@@ -56,7 +70,7 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
   }
 
   function changePhoto() {
-    if (startCounter < (vm.photoArray.length - 1)) {
+    if (startCounter < vm.photoArray.length - 1) {
       vm.bar.fotoAttivita = vm.photoArray[startCounter + 1];
       startCounter += 1;
     } else {
@@ -70,10 +84,8 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
       $window.scrollTo(0, 0);
     }
     if (vm.barForm.$valid) {
-      Location
-        .save(vm.location)
-        .$promise
-        .then(location => {
+      Location.save(vm.location)
+        .$promise.then(location => {
           vm.bar.indirizzo = location.id;
           vm.bar.locationId = location.locationId;
         })
@@ -87,7 +99,7 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
           $window.scrollTo(0, 0);
           $rootScope.$broadcast('displayMessage', {
             type: 'danger',
-            content: 'Attenzione: l\'attivita e gia esistente'
+            content: "Attenzione: l'attivita e gia esistente"
           });
         });
     }
@@ -100,16 +112,10 @@ function BarNewCtrl(Type, Zone, Location, Bar, $state, $rootScope, $scope, $wind
   }
 
   function fetchTypes() {
-    Type
-      .query()
-      .$promise
-      .then(types => vm.types = types);
+    Type.query().$promise.then(types => (vm.types = types));
   }
 
   function fetchZones() {
-    Zone
-      .query()
-      .$promise
-      .then(zones => vm.zones = zones);
+    Zone.query().$promise.then(zones => (vm.zones = zones));
   }
 }

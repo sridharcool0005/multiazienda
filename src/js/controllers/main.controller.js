@@ -76,7 +76,7 @@ function MainCtrl(
   });
 
   $rootScope.$on('error', (e, err) => {
-    console.log('error detected');
+    console.log('error detected', err.status);
     if (err.status === 401) {
       $state.go('login');
       $rootScope.$broadcast('displayMessage', {
