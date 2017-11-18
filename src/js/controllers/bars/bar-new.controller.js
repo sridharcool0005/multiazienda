@@ -23,7 +23,7 @@ function BarNewCtrl(
 ) {
   const vm = this;
   vm.changePhoto = changePhoto;
-  let startCounter = 0;
+  vm.startCounter = 0;
   vm.barSubmit = barNew;
   vm.clear = clear;
   vm.showForm = showForm;
@@ -69,14 +69,28 @@ function BarNewCtrl(
     }
   }
 
-  function changePhoto() {
-    if (startCounter < vm.photoArray.length - 1) {
-      vm.bar.fotoAttivita = vm.photoArray[startCounter + 1];
-      startCounter += 1;
-    } else {
-      vm.bar.fotoAttivita = vm.photoArray[0];
-      startCounter = 1;
+  function changePhoto(direction) {
+    // if the start counter is equals to 1 it means that they cannot go back (hide back btn)
+    if (direction === 'prev' && vm.startCounter >= 0) {
+      vm.bar.fotoAttivita = vm.photoArray[vm.startCounter - 1];
+      vm.startCounter -= 1;
+    } else if (
+      direction === 'next' &&
+      vm.startCounter <= vm.photoArray.length - 1
+    ) {
+      vm.bar.fotoAttivita = vm.photoArray[vm.startCounter + 1];
+      vm.startCounter += 1;
     }
+
+    // if the start counter is equals to the length of the array of photos it means they cannot go forwards (hide next button)
+
+    // if (startCounter < (vm.photoArray.length - 1)) {
+    //   vm.bar.fotoAttivita = vm.photoArray[startCounter + 1];
+    //   startCounter += 1;
+    // } else {
+    //   vm.bar.fotoAttivita = vm.photoArray[0];
+    //   startCounter = 1;
+    // }
   }
 
   function barNew() {

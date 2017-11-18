@@ -4,6 +4,8 @@ HomeCtrl.$inject = [
   'Client',
   'Bar',
   '$window',
+  '$http',
+  '$q',
   '$scope',
   '$rootScope',
   '$compile'
@@ -11,26 +13,47 @@ HomeCtrl.$inject = [
 
 /* global google:ignore */
 
-function HomeCtrl(Client, Bar, $window, $scope, $rootScope, $compile) {
+function HomeCtrl(
+  Client,
+  Bar,
+  $window,
+  $http,
+  $q,
+  $scope,
+  $rootScope,
+  $compile
+) {
   const vm = this;
-  vm.all = [];
+  // vm.all = [];
+  // const rawData = [];
 
-  Client.query()
-    .$promise.then(clients => {
-      Bar.query()
-        .$promise.then(bars => {
-          return bars.concat(clients);
-        })
-        .then(all => {
-          createMap(all);
-        })
-        .catch(err => {
-          $rootScope.$broadcast('error', err);
-        });
+  $q
+    .all({ clients: Client.query().$promise, bars: Bar.query().$promise })
+    .then(data => {
+      const bars = data.bars;
+      const clients = data.clients;
+      createMap(bars.concat(clients));
     })
     .catch(err => {
       $rootScope.$broadcast('error', err);
     });
+
+  // Client.query()
+  //   .$promise.then(clients => {
+  //     Bar.query()
+  //       .$promise.then(bars => {
+  //         return bars.concat(clients);
+  //       })
+  //       .then(all => {
+  //         createMap(all);
+  //       })
+  //       .catch(err => {
+  //         $rootScope.$broadcast('error', err);
+  //       });
+  //   })
+  //   .catch(err => {
+  //     $rootScope.$broadcast('error', err);
+  //   });
 
   function createMap(all) {
     var infoWindow = new google.maps.InfoWindow();
@@ -58,8 +81,6 @@ function HomeCtrl(Client, Bar, $window, $scope, $rootScope, $compile) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function(position) {
-          console.log(position.coords.latitude);
-          console.log(position.coords.longitude);
           var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude

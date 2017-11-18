@@ -24,8 +24,12 @@
           <label ng-hide="controller.inNew">Foto del bar</label>
         </div>
         <div class="col-sm-6 choose-photo-arrows">
-          <a class="animate-this" ng-show="controller.inNew && controller.startCounter >= 1" ng-click="controller.changePhoto('prev')" class="change-photo-btn"><back-arrow class="arrow-in-form"></back-arrow> PREC</a>
-          <a class="animate-this" ng-show="controller.inNew && controller.startCounter < controller.photoArray.length - 1" ng-click="controller.changePhoto('next')" class="change-photo-btn">PROX <back-arrow class="flip-this arrow-in-form"></back-arrow></a>
+          <a ng-show="controller.inNew && controller.startCounter >= 1" ng-click="controller.changePhoto('prev')" class="change-photo-btn animate-this">
+            <back-arrow class="arrow-in-form"></back-arrow> PREC
+          </a>
+          <a ng-show="controller.inNew && controller.startCounter < controller.photoArray.length - 1" ng-click="controller.changePhoto('next')" class="animate-this change-photo-btn">
+            PROX <back-arrow class="flip-this arrow-in-form"></back-arrow>
+          </a>
         </div>
       </div>
       <div class="bar-choose-photo-div" style="background-image: url('{{ controller.bar.fotoAttivita }}');"></div>
