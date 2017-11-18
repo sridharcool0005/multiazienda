@@ -1,16 +1,21 @@
 .messages {
   p {
+    position: fixed;
+    width: 90%;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
     padding: 10px;
     color: white;
     &.danger {
-      background: red;
+      background: $red;
     }
     &.warning {
-      background: gold;
+      background: $gold;
       color: $darkGrey;
     }
     &.success {
-      background: green;
+      background: $green;
     }
   }
 }

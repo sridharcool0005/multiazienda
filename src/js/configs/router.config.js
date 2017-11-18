@@ -115,6 +115,7 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
       templateUrl: '/js/views/archive.html',
       controller: 'ArchiveCtrl',
       controllerAs: 'archive',
+      params: { clientOrBar: null },
       resolve: {
         loginRequired: loginRequired
       }

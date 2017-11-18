@@ -45,6 +45,10 @@ input {
   }
 }
 
+input[type="text"]:disabled, textarea:disabled {
+  cursor: not-allowed;
+}
+
 select {
   width: 100%;
   padding: 12px;
@@ -55,7 +59,7 @@ select {
   appearance: none;
   background: url(https://d30y9cdsu7xlg0.cloudfront.net/png/242277-200.png) no-repeat 96% 0;
   background-size: 20px;
-  background-position: 90% 50%;
+  background-position: 95% 50%;
   background-color: $lightGrey;
   &:focus {
     outline: none;
@@ -91,6 +95,7 @@ textarea {
 
 .choose-photo-arrows {
   text-align: right;
+  padding-bottom: 10px;
 }
 
 .new-form {

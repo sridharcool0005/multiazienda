@@ -1,40 +1,21 @@
-angular
-  .module('multiazienda')
-  .controller('ArchiveCtrl', ArchiveCtrl);
+angular.module('multiazienda').controller('ArchiveCtrl', ArchiveCtrl);
 
-ArchiveCtrl.$inject = ['Client', 'Bar', '$rootScope'];
+ArchiveCtrl.$inject = ['Client', 'Bar', '$stateParams', '$q'];
 
-function ArchiveCtrl(Client, Bar, $rootScope) {
+function ArchiveCtrl(Client, Bar, $stateParams, $q) {
   const vm = this;
 
   vm.toggleView = toggleView;
-  vm.toggleBars = true;
-  vm.toggleClients = false;
+  toggleView($stateParams.clientOrBar);
 
-  $rootScope.$on('archiving client', () => {
-    console.log('archiving clients message');
-    vm.toggleClients = true;
-    vm.toggleBars = false;
-  });
-
-  $rootScope.$on('archiving bars', () => {
-    console.log('archiving bars message');
-    vm.toggleClients = false;
-    vm.toggleBars = true;
-  });
-
-  Client
-    .getArchived()
-    .$promise
-    .then(archived => {
-      vm.clientArchived = archived;
-    });
-
-  Bar
-    .getArchived()
-    .$promise
-    .then(archived => {
-      vm.barArchived = archived;
+  $q
+    .all({
+      clients: Client.getArchived().$promise,
+      bars: Bar.getArchived().$promise
+    })
+    .then(data => {
+      vm.barArchived = data.bars;
+      vm.clientArchived = data.clients;
     });
 
   function toggleView(toggleWhat) {
@@ -48,5 +29,4 @@ function ArchiveCtrl(Client, Bar, $rootScope) {
       vm.toggleClients = false;
     }
   }
-
 }

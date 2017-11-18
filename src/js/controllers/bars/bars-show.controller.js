@@ -1,10 +1,26 @@
-angular
-  .module('multiazienda')
-  .controller('BarShowCtrl', BarShowCtrl);
+angular.module('multiazienda').controller('BarShowCtrl', BarShowCtrl);
 
-BarShowCtrl.$inject = ['Bar', 'Client', '$stateParams', '$window', 'CurrentUserService', '$state', '$rootScope', '$timeout'];
+BarShowCtrl.$inject = [
+  'Bar',
+  'Client',
+  '$stateParams',
+  '$window',
+  'CurrentUserService',
+  '$state',
+  '$rootScope',
+  '$timeout'
+];
 
-function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $state, $rootScope, $timeout) {
+function BarShowCtrl(
+  Bar,
+  Client,
+  $stateParams,
+  $window,
+  CurrentUserService,
+  $state,
+  $rootScope,
+  $timeout
+) {
   const vm = this;
 
   vm.potentialClients = [];
@@ -15,23 +31,24 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
   vm.expandedDetails = false;
 
   $timeout(() => {
-    const mapDivHeight = 300 - document.getElementById('indirizzo').offsetHeight;
-    document.getElementsByClassName('details-map')[0].style.height = `${mapDivHeight}px`;
+    const mapDivHeight =
+      300 - document.getElementById('indirizzo').offsetHeight;
+    document.getElementsByClassName('details-map')[0].style.height = `${
+      mapDivHeight
+    }px`;
   }, 50);
 
-  Bar
-    .get({ id: $stateParams.id })
-    .$promise
-    .then(bar => {
+  Bar.get({ id: $stateParams.id })
+    .$promise.then(bar => {
       vm.bar = bar;
       vm.center = { lat: bar.indirizzo.lat, lng: bar.indirizzo.lng };
-      document.getElementById('indirizzo').innerHTML = `${vm.bar.indirizzo.addressHTML}`;
+      document.getElementById('indirizzo').innerHTML = `${
+        vm.bar.indirizzo.addressHTML
+      }`;
     })
     .then(() => {
-      Client
-        .query()
-        .$promise
-        .then(clients => {
+      Client.query()
+        .$promise.then(clients => {
           if (vm.bar.richiestaTotale && vm.bar.richiestaTotale.contanti) {
             vm.richiestaContanti = vm.bar.richiestaTotale.contanti;
           } else {
@@ -47,8 +64,17 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
         .then(() => {
           for (var i = 0; i < vm.clients.length; i++) {
             const client = vm.clients[i];
-            if (client.importoInvestimento && client.importoInvestimento.anticipo) {
-              if (!vm.clientsWhoHaveSeen.includes(`${client.id}`) && parseFloat(vm.richiestaContanti) === parseFloat(client.importoInvestimento.anticipo) && `${client.tipologiaAttivita.name}` === `${vm.bar.tipologiaAttivita.name}`) {
+            if (
+              client.importoInvestimento &&
+              client.importoInvestimento.anticipo
+            ) {
+              if (
+                !vm.clientsWhoHaveSeen.includes(`${client.id}`) &&
+                parseFloat(vm.richiestaContanti) ===
+                  parseFloat(client.importoInvestimento.anticipo) &&
+                `${client.tipologiaAttivita.name}` ===
+                  `${vm.bar.tipologiaAttivita.name}`
+              ) {
                 vm.potentialClients.push(client);
               }
             }
@@ -61,44 +87,36 @@ function BarShowCtrl(Bar, Client, $stateParams, $window, CurrentUserService, $st
       const user = CurrentUserService.currentUser.id;
       vm.comment.createdBy = user;
 
-      Bar
-        .addComment({ id: $stateParams.id }, vm.comment)
-        .$promise
-        .then(() => {
-          vm.comment = '';
-          vm.bar = Bar.get({ id: $stateParams.id });
-        });
+      Bar.addComment({ id: $stateParams.id }, vm.comment).$promise.then(() => {
+        vm.comment = '';
+        vm.bar = Bar.get({ id: $stateParams.id });
+      });
     }
   }
 
   function deleteComm(comment) {
-    Bar
-      .deleteComment({ id: $stateParams.id, commentId: comment._id })
-      .$promise
-      .then(() => {
-        Bar
-          .get({ id: $stateParams.id })
-          .$promise
-          .then(bar => vm.bar = bar);
-      });
+    Bar.deleteComment({
+      id: $stateParams.id,
+      commentId: comment._id
+    }).$promise.then(() => {
+      Bar.get({ id: $stateParams.id }).$promise.then(bar => (vm.bar = bar));
+    });
   }
 
   function archive(addOrRemove) {
-    Bar
-      .archiveBar({ id: $stateParams.id }, vm.bar)
-      .$promise
-      .then(() => {
-        if (addOrRemove === 'aggiungi') {
-          $state.go('archive');
-        } else {
-          $rootScope.$broadcast('archiving bar');
-          $state.go('barsIndex');
-        }
-      });
+    Bar.archiveBar({ id: $stateParams.id }, vm.bar).$promise.then(() => {
+      if (addOrRemove === 'aggiungi') {
+        $state.go('archive', { clientOrBar: 'bars' });
+      } else {
+        $state.go('barsIndex');
+      }
+    });
   }
 
   function expandDetails() {
-    (vm.expandedDetails) ? vm.expandedDetails = false : vm.expandedDetails = true;
+    vm.expandedDetails
+      ? (vm.expandedDetails = false)
+      : (vm.expandedDetails = true);
     console.log(vm.expandedDetails);
   }
 }

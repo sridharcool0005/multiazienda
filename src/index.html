@@ -28,7 +28,7 @@
             <a ng-click="main.logout()" class="text-btn">Logout</a>
           </li>
           <li style="float: right;" ng-show="main.user" ng-class="{ infocus : main.inArchivio }">
-            <a ui-sref="archive" class="text-btn">ARCHIVIO</a>
+            <a ui-sref="archive({ clientOrBar: 'bar' })" class="text-btn">ARCHIVIO</a>
           </li>
           <li style="float: right;" ng-show="main.user" ng-class="{ infocus : main.inClienti }">
             <a ui-sref="clientsIndex" class="text-btn">CLIENTI</a>

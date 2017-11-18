@@ -1,10 +1,24 @@
-angular
-  .module('multiazienda')
-  .controller('BarEditCtrl', BarEditCtrl);
+angular.module('multiazienda').controller('BarEditCtrl', BarEditCtrl);
 
-BarEditCtrl.$inject = ['Bar', 'Type', 'Zone', '$stateParams', '$state', '$window', '$rootScope'];
+BarEditCtrl.$inject = [
+  'Bar',
+  'Type',
+  'Zone',
+  '$stateParams',
+  '$state',
+  '$window',
+  '$rootScope'
+];
 
-function BarEditCtrl(Bar, Type, Zone, $stateParams, $state, $window, $rootScope) {
+function BarEditCtrl(
+  Bar,
+  Type,
+  Zone,
+  $stateParams,
+  $state,
+  $window,
+  $rootScope
+) {
   const vm = this;
 
   vm.barSubmit = barEdit;
@@ -22,21 +36,26 @@ function BarEditCtrl(Bar, Type, Zone, $stateParams, $state, $window, $rootScope)
     fetchTypes();
   });
 
-  Bar
-    .get({ id: $stateParams.id })
-    .$promise
-    .then(bar => vm.bar = bar);
+  Bar.get({ id: $stateParams.id })
+    .$promise.then(bar => (vm.bar = bar))
+    .catch(err => {
+      $rootScope.$broadcast('error', err);
+    });
 
   function barEdit() {
     if (vm.barForm.$invalid) {
       $window.scrollTo(0, 0);
     }
     if (vm.barForm.$valid) {
-      Bar
-        .update({ id: $stateParams.id }, vm.bar)
-        .$promise
-        .then(() => {
+      Bar.update({ id: $stateParams.id }, vm.bar)
+        .$promise.then(() => {
           $state.go('barsIndex');
+        })
+        .catch(() => {
+          $rootScope.$broadcast('displayMessage', {
+            type: 'danger',
+            message: 'Non e stato possibile aggiornare il bar'
+          });
         });
     }
   }
@@ -57,16 +76,18 @@ function BarEditCtrl(Bar, Type, Zone, $stateParams, $state, $window, $rootScope)
   }
 
   function fetchTypes() {
-    Type
-      .query()
-      .$promise
-      .then(types => vm.types = types);
+    Type.query()
+      .$promise.then(types => (vm.types = types))
+      .catch(err => {
+        $rootScope.$broadcast('error', err);
+      });
   }
 
   function fetchZones() {
-    Zone
-      .query()
-      .$promise
-      .then(zones => vm.zones = zones);
+    Zone.query()
+      .$promise.then(zones => (vm.zones = zones))
+      .catch(err => {
+        $rootScope.$broadcast('error', err);
+      });
   }
 }
