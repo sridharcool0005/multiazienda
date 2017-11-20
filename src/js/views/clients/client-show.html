@@ -17,9 +17,7 @@
           <a href="tel:{{ client.client.telefono }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ client.client.telefono }}</a><span ng-show="!client.client.telefono">No telefono</span>
         </div>
         <div class="link">
-          <!-- <input type="text" id="copyEmail" value="{{ client.client.email }}"> -->
           <a class="copy-email" href="mailto:gianni@gianni.com"><i class="fa fa-envelope" aria-hidden="true"></i> {{ client.client.email }}
-            <!-- <a class="copia-btn">copia</a> -->
           </a><span ng-show="!client.client.email">No email</span>
         </div>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }} <span ng-show="!client.client.indirizzo.addressFormatted">No indirizzo</span></p>
@@ -36,9 +34,7 @@
     <h2><i class="fa fa-address-card-o" aria-hidden="true"></i> Che cosa cerca</h2>
     <div class="details">
       <div class="divider">
-        <p>
-          <!-- <span>1.</span>  -->
-          Zona e tipologia</p>
+        <p>Zona e tipologia</p>
       </div>
       <div class="row">
         <div class="col-sm-6">
@@ -94,13 +90,14 @@
     <ul class="row grid-list">
       <li class="col-md-3" ng-repeat="seenBar in client.client.attivitaViste | orderBy:client.orderBy:true" ui-sref="seenBarShow({ id: client.client.id, barId: seenBar._id })">
         <div class="hover-effect">
+          <div class="bar-img-div" style="background-image: url('{{ seenBar.bar.fotoAttivita }}');" ng-if="!main.isSmall"></div>
           <div class="content seenbar-item" ng-class="{ archivedmarker : seenBar.bar.archiviato }">
             <div class="row">
-              <div class="col-xs-6 col-sm-12">
-                <h3>{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h3>
+              <div class="col-xs-6 col-md-12">
+                <h3  ng-class="{ 'seenbar-small': main.isSmall }">{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h3>
               </div>
-              <div class="col-xs-6 col-sm-12">
-                <p>Data: {{ seenBar.data | date : mediumDate }}</p>
+              <div class="col-xs-6 col-md-12">
+                <p ng-class="{ 'seenbar-small': main.isSmall }">Data: {{ seenBar.data | date : mediumDate }}</p>
               </div>
             </div>
           </div>
@@ -116,15 +113,15 @@
   <section>
     <h2><i class="fa fa-users" aria-hidden="true"></i> Attivita Potenziali</h2>
     <ul class="row grid-list">
-      <li class="col-md-3 col-sm-4" ng-repeat="filteredBar in client.filteredBars">
+      <li class="col-md-3" ng-repeat="filteredBar in client.filteredBars">
         <div class="hover-effect" ui-sref="barShow({ id: filteredBar.id })">
-          <div class="bar-img-div" style="background-image: url('{{ filteredBar.fotoAttivita }}');" ng-hide="client.smallDevices"></div>
+          <div class="bar-img-div" style="background-image: url('{{ filteredBar.fotoAttivita }}');" ng-if="!main.isSmall"></div>
           <div class="content">
             <div class="row">
-              <div class="col-xs-6 col-sm-12">
+              <div class="col-xs-6 col-md-12">
                 <h2>{{ filteredBar.denominazioneAttivita }}, {{ filteredBar.codiceAttivita }}</h2>
               </div>
-              <div class="col-xs-6 col-sm-12">
+              <div class="col-xs-6 col-md-12">
                 <p>{{ filteredBar.zona.name }}</p><br>
                 <p>{{ filteredBar.tipologiaAttivita.name }}</p>
               </div>

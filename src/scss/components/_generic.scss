@@ -160,3 +160,9 @@ p.indirizzo {
     margin: 20px 0;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .client-show-page .client-details .right-side {
+    height: auto;
+  }
+}
