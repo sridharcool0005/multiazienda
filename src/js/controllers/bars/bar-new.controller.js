@@ -57,7 +57,8 @@ function BarNewCtrl(
       addressHTML: args.addressHTML,
       addressFormatted: args.addressFormatted,
       lat: args.lat,
-      lng: args.lng
+      lng: args.lng,
+      url: args.url
     };
 
     vm.bar = {

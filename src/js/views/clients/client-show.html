@@ -1,9 +1,5 @@
 <section class="container client-show-page show-pages">
   <!-- DETTAGLI CLIENTE -->
-  <div class="copied-to-clipboard" ng-show="client.copySuccessful">
-    <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
-    <h2>Copied to clipboard</h2>
-  </div>
   <div class="row client-details">
     <div class="col-xs-12 edges">
       <h2>Profile cliente</h2>
@@ -16,9 +12,13 @@
         <div class="link">
           <a href="tel:{{ client.client.telefono }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ client.client.telefono }}</a><span ng-show="!client.client.telefono">No telefono</span>
         </div>
-        <div class="link">
-          <a class="copy-email" href="mailto:gianni@gianni.com"><i class="fa fa-envelope" aria-hidden="true"></i> {{ client.client.email }}
-          </a><span ng-show="!client.client.email">No email</span>
+        <div class="">
+          <p class="copy-area" ng-show="client.client.email">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <input id="email" type="text" name="" value="{{client.client.email}}" readonly>
+            <button class="" id="copyBtn" type="button">COPIA LA MAIL</button>
+          </p>
+          <p ng-show="!client.client.email">No email</p>
         </div>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }} <span ng-show="!client.client.indirizzo.addressFormatted">No indirizzo</span></p>
       </div>
@@ -27,7 +27,13 @@
       <article class="no-map-present" ng-hide="client.client.indirizzo">
         <p>Non esiste un valido indirizzo per questo cliente</p>
       </article>
-      <street-map center="client.center" style="height: 300px;" ng-show="client.client.indirizzo"></street-map>
+      <street-map
+        title="{{client.title}}"
+        center="client.center"
+        content="{{client.content}}" 
+        style="height: 300px;"
+        ng-show="client.client.indirizzo">
+      </street-map>
     </div>
   </section>
   <section>

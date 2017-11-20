@@ -81,6 +81,25 @@ textarea {
   }
 }
 
+// copy email area
+
+.copy-area {
+  input {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 0;
+    padding: 0;
+    &:focus {
+      border-bottom-color: $lightGrey;
+    }
+  }
+  ::selection {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+// copy email area
+
 .no-label-above {
   margin-top: 28px;
 }

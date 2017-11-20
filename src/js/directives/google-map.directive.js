@@ -1,6 +1,4 @@
-angular
-  .module('multiazienda')
-  .directive('googlePlace', googlePlace);
+angular.module('multiazienda').directive('googlePlace', googlePlace);
 
 googlePlace.$inject = ['$window', '$rootScope'];
 
@@ -9,13 +7,15 @@ function googlePlace($window, $rootScope) {
     restrict: 'E',
     replace: true,
     template: '<input type="text" id="google-places" style="width: 100%" />',
-    scope: {
-    },
+    scope: {},
     link($scope, element) {
-      var autocomplete = new $window.google.maps.places.Autocomplete(element[0], {
-        types: ['establishment'],
-        componentRestrictions: {country: 'it'}
-      });
+      var autocomplete = new $window.google.maps.places.Autocomplete(
+        element[0],
+        {
+          types: ['establishment'],
+          componentRestrictions: { country: 'it' }
+        }
+      );
       autocomplete.addListener('place_changed', callback);
 
       function callback() {
@@ -23,7 +23,10 @@ function googlePlace($window, $rootScope) {
         var photoArray = [];
         if (place.photos) {
           for (var i = 0; i < place.photos.length; i++) {
-            var currentPhoto = place.photos[i].getUrl({'maxWidth': 1920, 'maxHeight': 500});
+            var currentPhoto = place.photos[i].getUrl({
+              maxWidth: 1920,
+              maxHeight: 500
+            });
             photoArray.push(currentPhoto);
           }
         } else {
@@ -38,7 +41,8 @@ function googlePlace($window, $rootScope) {
           name: place.name,
           photoArray: photoArray,
           locationId: place.place_id,
-          website: place.website
+          website: place.website,
+          url: place.url
         });
       }
     }

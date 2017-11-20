@@ -4,5 +4,6 @@ angular.module('multiazienda', [
   'angular-jwt',
   'ngRoute',
   'ngAnimate',
-  'matchMedia'
+  'matchMedia',
+  'ngAutocomplete'
 ]);

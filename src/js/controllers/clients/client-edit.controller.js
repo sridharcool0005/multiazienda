@@ -64,7 +64,6 @@ function ClientEditCtrl(
     const address = document.getElementById('searchAddress').value;
 
     if (address.length > 0) {
-      console.log('address is entered');
       vm.errorMessage = null;
       $http
         .get(
@@ -79,7 +78,6 @@ function ClientEditCtrl(
         })
         .then(() => (document.getElementById('searchAddress').value = ''));
     } else {
-      console.log('address is not entered');
       vm.results = null;
       vm.errorMessage = 'Please start typing an address first';
     }

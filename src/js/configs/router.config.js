@@ -141,16 +141,20 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
     if (TokenService.getToken()) {
       defer.resolve();
     } else {
-      CurrentUserService.removeUser();
-      $rootScope.$broadcast('displayMessage', {
-        type: 'danger',
-        content: 'Attenzione! Devi fare il login per poter accedere.'
-      });
-      $timeout(() => {
-        $state.go('login');
-      });
+      forceLogout(CurrentUserService, $rootScope, $timeout, $state);
     }
     return defer.promise;
+  }
+
+  function forceLogout(CurrentUserService, $rootScope, $timeout, $state) {
+    CurrentUserService.removeUser();
+    $rootScope.$broadcast('displayMessage', {
+      type: 'danger',
+      content: 'Attenzione! Devi fare il login per poter accedere.'
+    });
+    $timeout(() => {
+      $state.go('login');
+    });
   }
 
   $urlRouterProvider.otherwise('/');

@@ -5,6 +5,7 @@ ClientNewCtrl.$inject = [
   'Location',
   'Type',
   'Zone',
+  'Place',
   '$window',
   '$http',
   '$state',
@@ -16,6 +17,7 @@ function ClientNewCtrl(
   Location,
   Type,
   Zone,
+  Place,
   $window,
   $http,
   $state,
@@ -45,7 +47,6 @@ function ClientNewCtrl(
     const address = document.getElementById('searchAddress').value;
 
     if (address.length > 0) {
-      console.log('address is entered');
       vm.errorMessage = null;
       $http
         .get(
@@ -60,7 +61,6 @@ function ClientNewCtrl(
         })
         .then(() => (document.getElementById('searchAddress').value = ''));
     } else {
-      console.log('address is not entered');
       vm.results = null;
       vm.errorMessage = 'Please start typing an address first';
     }
@@ -69,13 +69,17 @@ function ClientNewCtrl(
   function chooseAddress(index) {
     showForm('address');
     const chosenAddress = vm.results[index];
-    vm.location = {
-      locationId: chosenAddress.place_id,
-      addressFormatted: chosenAddress.formatted_address,
-      lat: chosenAddress.geometry.location.lat,
-      lng: chosenAddress.geometry.location.lng,
-      type: 'street address'
-    };
+
+    Place.get({ place: chosenAddress.place_id }).$promise.then(url => {
+      vm.location = {
+        locationId: chosenAddress.place_id,
+        addressFormatted: chosenAddress.formatted_address,
+        lat: chosenAddress.geometry.location.lat,
+        lng: chosenAddress.geometry.location.lng,
+        url: url.url,
+        type: 'street address'
+      };
+    });
   }
 
   function clientNew() {
@@ -89,8 +93,6 @@ function ClientNewCtrl(
         .then(() => {
           Client.save(vm.client).$promise.then(() => $state.go('clientsIndex'));
         });
-    } else {
-      console.log('form is not valid');
     }
   }
 

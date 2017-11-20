@@ -101,8 +101,9 @@ function MainCtrl(
   $rootScope.$on('displayMessage', (e, message) => {
     vm.message = message.content;
     vm.messageType = message.type;
+    if (!$scope.$$phase) $scope.$apply();
 
-    $timeout(closeMessage, 5000);
+    $timeout(closeMessage, 3000);
   });
 
   function logout() {

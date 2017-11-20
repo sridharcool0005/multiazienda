@@ -7,6 +7,20 @@
         color: $red;
       }
     }
+    &.maps-link {
+      display: inline-block;
+      background: $red;
+      color: $white;
+      padding: 5px;
+      border-radius: 3px;
+      &:hover {
+        background: $darkRed;
+      }
+      i {
+        font-size: 10px;
+        vertical-align: super;
+      }
+    }
   }
   p {
     margin: 5px 0;

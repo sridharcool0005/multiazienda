@@ -10,7 +10,12 @@
       <div class="bar-img" style="background-image: url('{{ bar.bar.fotoAttivita }}');"></div>
     </div>
     <div class="col-md-6">
-      <street-map class="details-map" center="bar.center"></street-map>
+      <street-map
+        class="details-map"
+        title="{{bar.title}}"
+        content="{{bar.content}}" 
+        center="bar.center">
+      </street-map>
       <p class="indirizzo" id="indirizzo"></p>
     </div>
   </section>

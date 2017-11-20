@@ -117,7 +117,19 @@ a:hover, button:hover {
 .unexpand {
   @extend .expand;
   padding: 3px 14px 5px 14px;
+}
 
+.copy-area button {
+  background: $red;
+  color: $white;
+  font-size: 16px;
+  border: none;
+  padding: 5px;
+  @include trans(0.3s);
+  &:hover {
+    color: $white;
+    background: $darkRed;
+  }
 }
 
 @media (max-width: 768px) {

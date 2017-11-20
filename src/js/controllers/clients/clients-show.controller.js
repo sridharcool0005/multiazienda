@@ -6,6 +6,7 @@ ClientShowCtrl.$inject = [
   '$stateParams',
   '$window',
   'CurrentUserService',
+  '$timeout',
   '$state',
   '$scope',
   '$q',
@@ -19,6 +20,7 @@ function ClientShowCtrl(
   $stateParams,
   $window,
   CurrentUserService,
+  $timeout,
   $state,
   $scope,
   $q,
@@ -34,11 +36,10 @@ function ClientShowCtrl(
   vm.deleteComment = deleteComm;
   vm.archive = archive;
   vm.expandFilters = expandFilters;
-  let bars = null;
   vm.showingFilters = CommonService.showFilters();
   vm.smallDevices = CommonService.smallDevices();
   if (!$scope.$$phase) $scope.$apply();
-  // vm.copyToClipboard = copyToClipboard;
+  let bars = null;
   fetchClient();
 
   function fetchClient() {
@@ -56,6 +57,19 @@ function ClientShowCtrl(
           lat: vm.client.indirizzo.lat,
           lng: vm.client.indirizzo.lng
         };
+
+        vm.title = `Indirizzo di ${vm.client.nome}`;
+
+        vm.content = `
+          <div class="info-window">
+            <a class="maps-link" href="${
+              vm.client.indirizzo.url
+            }" target="_blank">
+              APRI SU GOOGLE MAPS
+              <i class="fa fa-external-link" aria-hidden="true"></i>
+            </a>
+          </div>
+          `;
 
         for (var i = 0; i < vm.client.attivitaViste.length; i++) {
           vm.attivitaVisteIds.push(`${vm.client.attivitaViste[i].bar.id}`);
@@ -93,29 +107,27 @@ function ClientShowCtrl(
       });
   }
 
-  // $timeout(() => {
-  //   var copyEmailBtn = document.querySelector('.copia-btn');
-  //   copyEmailBtn.addEventListener('click', function(event) {
-  //     // Select the email link anchor text
-  //     var emailLink = document.querySelector('#copyEmail');
-  //     console.log(emailLink);
-  //     emailLink.select();
-  //     // var range = document.createRange();
-  //     // range.selectNode(emailLink);
-  //     // $window.getSelection().addRange(range);
-  //
-  //     try {
-  //       // Now that we've selected the anchor text, execute the copy command
-  //       var successful = document.execCommand('copy');
-  //       var msg = successful ? 'successful' : 'unsuccessful';
-  //       console.log('Copy email command was ' + msg + successful);
-  //     } catch(err) {
-  //       console.log('Oops, unable to copy');
-  //     }
-  //
-  //     $window.getSelection().removeAllRanges();
-  //   });
-  // }, 50);
+  $timeout(() => {
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', () => {
+      console.log('clicked');
+      var copyTextarea = document.getElementById('email');
+      copyTextarea.select();
+
+      try {
+        var successful = document.execCommand('copy');
+        // var msg = successful ? 'successful' : 'unsuccessful';
+        // console.log('Copying text command was ' + msg);
+        if (successful) {
+          copyBtn.innerHTML =
+            '<i class="fa fa-check normal-width" aria-hidden="true"></i> COPIATA';
+          copyBtn.setAttribute('class', 'success');
+        }
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+    });
+  });
 
   function comment() {
     if (vm.commentForm.$valid) {

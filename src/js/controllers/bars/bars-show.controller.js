@@ -42,6 +42,15 @@ function BarShowCtrl(
     .$promise.then(bar => {
       vm.bar = bar;
       vm.center = { lat: bar.indirizzo.lat, lng: bar.indirizzo.lng };
+      vm.title = `Indirizzo dell'attivita ${bar.denominazioneAttivita}`;
+      vm.content = `
+        <div class="info-window">
+          <a class="maps-link" href="${bar.indirizzo.url}" target="_blank">
+            APRI SU GOOGLE MAPS
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
+        </div>
+        `;
       document.getElementById('indirizzo').innerHTML = `${
         vm.bar.indirizzo.addressHTML
       }`;

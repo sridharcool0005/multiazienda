@@ -11,6 +11,7 @@ const zones = require('../controllers/zones');
 const users = require('../controllers/users');
 const comments = require('../controllers/comments');
 const archiveds = require('../controllers/archiveds');
+const places = require('../controllers/places');
 
 router.route('/login').post(auth.login);
 
@@ -109,5 +110,7 @@ router
   .get(zones.show)
   .put(zones.update)
   .patch(zones.update);
+
+router.route('/places').get(places.getPlace);
 
 module.exports = router;
