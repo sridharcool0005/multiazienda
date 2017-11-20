@@ -17,12 +17,12 @@ const Location = require('../models/location');
 const Zone = require('../models/zone');
 const Type = require('../models/type');
 
-User.collection.drop();
-Location.collection.drop();
-Bar.collection.drop();
-Client.collection.drop();
-Zone.collection.drop();
-Type.collection.drop();
+// User.collection.drop();
+// Location.collection.drop();
+// Bar.collection.drop();
+// Client.collection.drop();
+// Zone.collection.drop();
+// Type.collection.drop();
 
 User.create([
   {
