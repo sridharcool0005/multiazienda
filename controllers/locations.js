@@ -1,8 +1,7 @@
 const Location = require('../models/location');
 
 function locationsIndex(req, res) {
-  Location
-    .find()
+  Location.find()
     .then(locations => {
       res.status(201).json(locations);
     })
@@ -10,8 +9,7 @@ function locationsIndex(req, res) {
 }
 
 function locationsShow(req, res) {
-  Location
-    .findById(req.params.id)
+  Location.findById(req.params.id)
     .then(location => {
       res.status(201).json(location);
     })
@@ -19,26 +17,22 @@ function locationsShow(req, res) {
 }
 
 function locationsCreate(req, res) {
-  console.log('here');
-  console.log(req.body);
   if (req.headers.referer.includes('attivita')) {
     req.body.type = 'attivita';
   } else {
     req.body.type = 'cliente';
   }
-  Location
-    .create(req.body)
+  Location.create(req.body)
     .then(location => {
       res.status(201).json(location);
     })
-    .catch((err) => res.status(500).json({ message: err }));
+    .catch(err => res.status(500).json({ message: err }));
 }
 
 function locationsUpdate(req, res) {
-  Location
-    .findById(req.params.id)
+  Location.findById(req.params.id)
     .then(location => {
-      for(const field in req.body) {
+      for (const field in req.body) {
         location[field] = req.body[field];
       }
 
@@ -49,8 +43,7 @@ function locationsUpdate(req, res) {
 }
 
 function locationsDelete(req, res) {
-  Location
-    .findById(req.params.id)
+  Location.findById(req.params.id)
     .then(location => {
       location.remove();
     })

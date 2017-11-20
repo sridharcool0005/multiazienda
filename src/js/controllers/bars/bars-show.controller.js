@@ -127,6 +127,5 @@ function BarShowCtrl(
     vm.expandedDetails
       ? (vm.expandedDetails = false)
       : (vm.expandedDetails = true);
-    console.log(vm.expandedDetails);
   }
 }

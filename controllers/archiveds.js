@@ -2,9 +2,7 @@ const Bar = require('../models/bar');
 const Client = require('../models/client');
 
 function indexClient(req, res) {
-
-  Client
-    .find({ archiviato: true })
+  Client.find({ archiviato: true })
     .populate('indirizzo zona tipologiaAttivita attivitaViste')
     .exec()
     .then(clients => res.status(201).json(clients))
@@ -12,24 +10,23 @@ function indexClient(req, res) {
 }
 
 function archiveClient(req, res) {
-  // console.log(req.body);
   if (req.body.archiviato) {
     req.body.archiviato = false;
   } else {
     req.body.archiviato = true;
   }
 
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .exec()
     .then(client => {
-      for(const field in req.body) {
+      for (const field in req.body) {
         client[field] = req.body[field];
       }
 
       client.archiviato = req.body.archiviato;
 
-      if (req.body.tipologiaAttivita.id) client.tipologiaAttivita = req.body.tipologiaAttivita.id;
+      if (req.body.tipologiaAttivita.id)
+        client.tipologiaAttivita = req.body.tipologiaAttivita.id;
       if (req.body.zona.id) client.zona = req.body.zona.id;
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo.id;
 
@@ -52,8 +49,7 @@ function archiveClient(req, res) {
 }
 
 function indexBar(req, res) {
-  Bar
-    .find({ archiviato: true })
+  Bar.find({ archiviato: true })
     .populate('indirizzo zona tipologiaAttivita clienti')
     .exec()
     .then(bars => res.status(201).json(bars))
@@ -67,16 +63,16 @@ function archiveBar(req, res) {
     req.body.archiviato = true;
   }
 
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .then(bar => {
-      for(const field in req.body) {
+      for (const field in req.body) {
         bar[field] = req.body[field];
       }
 
       bar.archiviato = req.body.archiviato;
 
-      if (req.body.tipologiaAttivita) bar.tipologiaAttivita = req.body.tipologiaAttivita.id;
+      if (req.body.tipologiaAttivita)
+        bar.tipologiaAttivita = req.body.tipologiaAttivita.id;
       if (req.body.zona) bar.zona = req.body.zona.id;
       bar.indirizzo = req.body.indirizzo.id;
 
@@ -98,7 +94,6 @@ function archiveBar(req, res) {
     })
     .then(bar => res.status(200).json(bar))
     .catch(err => {
-      console.log(err);
       res.status(500).json(err);
     });
 }

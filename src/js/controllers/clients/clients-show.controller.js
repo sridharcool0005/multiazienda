@@ -110,7 +110,6 @@ function ClientShowCtrl(
   $timeout(() => {
     const copyBtn = document.getElementById('copyBtn');
     copyBtn.addEventListener('click', () => {
-      console.log('clicked');
       var copyTextarea = document.getElementById('email');
       copyTextarea.select();
 

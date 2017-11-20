@@ -1,7 +1,6 @@
 const rp = require('request-promise');
 
 function getPlace(req, res) {
-  console.log(req.query);
   rp(
     `https://maps.googleapis.com/maps/api/place/details/json?placeid=${
       req.query.place
