@@ -121,7 +121,8 @@ function ClientShowCtrl(
     if (vm.commentForm.$valid) {
       Client.addComment({ id: $stateParams.id }, vm.comment)
         .$promise.then(() => {
-          vm.comment = '';
+          vm.comment = {};
+          vm.commentForm.$setPristine();
           fetchClient();
         })
         .catch(err => {

@@ -1,10 +1,26 @@
-angular
-  .module('multiazienda')
-  .controller('ClientNewCtrl', ClientNewCtrl);
+angular.module('multiazienda').controller('ClientNewCtrl', ClientNewCtrl);
 
-ClientNewCtrl.$inject = ['Client', 'Location', 'Type', 'Zone', '$window', '$http', '$state', '$rootScope'];
+ClientNewCtrl.$inject = [
+  'Client',
+  'Location',
+  'Type',
+  'Zone',
+  '$window',
+  '$http',
+  '$state',
+  '$rootScope'
+];
 
-function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $rootScope) {
+function ClientNewCtrl(
+  Client,
+  Location,
+  Type,
+  Zone,
+  $window,
+  $http,
+  $state,
+  $rootScope
+) {
   const vm = this;
   vm.searchAddress = searchAddress;
   vm.chooseAddress = chooseAddress;
@@ -26,19 +42,23 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   });
 
   function searchAddress() {
-    console.log('i fired');
     const address = document.getElementById('searchAddress').value;
 
     if (address.length > 0) {
       console.log('address is entered');
       vm.errorMessage = null;
       $http
-        .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g,'+')}&region=it&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`)
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(
+            / /g,
+            '+'
+          )}&region=it&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`
+        )
         .then(response => {
           showForm('address');
           vm.results = response.data.results;
         })
-        .then(() => document.getElementById('searchAddress').value = '');
+        .then(() => (document.getElementById('searchAddress').value = ''));
     } else {
       console.log('address is not entered');
       vm.results = null;
@@ -60,19 +80,14 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
 
   function clientNew() {
     if (vm.clientForm.$valid) {
-      Location
-        .save(vm.location)
-        .$promise
-        .then(location => {
+      Location.save(vm.location)
+        .$promise.then(location => {
           vm.client.indirizzo = location.id;
           vm.client.tipologiaAttivita = vm.client.tipologiaAttivita.id;
           vm.client.zona = vm.client.zona.id;
         })
         .then(() => {
-          Client
-            .save(vm.client)
-            .$promise
-            .then(() => $state.go('clientsIndex'));
+          Client.save(vm.client).$promise.then(() => $state.go('clientsIndex'));
         });
     } else {
       console.log('form is not valid');
@@ -86,7 +101,7 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   function cancel() {
     vm.results = null;
     if (vm.location) {
-      return vm.location = null;
+      return (vm.location = null);
     }
     showForm('address');
   }
@@ -98,16 +113,10 @@ function ClientNewCtrl(Client, Location, Type, Zone, $window, $http, $state, $ro
   }
 
   function fetchZones() {
-    Zone
-      .query()
-      .$promise
-      .then(zones => vm.zones = zones);
+    Zone.query().$promise.then(zones => (vm.zones = zones));
   }
 
   function fetchTypes() {
-    Type
-      .query()
-      .$promise
-      .then(types => vm.types = types);
+    Type.query().$promise.then(types => (vm.types = types));
   }
 }

@@ -141,7 +141,7 @@
     <ul>
       <li ng-repeat="comment in client.client.comments" class="row">
         <div class="col-xs-3 col-sm-2 col-md-1">
-          <div class="profile-photo"></div>
+          <profile-picture class="profile-photo" ng-class="{ davide: comment.createdBy.username === 'davide', mauri: comment.createdBy.username === 'mauri', faldella: comment.createdBy.username === 'faldella' }"></profile-picture>
         </div>
         <div class="col-xs-9 col-sm-10 col-md-11">
           <div class="row">
@@ -160,7 +160,14 @@
     </ul>
     <h3>Aggiungi una nota:</h3>
     <form name="client.commentForm" ng-submit="client.addComment()" novalidate>
-      <textarea name="name" rows="3" ng-model="client.comment.body" required></textarea>
+      <textarea name="body" rows="3" ng-model="client.comment.body" required></textarea>
+      <div
+        class="ng-message-error"
+        ng-messages="client.commentForm.body.$error"
+        ng-show="client.commentForm.$submitted && client.commentForm.body.$invalid && client.commentForm.$pristine || client.commentForm.body.$invalid && !client.commentForm.$pristine"
+        role="alert">
+        <p ng-message="required">* Inserisci un commento prima</p>
+      </div>
       <input type="submit" value="AGGIUNGI UNA NOTA">
     </form>
   </section>

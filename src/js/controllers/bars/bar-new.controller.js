@@ -8,7 +8,8 @@ BarNewCtrl.$inject = [
   '$state',
   '$rootScope',
   '$scope',
-  '$window'
+  '$window',
+  '$timeout'
 ];
 
 function BarNewCtrl(
@@ -19,7 +20,8 @@ function BarNewCtrl(
   $state,
   $rootScope,
   $scope,
-  $window
+  $window,
+  $timeout
 ) {
   const vm = this;
   vm.changePhoto = changePhoto;
@@ -28,8 +30,16 @@ function BarNewCtrl(
   vm.clear = clear;
   vm.showForm = showForm;
   vm.inNew = true;
+  vm.checkDuplicateCode = checkDuplicateCode;
+  const codes = [];
   fetchTypes();
   fetchZones();
+
+  Bar.query().$promise.then(bars => {
+    bars.forEach(bar => {
+      codes.push(bar.codiceAttivita);
+    });
+  });
 
   $rootScope.$on('zones added', () => {
     fetchZones();
@@ -60,6 +70,16 @@ function BarNewCtrl(
     $scope.$apply();
   });
 
+  function checkDuplicateCode() {
+    if (codes.includes(vm.bar.codiceAttivita)) {
+      vm.barForm.codiceAttivita.$setValidity('unique', false);
+      vm.barForm.codiceAttivita.$error.unique = false;
+    } else {
+      vm.barForm.codiceAttivita.$setValidity('unique', true);
+      vm.barForm.codiceAttivita.$error.unique = true;
+    }
+  }
+
   function clear(input) {
     if (input.includes('.')) {
       const decomposed = input.split('.');
@@ -70,7 +90,6 @@ function BarNewCtrl(
   }
 
   function changePhoto(direction) {
-    // if the start counter is equals to 1 it means that they cannot go back (hide back btn)
     if (direction === 'prev' && vm.startCounter >= 0) {
       vm.bar.fotoAttivita = vm.photoArray[vm.startCounter - 1];
       vm.startCounter -= 1;
@@ -81,16 +100,6 @@ function BarNewCtrl(
       vm.bar.fotoAttivita = vm.photoArray[vm.startCounter + 1];
       vm.startCounter += 1;
     }
-
-    // if the start counter is equals to the length of the array of photos it means they cannot go forwards (hide next button)
-
-    // if (startCounter < (vm.photoArray.length - 1)) {
-    //   vm.bar.fotoAttivita = vm.photoArray[startCounter + 1];
-    //   startCounter += 1;
-    // } else {
-    //   vm.bar.fotoAttivita = vm.photoArray[0];
-    //   startCounter = 1;
-    // }
   }
 
   function barNew() {

@@ -88,7 +88,8 @@ function BarShowCtrl(
       vm.comment.createdBy = user;
 
       Bar.addComment({ id: $stateParams.id }, vm.comment).$promise.then(() => {
-        vm.comment = '';
+        vm.comment = {};
+        vm.commentForm.$setPristine();
         vm.bar = Bar.get({ id: $stateParams.id });
       });
     }

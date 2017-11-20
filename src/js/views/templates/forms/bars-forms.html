@@ -5,10 +5,14 @@
   <div class="row">
     <div class="col-sm-6">
       <label for="codiceAttivita">Codice Attivita</label>
-      <input type="text" name="codiceAttivita" id="codiceAttivita" ng-model="controller.bar.codiceAttivita" value="controller.bar.codiceAttivita" required>
-
-      <div class="ng-message-error" ng-messages="controller.barForm.codiceAttivita.$error" ng-show="controller.barForm.$submitted && controller.barForm.codiceAttivita.$invalid || controller.barForm.codiceAttivita.$invalid && controller.barForm.codiceAttivita.$touched" role="alert">
-        <p ng-message="required">* Il codice dev'essere inserito</p>
+      <input type="text" name="codiceAttivita" id="codiceAttivita" ng-model="controller.bar.codiceAttivita" value="controller.bar.codiceAttivita" ng-change="controller.checkDuplicateCode()" required>
+      <div
+        class="ng-message-error"
+        ng-messages="controller.barForm.codiceAttivita.$error"
+        ng-show="controller.barForm.$submitted && controller.barForm.codiceAttivita.$invalid || controller.barForm.codiceAttivita.$invalid && controller.barForm.codiceAttivita.$touched && controller.inNew || controller.barForm.codiceAttivita.$invalid && !controller.inNew"
+        role="alert">
+        <p ng-message="required" ng-hide="controller.barForm.codiceAttivita.$error.unique === false">* Il codice dev'essere inserito</p>
+        <p ng-message="required" ng-show="controller.barForm.codiceAttivita.$error.unique === false">* Questo codice e gia in uso</p>
       </div>
     </div>
     <div class="col-sm-6">
@@ -52,10 +56,11 @@
           <select name="tipologiaAttivita" id="tipologiaAttivita"
           ng-options="option.name for option in controller.types track by option.id"
           ng-model="controller.bar.tipologiaAttivita" required></select>
-
-          <!-- <select name="tipologiaAttivita" ng-model="controller.bar.tipologiaAttivita" ng-change="controller.pushId('tipologiaAttivita')" ng-options="option.id as option.name for option in controller.types" required></select> -->
-
-          <div class="ng-message-error" ng-messages="controller.barForm.tipologiaAttivita.$error" ng-show="controller.barForm.$submitted && controller.barForm.tipologiaAttivita.$invalid || controller.barForm.tipologiaAttivita.$invalid && controller.barForm.tipologiaAttivita.$touched" role="alert">
+          <div
+            class="ng-message-error"
+            ng-messages="controller.barForm.tipologiaAttivita.$error"
+            ng-show="controller.barForm.$submitted && controller.barForm.tipologiaAttivita.$invalid || controller.barForm.tipologiaAttivita.$invalid && controller.barForm.tipologiaAttivita.$touched && controller.inNew || controller.barForm.tipologiaAttivita.$invalid && !controller.inNew"
+            role="alert">
             <p ng-message="required">* La tipologia dev'essere inserita</p>
           </div>
         </div>
@@ -74,10 +79,11 @@
           <select name="zona" id="zona"
           ng-options="option.name for option in controller.zones track by option.id"
           ng-model="controller.bar.zona" required></select>
-
-          <!-- <select name="zona" ng-model="controller.bar.zona" ng-change="controller.pushId('zona')" ng-options="option.id as option.name for option in controller.zones" required></select> -->
-
-          <div class="ng-message-error" ng-messages="controller.barForm.zona.$error" ng-show="controller.barForm.$submitted && controller.barForm.zona.$invalid || controller.barForm.zona.$invalid && controller.barForm.zona.$touched" role="alert">
+          <div
+            class="ng-message-error"
+            ng-messages="controller.barForm.zona.$error"
+            ng-show="controller.barForm.$submitted && controller.barForm.zona.$invalid || controller.barForm.zona.$invalid && controller.barForm.zona.$touched && controller.inNew || controller.barForm.zona.$invalid && !controller.inNew"
+            role="alert">
             <p ng-message="required">* La zona dev'essere inserita</p>
           </div>
         </div>
@@ -141,7 +147,11 @@
           <label for="contanti">Contanti</label>
           <input type="text" name="contanti" id="contanti" ng-model="controller.bar.richiestaTotale.contanti" required>
 
-          <div class="ng-message-error" ng-messages="controller.barForm.contanti.$error" ng-show="controller.barForm.$submitted && controller.barForm.contanti.$invalid || controller.barForm.contanti.$invalid && controller.barForm.contanti.$touched" role="alert">
+          <div
+            class="ng-message-error"
+            ng-messages="controller.barForm.contanti.$error"
+            ng-show="controller.barForm.$submitted && controller.barForm.contanti.$invalid || controller.barForm.contanti.$invalid && controller.barForm.contanti.$touched && controller.inNew || controller.barForm.contanti.$invalid && !controller.inNew"
+            role="alert">
             <p ng-message="required">* La richiesta totale dev'essere inserita</p>
           </div>
         </div>

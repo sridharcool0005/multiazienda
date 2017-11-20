@@ -53,8 +53,7 @@ nav {
 
 .profile-photo {
   width: 100%;
-  background: $red;
-  background-image: url('http://s3.amazonaws.com/37assets/svn/765-default-avatar.png');
+  // background: $red;
   @include backgroundImagePosition;
   border-radius: 50%;
   border: solid 3px $lightGrey;
@@ -62,6 +61,22 @@ nav {
     content: '';
     display: block;
     padding-top: 100%;
+  }
+}
+
+.davide {
+  path {
+    fill: $green;
+  }
+}
+.mauri {
+  path {
+    fill: $gold;
+  }
+}
+.faldella {
+  path {
+    fill: pink;
   }
 }
 

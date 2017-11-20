@@ -2,11 +2,10 @@ const Bar = require('../models/bar');
 const Client = require('../models/client');
 
 function commentBarCreate(req, res) {
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .exec()
     .then(bar => {
-      if(!bar) return res.status(404).json({ message: 'No bar found!'});
+      if (!bar) return res.status(404).json({ message: 'No bar found!' });
       req.body.createdBy = req.user.id;
       bar.comments.push(req.body);
       bar.save();
@@ -16,12 +15,11 @@ function commentBarCreate(req, res) {
 }
 
 function commentBarDelete(req, res) {
-  Bar
-    .findById(req.params.id)
+  Bar.findById(req.params.id)
     .exec()
     .then(bar => {
-      if(!bar) return res.status(404).json({ message: 'No bar found!'});
-      const comment = bar.comments.find(obj => obj.id);
+      if (!bar) return res.status(404).json({ message: 'No bar found!' });
+      const comment = bar.comments.id(req.params.commentId);
       comment.remove();
       bar.save();
     })
@@ -30,11 +28,10 @@ function commentBarDelete(req, res) {
 }
 
 function commentClientCreate(req, res) {
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .exec()
     .then(client => {
-      if(!client) return res.status(404).json({ message: 'No client found!'});
+      if (!client) return res.status(404).json({ message: 'No client found!' });
       req.body.createdBy = req.user.id;
       client.comments.push(req.body);
       client.save();
@@ -44,12 +41,11 @@ function commentClientCreate(req, res) {
 }
 
 function commentClientDelete(req, res) {
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .exec()
     .then(client => {
-      if(!client) return res.status(404).json({ message: 'No client found!'});
-      const comment = client.comments.find(obj => obj.id);
+      if (!client) return res.status(404).json({ message: 'No client found!' });
+      const comment = client.comments.id(req.params.commentId);
       comment.remove();
       client.save();
     })
@@ -58,11 +54,10 @@ function commentClientDelete(req, res) {
 }
 
 function commentActivityCreate(req, res) {
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .exec()
     .then(client => {
-      if(!client) return res.status(404).json({ message: 'No client found!'});
+      if (!client) return res.status(404).json({ message: 'No client found!' });
       const activity = client.attivitaViste.id(req.params.barId);
       req.body.createdBy = req.user.id;
       activity.comments.push(req.body);
@@ -73,13 +68,12 @@ function commentActivityCreate(req, res) {
 }
 
 function commentActivityDelete(req, res) {
-  Client
-    .findById(req.params.id)
+  Client.findById(req.params.id)
     .exec()
     .then(client => {
-      if(!client) return res.status(404).json({ message: 'No client found!'});
-      const activity = client.attivitaViste.find(obj => obj.id);
-      const comment = activity.comments.find(obj => obj.id);
+      if (!client) return res.status(404).json({ message: 'No client found!' });
+      const activity = client.attivitaViste.id(req.params.barId);
+      const comment = activity.comments.id(req.params.commentId);
       comment.remove();
       client.save();
     })

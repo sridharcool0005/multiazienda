@@ -8,14 +8,22 @@
     <div class="col-md-3 col-sm-6">
       <label for="nome">Nome</label>
       <input type="text" name="nome" ng-model="controller.client.nome" required>
-      <div class="ng-message-error" ng-messages="controller.clientForm.nome.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.nome.$invalid && controller.clientForm.nome.$touched" role="alert">
+      <div
+        class="ng-message-error"
+        ng-messages="controller.clientForm.nome.$error"
+        ng-show="controller.clientForm.$submitted && controller.clientForm.nome.$invalid || controller.clientForm.nome.$invalid && controller.clientForm.nome.$touched && controller.inClientNew || controller.clientForm.nome.$invalid && !controller.inClientNew"
+        role="alert">
         <p ng-message="required">* Il nome dev'essere inserito</p>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
       <label for="cognome">Cognome</label>
       <input type="text" name="cognome" ng-model="controller.client.cognome" required>
-      <div class="ng-message-error" ng-messages="controller.clientForm.cognome.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.cognome.$invalid && controller.clientForm.cognome.$touched" role="alert">
+      <div
+        class="ng-message-error"
+        ng-messages="controller.clientForm.cognome.$error"
+        ng-show="controller.clientForm.$submitted && controller.clientForm.cognome.$invalid || controller.clientForm.cognome.$invalid && controller.clientForm.cognome.$touched && controller.inClientNew || controller.clientForm.cognome.$invalid && !controller.inClientNew"
+        role="alert">
         <p ng-message="required">* Il cognome dev'essere inserito</p>
       </div>
     </div>
@@ -37,7 +45,11 @@
           <div class="ng-message-error">
             <p>{{ controller.errorMessage }}</p>
           </div>
-          <div class="ng-message-error" ng-messages="controller.clientForm.searchAddress.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.searchAddress.$invalid && controller.clientForm.searchAddress.$touched" role="alert">
+          <div
+            class="ng-message-error"
+            ng-messages="controller.clientForm.searchAddress.$error"
+            ng-show="controller.clientForm.$submitted && controller.clientForm.searchAddress.$invalid || controller.clientForm.searchAddress.$invalid && controller.clientForm.searchAddress.$touched && controller.inClientNew || controller.clientForm.searchAddress.$invalid && !controller.inClientNew"
+            role="alert">
             <p ng-message="required">* L'indirizzo dev'essere inserito</p>
           </div>
         </div>
@@ -82,17 +94,28 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="tipologiaAttivita">Tipologia</label>
-          <select name="tipologiaAttivita" id="tipologiaAttivita"
-          ng-options="option.name for option in controller.types track by option.id"
-          ng-model="controller.client.tipologiaAttivita" required></select>
-          <div class="ng-message-error" ng-messages="controller.clientForm.tipologiaAttivita.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.tipologiaAttivita.$invalid && controller.clientForm.tipologiaAttivita.$touched" role="alert">
+          <select
+            name="tipologiaAttivita" id="tipologiaAttivita"
+            ng-options="option.name for option in controller.types track by option.id"
+            ng-model="controller.client.tipologiaAttivita"
+            required>
+          </select>
+          <div
+            class="ng-message-error"
+            ng-messages="controller.clientForm.tipologiaAttivita.$error"
+            ng-show="controller.clientForm.$submitted && controller.clientForm.tipologiaAttivita.$invalid || controller.clientForm.tipologiaAttivita.$invalid && controller.clientForm.tipologiaAttivita.$touched && controller.inClientNew || controller.clientForm.tipologiaAttivita.$invalid && !controller.inClientNew"
+            role="alert">
             <p ng-message="required">* La tipologia dev'essere inserita</p>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-options no-label-above">
-            <a ng-hide="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0" ng-click="controller.clear('tipologiaAttivita')">Svuota casella</a>
-            <a ng-click="controller.showForm('type')" ng-show="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
+            <a
+              ng-hide="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0"
+              ng-click="controller.clear('tipologiaAttivita')">Svuota casella</a>
+            <a
+              ng-click="controller.showForm('type')"
+              ng-show="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
           </div>
         </div>
       </div>
@@ -101,17 +124,27 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="zona">Zona</label>
-          <select name="zona" id="zona"
-          ng-options="option.name for option in controller.zones track by option.id"
-          ng-model="controller.client.zona" required></select>
-          <div class="ng-message-error" ng-messages="controller.clientForm.zona.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.zona.$invalid && controller.clientForm.zona.$touched" role="alert">
+          <select
+            name="zona"
+            id="zona"
+            ng-options="option.name for option in controller.zones track by option.id"
+            ng-model="controller.client.zona"
+            required>
+          </select>
+          <div
+            class="ng-message-error"
+            ng-messages="controller.clientForm.zona.$error"
+            ng-show="controller.clientForm.$submitted && controller.clientForm.zona.$invalid || controller.clientForm.zona.$invalid && controller.clientForm.zona.$touched && controller.inClientNew || controller.clientForm.zona.$invalid && !controller.inClientNew" role="alert">
             <p ng-message="required">* La zona dev'essere inserita</p>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-options no-label-above">
-            <a ng-hide="!controller.client.zona || controller.client.zona.length === 0" ng-click="controller.clear('zona')">Svuota casella</a>
-            <a ng-click="controller.showForm('zone')" ng-show="!controller.client.zona || controller.client.zona.length === 0">Aggiungi nuova zona</a>
+            <a
+              ng-hide="!controller.client.zona || controller.client.zona.length === 0" ng-click="controller.clear('zona')">Svuota casella</a>
+            <a
+              ng-click="controller.showForm('zone')"
+              ng-show="!controller.client.zona || controller.client.zona.length === 0">Aggiungi nuova zona</a>
           </div>
         </div>
       </div>
@@ -127,7 +160,11 @@
         <div class="col-sm-6">
           <label for="anticipo">Anticipo</label>
           <input type="number" name="anticipo" ng-model="controller.client.importoInvestimento.anticipo" required>
-          <div class="ng-message-error" ng-messages="controller.clientForm.anticipo.$error" ng-show="controller.clientForm.$submitted || controller.clientForm.anticipo.$invalid && controller.clientForm.anticipo.$touched" role="alert">
+          <div
+            class="ng-message-error"
+            ng-messages="controller.clientForm.anticipo.$error"
+            ng-show="controller.clientForm.$submitted && controller.clientForm.anticipo.$invalid || controller.clientForm.anticipo.$invalid && controller.clientForm.anticipo.$touched && controller.inClientNew || controller.clientForm.anticipo.$invalid && !controller.inClientNew"
+            role="alert">
             <p ng-message="required">* L'anticipo dev'essere inserito</p>
           </div>
         </div>

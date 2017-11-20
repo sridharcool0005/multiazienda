@@ -1,6 +1,4 @@
-angular
-  .module('multiazienda')
-  .service('CommonService', CommonService);
+angular.module('multiazienda').service('CommonService', CommonService);
 
 CommonService.$inject = ['$window'];
 
@@ -16,7 +14,7 @@ function CommonService($window) {
   };
 
   self.smallDevices = () => {
-    if ($window.innerWidth < 768) {
+    if ($window.innerWidth < 767) {
       return true;
     } else {
       return false;

@@ -376,7 +376,7 @@
     <ul>
       <li ng-repeat="comment in bar.bar.comments" class="row">
         <div class="col-xs-3 col-sm-2 col-md-1">
-          <div class="profile-photo"></div>
+          <profile-picture class="profile-photo" ng-class="{ davide: comment.createdBy.username === 'davide', mauri: comment.createdBy.username === 'mauri', faldella: comment.createdBy.username === 'faldella' }"></profile-picture>
         </div>
         <div class="col-xs-9 col-sm-10 col-md-11">
           <div class="row">
@@ -395,8 +395,12 @@
     </ul>
     <h3>Aggiungi una nota:</h3>
     <form name="bar.commentForm" ng-submit="bar.addComment()" novalidate>
-      <textarea name="name" rows="3" ng-model="bar.comment.body" required></textarea>
-      <div class="ng-message-error" ng-messages="bar.commentForm.name.$error" ng-show="bar.commentForm.$submitted && bar.commentForm.name.$invalid || bar.commentForm.name.$invalid && bar.commentForm.name.$touched" role="alert">
+      <textarea name="body" rows="3" ng-model="bar.comment.body" required></textarea>
+      <div
+        class="ng-message-error"
+        ng-messages="bar.commentForm.body.$error"
+        ng-show="bar.commentForm.$submitted && bar.commentForm.body.$invalid && !bar.commentForm.$pristine || bar.commentForm.body.$invalid && bar.commentForm.body.$touched && !bar.commentForm.$pristine"
+        role="alert">
         <p ng-message="required">* Inserisci un commento prima</p>
       </div>
       <input type="submit" value="AGGIUNGI UNA NOTA">

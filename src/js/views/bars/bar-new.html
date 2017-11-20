@@ -12,6 +12,10 @@
         {{ error.$name | capitalise }}
         <span ng-show="$index !== (bar.barForm.$error.required.length - 1)">, </span>
       </span>
+      <span ng-show="bar.barForm.$error.unique">
+        <span ng-show="bar.barForm.$error.required.length > 0">, </span>
+        Il codice e gia in uso
+      </span>
     </p>
   </div>
 
