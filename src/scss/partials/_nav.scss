@@ -33,8 +33,10 @@
       &.icon {
         display: none;
       }
-      &:nth-child(3), &:nth-child(4), &:nth-child(5) {
-        float: right;
+      &.expandable-item {
+        &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+          float: right;
+        }
       }
     }
   }
@@ -103,6 +105,11 @@ footer {
       text-align: left;
       a.logo {
         text-align: left;
+      }
+      &.expandable-item {
+        &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+          float: none;
+        }
       }
       &.icon {
         position: absolute;

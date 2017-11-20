@@ -35,17 +35,17 @@
     </div>
   </div>
   <ul class="row grid-list">
-    <li class="col-sm-6 col-md-4 col-lg-3" ng-repeat="client in clients.filtered">
+    <li class="col-md-4 col-lg-3" ng-repeat="client in clients.filtered">
       <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
         <div class="content">
           <div class="row">
-            <div class="col-xs-6 col-sm-12">
+            <div class="col-xs-6 col-md-12">
               <h2>
                 {{ client.nome }}<br>
                 {{ client.cognome }}
               </h2>
             </div>
-            <div class="col-xs-6 col-sm-12">
+            <div class="col-xs-6 col-md-12">
               <p>{{ client.tipologiaAttivita.name }}</p><br>
               <p>{{ client.zona.name }}</p>
             </div>

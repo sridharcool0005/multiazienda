@@ -53,3 +53,10 @@ ul {
     }
   }
 }
+
+@media screen and (max-width: 991px) {
+  .grid-list li div.content h2 {
+    height: auto;
+    margin-bottom: 0px;
+  }
+}

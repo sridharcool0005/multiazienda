@@ -1,8 +1,8 @@
-angular
-  .module('multiazienda', [
-    'ui.router',
-    'ngResource',
-    'angular-jwt',
-    'ngRoute',
-    'ngAnimate'
-  ]);
+angular.module('multiazienda', [
+  'ui.router',
+  'ngResource',
+  'angular-jwt',
+  'ngRoute',
+  'ngAnimate',
+  'matchMedia'
+]);

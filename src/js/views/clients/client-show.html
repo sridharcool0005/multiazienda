@@ -144,15 +144,15 @@
           <profile-picture class="profile-photo" ng-class="{ davide: comment.createdBy.username === 'davide', mauri: comment.createdBy.username === 'mauri', faldella: comment.createdBy.username === 'faldella' }"></profile-picture>
         </div>
         <div class="col-xs-9 col-sm-10 col-md-11">
-          <div class="row">
-            <div class="col-sm-10">
-              <p>{{ comment.createdAt | date : "yyyy MMM dd 'alle' HH:mm" : '+0100' }}</p>
-              <p>{{ comment.createdBy.username }} dice:</p>
-              <p>{{ comment.body }}</p>
-            </div>
-            <div class="col-sm-2">
-              <a ng-if="comment.createdBy.id === main.user.id" ng-click="client.deleteComment(comment)"><i class="fa fa-trash-o" aria-hidden="true"></i> ELIMINA</a>
-            </div>
+          <p class="smaller">{{ comment.createdAt | date : "yyyy MMM dd 'alle' HH:mm" : '+0100' }}</p>
+          <p><span class="commentator">{{ comment.createdBy.username }}</span> dice:</p>
+          <div>
+            <p class="speech-bubble">
+              {{ comment.body }}
+            </p>
+            <p class="delete-comment">
+              <a class="smaller" ng-if="comment.createdBy.id === main.user.id" ng-click="client.deleteComment(comment)"><i class="fa fa-trash-o" aria-hidden="true"></i> ELIMINA</a>
+            </p>
           </div>
         </div>
       </li>

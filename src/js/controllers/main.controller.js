@@ -7,6 +7,7 @@ MainCtrl.$inject = [
   '$state',
   '$location',
   '$scope',
+  'screenSize',
   '$transitions',
   '$timeout'
 ];
@@ -18,6 +19,7 @@ function MainCtrl(
   $state,
   $location,
   $scope,
+  screenSize,
   $transitions,
   $timeout
 ) {
@@ -26,6 +28,11 @@ function MainCtrl(
   vm.logout = logout;
   vm.goBack = goBack;
   vm.expandMenu = expandMenu;
+
+  vm.isSmall = screenSize.is('xs, sm');
+  vm.isLarge = screenSize.is('md, lg');
+
+  console.log(vm.isSmall, vm.isLarge);
 
   $transitions.onSuccess({}, function() {
     $window.scrollTo(0, 0);
@@ -123,6 +130,16 @@ function MainCtrl(
     var navWrapper = document.querySelector('.nav-wrapper');
     var expandables = document.getElementsByClassName('expandable-item');
 
+    expandCollapse(navWrapper, expandables);
+
+    if (navMenu.className === 'multiaziendaNav') {
+      navMenu.className += ' responsive';
+    } else {
+      navMenu.className = 'multiaziendaNav';
+    }
+  }
+
+  function expandCollapse(navWrapper, expandables) {
     if (navWrapper.clientHeight) {
       navWrapper.style.height = 0;
       for (var i = 0; i < expandables.length; i++) {
@@ -133,12 +150,6 @@ function MainCtrl(
       for (var j = 0; j < expandables.length; j++) {
         expandables[j].style.display = 'block';
       }
-    }
-
-    if (navMenu.className === 'multiaziendaNav') {
-      navMenu.className += ' responsive';
-    } else {
-      navMenu.className = 'multiaziendaNav';
     }
   }
 }
