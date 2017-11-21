@@ -31,12 +31,16 @@ function BarShowCtrl(
   vm.expandedDetails = false;
 
   $timeout(() => {
-    if (vm.bar.indirizzo.lat) {
-      const mapDivHeight =
-        300 - document.getElementById('indirizzo').offsetHeight;
-      document.getElementsByClassName('details-map')[0].style.height = `${
-        mapDivHeight
-      }px`;
+    if (vm.bar.indirizzo) {
+      if (vm.bar.indirizzo.lat) {
+        const mapDivHeight =
+          300 - document.getElementById('indirizzo').offsetHeight;
+        document.getElementsByClassName('details-map')[0].style.height = `${
+          mapDivHeight
+        }px`;
+      } else {
+        document.getElementById('indirizzo').style.height = '300px';
+      }
     } else {
       document.getElementById('indirizzo').style.height = '300px';
     }
