@@ -30,7 +30,12 @@ function googlePlace($window, $rootScope) {
             photoArray.push(currentPhoto);
           }
         } else {
-          photoArray.push('No photos for this studio');
+          photoArray.push(
+            'https://static.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/9/93/Sali_e_Tabacchi.jpg',
+            'https://static.pexels.com/photos/9315/menu-restaurant-france-eating-9315.jpg',
+            'https://static.pexels.com/photos/3631/summer-dessert-sweet-ice-cream.jpg'
+          );
         }
 
         $rootScope.$broadcast('new place', {

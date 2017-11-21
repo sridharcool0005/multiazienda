@@ -19,13 +19,16 @@
         </div>
       </div>
       <div class="row animate-this" ng-show="bars.showingFilters">
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <input type="search" ng-model="bars.codiceAttivita" placeholder="Codice attivita">
+        </div>
+        <div class="col-md-3">
           <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="search" ng-model="bars.zona" placeholder="Zona">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita">
         </div>
       </div>
@@ -38,7 +41,7 @@
         <div class="content">
           <div class="row">
             <div class="col-xs-6 col-sm-12">
-              <h2>{{ bar.denominazioneAttivita }}, {{ bar.codiceAttivita }}</h2>
+              <h2>{{ bar.denominazioneAttivita | limitTo : 25 }}{{bar.denominazioneAttivita.length > 25 ? '...' : ''}}, {{ bar.codiceAttivita }}</h2>
             </div>
             <div class="col-xs-6 col-sm-12">
               <p>{{ bar.zona.name }}</p><br>

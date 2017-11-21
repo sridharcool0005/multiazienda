@@ -30,7 +30,7 @@
       <street-map
         title="{{client.title}}"
         center="client.center"
-        content="{{client.content}}" 
+        content="{{client.content}}"
         style="height: 300px;"
         ng-show="client.client.indirizzo">
       </street-map>
@@ -100,7 +100,7 @@
           <div class="content seenbar-item" ng-class="{ archivedmarker : seenBar.bar.archiviato }">
             <div class="row">
               <div class="col-xs-6 col-md-12">
-                <h3  ng-class="{ 'seenbar-small': main.isSmall }">{{ seenBar.bar.denominazioneAttivita }}, {{ seenBar.bar.codiceAttivita }}</h3>
+                <h3  ng-class="{ 'seenbar-small': main.isSmall }">{{ seenBar.bar.denominazioneAttivita | limitTo : 25 }}{{seenBar.bar.denominazioneAttivita.length > 25 ? '...' : ''}}, {{ seenBar.bar.codiceAttivita }}</h3>
               </div>
               <div class="col-xs-6 col-md-12">
                 <p ng-class="{ 'seenbar-small': main.isSmall }">Data: {{ seenBar.data | date : mediumDate }}</p>
@@ -125,7 +125,7 @@
           <div class="content">
             <div class="row">
               <div class="col-xs-6 col-md-12">
-                <h2>{{ filteredBar.denominazioneAttivita }}, {{ filteredBar.codiceAttivita }}</h2>
+                <h2>{{ filteredBar.denominazioneAttivita | limitTo : 25 }}{{filteredBar.denominazioneAttivita.length > 25 ? '...' : ''}}, {{ filteredBar.codiceAttivita }}</h2>
               </div>
               <div class="col-xs-6 col-md-12">
                 <p>{{ filteredBar.zona.name }}</p><br>

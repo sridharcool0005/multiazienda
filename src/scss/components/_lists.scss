@@ -55,14 +55,17 @@ ul {
 }
 
 @media screen and (max-width: 991px) {
-  .grid-list li div.content h2 {
-    height: auto;
-    margin-bottom: 0px;
-  }
   p.seenbar-small {
     margin-top: 0px!important;
   }
   h3.seenbar-small {
     padding: 5px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .grid-list li div.content h2 {
+    height: 90px;
+    margin-bottom: 0px;
   }
 }
