@@ -30,22 +30,6 @@ function BarShowCtrl(
   vm.expandDetails = expandDetails;
   vm.expandedDetails = false;
 
-  $timeout(() => {
-    if (vm.bar.indirizzo) {
-      if (vm.bar.indirizzo.lat) {
-        const mapDivHeight =
-          300 - document.getElementById('indirizzo').offsetHeight;
-        document.getElementsByClassName('details-map')[0].style.height = `${
-          mapDivHeight
-        }px`;
-      } else {
-        document.getElementById('indirizzo').style.height = '300px';
-      }
-    } else {
-      document.getElementById('indirizzo').style.height = '300px';
-    }
-  }, 50);
-
   Bar.get({ id: $stateParams.id })
     .$promise.then(bar => {
       vm.bar = bar;
@@ -59,9 +43,22 @@ function BarShowCtrl(
           </a>
         </div>
         `;
-      // document.getElementById('indirizzo').innerHTML = `${
-      //   vm.bar.indirizzo.addressHTML
-      // }`;
+
+      $timeout(() => {
+        if (vm.bar.indirizzo) {
+          if (vm.bar.indirizzo.lat) {
+            const mapDivHeight =
+              300 - document.getElementById('indirizzo').offsetHeight;
+            document.getElementsByClassName('details-map')[0].style.height = `${
+              mapDivHeight
+            }px`;
+          } else {
+            document.getElementById('indirizzo').style.height = '300px';
+          }
+        } else {
+          document.getElementById('indirizzo').style.height = '300px';
+        }
+      }, 50);
     })
     .then(() => {
       Client.query()
