@@ -92,6 +92,12 @@ function ClientNewCtrl(
         })
         .then(() => {
           Client.save(vm.client).$promise.then(() => $state.go('clientsIndex'));
+        })
+        .catch(() => {
+          $rootScope.$broadcast('displayMessage', {
+            type: 'danger',
+            content: "Attenzione: l'indirizzo e gia esistente, cercane un altro"
+          });
         });
     }
   }
