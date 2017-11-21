@@ -62,7 +62,7 @@ function HomeCtrl(
       document.getElementById('google-map'),
       {
         zoom: 14,
-        center: new google.maps.LatLng(51.515113, -0.072051),
+        center: new google.maps.LatLng(44.5051257, 11.3415109),
         scrollwheel: false,
         styles: [
           { elementType: 'geometry', stylers: [{ saturation: -100 }] },

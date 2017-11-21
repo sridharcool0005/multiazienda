@@ -13,10 +13,14 @@
       <street-map
         class="details-map"
         title="{{bar.title}}"
-        content="{{bar.content}}" 
-        center="bar.center">
+        content="{{bar.content}}"
+        center="bar.center"
+        ng-if="bar.bar.indirizzo.lat">
       </street-map>
-      <p class="indirizzo" id="indirizzo"></p>
+      <p class="indirizzo" id="indirizzo">
+        <span ng-if="bar.bar.indirizzo.addressFormatted">{{ bar.bar.indirizzo.addressFormatted }}</span>
+        <span ng-show="!bar.bar.indirizzo.addressFormatted">Nessun indirizzo e stato trovato</span>
+      </p>
     </div>
   </section>
   <hr>

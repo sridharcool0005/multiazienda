@@ -4,7 +4,7 @@ function getPlace(req, res) {
   rp(
     `https://maps.googleapis.com/maps/api/place/details/json?placeid=${
       req.query.place
-    }&key=AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4`
+    }&key=AIzaSyDKT04EtfMXGsk56uPOYdi5v3dNG9hmVWw`
   )
     .then(data => {
       const result = JSON.parse(data);
@@ -19,3 +19,6 @@ function getPlace(req, res) {
 module.exports = {
   getPlace: getPlace
 };
+
+// AIzaSyDKT04EtfMXGsk56uPOYdi5v3dNG9hmVWw
+// AIzaSyDuvV2-lIr6kqI6Y3LrnhItDlSERzaL_R4

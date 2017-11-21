@@ -132,6 +132,16 @@ a:hover, button:hover {
   }
 }
 
+.no-places-found {
+  text-align: right;
+  button {
+    @include trans(0.3s);
+    @extend .nav-btn;
+    border-radius: 0;
+    border: none;
+  }
+}
+
 @media (max-width: 768px) {
   .responsive-btn {
     display: block;

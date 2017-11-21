@@ -31,6 +31,7 @@ function BarNewCtrl(
   vm.showForm = showForm;
   vm.inNew = true;
   vm.checkDuplicateCode = checkDuplicateCode;
+  vm.received = false;
   const codes = [];
   fetchTypes();
   fetchZones();
@@ -49,7 +50,33 @@ function BarNewCtrl(
     fetchTypes();
   });
 
+  $rootScope.$on('no place', function(event, args) {
+    // console.log('received', args);
+    vm.received = true;
+    vm.disabled = false;
+    document
+      .getElementById('no-place-found-btn')
+      .addEventListener('click', () => {
+        vm.photoArray = args.photoArray;
+
+        vm.location = {
+          locationId: args.locationId
+        };
+
+        vm.bar = {
+          denominazioneAttivita: args.denominazioneAttivita,
+          fotoAttivita: args.photoArray[0],
+          locationId: args.locationId
+        };
+        vm.received = false;
+        $scope.$apply();
+      });
+    $scope.$apply();
+  });
+
   $rootScope.$on('new place', function(event, args) {
+    vm.received = false;
+    vm.disabled = true;
     vm.photoArray = args.photoArray;
 
     vm.location = {

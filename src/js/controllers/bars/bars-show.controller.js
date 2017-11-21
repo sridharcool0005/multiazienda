@@ -31,11 +31,15 @@ function BarShowCtrl(
   vm.expandedDetails = false;
 
   $timeout(() => {
-    const mapDivHeight =
-      300 - document.getElementById('indirizzo').offsetHeight;
-    document.getElementsByClassName('details-map')[0].style.height = `${
-      mapDivHeight
-    }px`;
+    if (vm.bar.indirizzo.lat) {
+      const mapDivHeight =
+        300 - document.getElementById('indirizzo').offsetHeight;
+      document.getElementsByClassName('details-map')[0].style.height = `${
+        mapDivHeight
+      }px`;
+    } else {
+      document.getElementById('indirizzo').style.height = '300px';
+    }
   }, 50);
 
   Bar.get({ id: $stateParams.id })
@@ -51,9 +55,9 @@ function BarShowCtrl(
           </a>
         </div>
         `;
-      document.getElementById('indirizzo').innerHTML = `${
-        vm.bar.indirizzo.addressHTML
-      }`;
+      // document.getElementById('indirizzo').innerHTML = `${
+      //   vm.bar.indirizzo.addressHTML
+      // }`;
     })
     .then(() => {
       Client.query()

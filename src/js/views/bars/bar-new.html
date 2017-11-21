@@ -23,10 +23,13 @@
     <div class="">
       <h2><span ng-hide="bar.location">Come prima cosa, trova il bar:</span><span ng-show="bar.location">Bar selezionato:</span></h2>
       <google-place></google-place>
+      <div class="no-places-found" ng-show="bar.received">
+        <button type="button" id="no-place-found-btn">AGGIUNGI</button>
+      </div>
     </div>
   </div>
 
-  <div ng-show="bar.location">
+  <div ng-show="bar.bar">
     <bars-forms controller="bar"></bars-forms>
   </div>
 </section>

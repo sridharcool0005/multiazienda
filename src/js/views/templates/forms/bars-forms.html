@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-6">
       <label for="denominazioneAttivita">Nome dell'attivita</label>
-      <input type="text" name="denominazioneAttivita" id="denominazioneAttivita" ng-model="controller.bar.denominazioneAttivita" value="controller.bar.denominazioneAttivita" disabled>
+      <input type="text" name="denominazioneAttivita" id="denominazioneAttivita" ng-model="controller.bar.denominazioneAttivita" value="controller.bar.denominazioneAttivita" ng-disabled="controller.disabled">
     </div>
   </div>
   <div class="row">
@@ -40,8 +40,7 @@
     </div>
     <div class="col-sm-6">
       <label for="addressFormatted">Indirizzo</label>
-      <textarea ng-if="controller.inNew" name="addressFormatted" id="addressFormatted" ng-model="controller.location.addressFormatted" disabled>{{ controller.location.addressFormatted }}</textarea>
-      <textarea ng-if="!controller.inNew" name="addressFormatted" id="addressFormatted" ng-model="controller.bar.indirizzo.addressFormatted" disabled>{{ controller.bar.indirizzo.addressFormatted }}</textarea>
+      <textarea name="addressFormatted" id="addressFormatted" ng-model="controller.location.addressFormatted" ng-disabled="controller.disabled">{{ controller.location.addressFormatted }}</textarea>
     </div>
   </div>
   <hr>

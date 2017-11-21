@@ -4,6 +4,8 @@ BarEditCtrl.$inject = [
   'Bar',
   'Type',
   'Zone',
+  'Location',
+  '$q',
   '$stateParams',
   '$state',
   '$window',
@@ -14,6 +16,8 @@ function BarEditCtrl(
   Bar,
   Type,
   Zone,
+  Location,
+  $q,
   $stateParams,
   $state,
   $window,
@@ -37,7 +41,11 @@ function BarEditCtrl(
   });
 
   Bar.get({ id: $stateParams.id })
-    .$promise.then(bar => (vm.bar = bar))
+    .$promise.then(bar => {
+      vm.bar = bar;
+      return Location.get({ id: bar.indirizzo.id });
+    })
+    .then(location => (vm.location = location))
     .catch(err => {
       $rootScope.$broadcast('error', err);
     });
@@ -49,6 +57,9 @@ function BarEditCtrl(
     if (vm.barForm.$valid) {
       Bar.update({ id: $stateParams.id }, vm.bar)
         .$promise.then(() => {
+          return Location.update({ id: vm.bar.indirizzo.id }, vm.location);
+        })
+        .then(() => {
           $state.go('barsIndex');
         })
         .catch(() => {

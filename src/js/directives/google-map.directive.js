@@ -9,6 +9,37 @@ function googlePlace($window, $rootScope) {
     template: '<input type="text" id="google-places" style="width: 100%" />',
     scope: {},
     link($scope, element) {
+      const input = document.getElementById('google-places');
+      const locationId = randomString(23);
+
+      input.addEventListener('input', function(e) {
+        if (e.target.value.length > 3) {
+          var results = document.getElementsByClassName('pac-container')[0];
+          if (results.childNodes.length < 1) {
+            $rootScope.$broadcast('no place', {
+              denominazioneAttivita: e.target.value,
+              photoArray: [
+                'https://static.pexels.com/photos/3540/restaurant-alcohol-bar-drinks.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/9/93/Sali_e_Tabacchi.jpg',
+                'https://static.pexels.com/photos/9315/menu-restaurant-france-eating-9315.jpg',
+                'https://static.pexels.com/photos/3631/summer-dessert-sweet-ice-cream.jpg'
+              ],
+              locationId: locationId
+            });
+          }
+        }
+      });
+
+      function randomString(length) {
+        var text = '';
+        var possible =
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i = 0; i < length; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+      }
+
       var autocomplete = new $window.google.maps.places.Autocomplete(
         element[0],
         {
