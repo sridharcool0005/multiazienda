@@ -39,7 +39,9 @@ function clientsUpdate(req, res) {
 
       if (req.body.tipologiaAttivita)
         client.tipologiaAttivita = req.body.tipologiaAttivita.id;
+
       if (req.body.zona) client.zona = req.body.zona.id;
+
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 
       if (client.attivitaViste.length > 0) {
@@ -73,10 +75,10 @@ function clientsDelete(req, res) {
           for (var i = 0; i < bars.length; i++) {
             const singleBar = bars[i];
 
-            for (var j = 0; j < singleBar.attivitaViste.length; j++) {
-              const singleBar = singleBar.clienti[j];
-              if (toString(singleBar.bar) === toString(req.params.id))
-                singleBar.remove();
+            for (var j = 0; j < singleBar.clienti.length; j++) {
+              const singleClient = singleBar.clienti[j];
+              if (toString(singleClient.bar) === toString(req.params.id))
+                singleClient.remove();
             }
 
             return singleBar.save();
