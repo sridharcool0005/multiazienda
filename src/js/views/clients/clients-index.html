@@ -26,11 +26,11 @@
           <input type="search" ng-model="clients.cognome" placeholder="Cognome del cliente">
         </div>
         <div class="col-md-3">
-          <input type="search" ng-model="clients.zona" placeholder="Zona">
+          <input type="search" ng-model="clients.zona" ng-change="clients.filterZone()" placeholder="Zona">
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <input type="search" ng-model="clients.tipologiaAttivita" placeholder="Tipologia attivita">
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

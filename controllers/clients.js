@@ -36,29 +36,29 @@ function clientsUpdate(req, res) {
   Client.findById(req.params.id)
     .then(client => {
       for (const field in req.body) {
-        console.log(client[field]);
+        // console.log(client[field]);
         client[field] = req.body[field];
       }
 
-      if (req.body.tipologiaAttivita) {
-        const tipi = req.body.zona;
-        const tipiIds = [];
-        for (var i = 0; i < tipi.length; i++) {
-          tipiIds.push(tipi[i].id);
-        }
-        console.log(tipiIds);
-        client.tipologiaAttivita = tipiIds;
-      }
-
-      if (req.body.zona) {
-        const zone = req.body.zona;
-        const zoneIds = [];
-        for (var j = 0; j < zone.length; j++) {
-          zoneIds.push(zone[j].id);
-        }
-        console.log(zoneIds);
-        client.zona = zoneIds;
-      }
+      // if (req.body.tipologiaAttivita) {
+      //   const tipi = req.body.zona;
+      //   const tipiIds = [];
+      //   for (var i = 0; i < tipi.length; i++) {
+      //     tipiIds.push(tipi[i].id);
+      //   }
+      //   console.log(tipiIds);
+      //   client.tipologiaAttivita = tipiIds;
+      // }
+      //
+      // if (req.body.zona) {
+      //   const zone = req.body.zona;
+      //   const zoneIds = [];
+      //   for (var j = 0; j < zone.length; j++) {
+      //     zoneIds.push(zone[j].id);
+      //   }
+      //   console.log(zoneIds);
+      //   client.zona = zoneIds;
+      // }
 
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 

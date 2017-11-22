@@ -40,16 +40,25 @@
     <h2><i class="fa fa-address-card-o" aria-hidden="true"></i> Che cosa cerca</h2>
     <div class="details">
       <div class="divider">
-        <p>Zona e tipologia</p>
+        <p>Zone e tipologie</p>
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <h3>Tipologia</h3>
-          <p>{{ client.client.tipologiaAttivita.name }}</p>
+          <h3>Tipologie che cerca</h3>
+          <p>
+            <span ng-repeat="type in client.client.tipologiaAttivita" ng-if="client.client.tipologiaAttivita.length > 0">
+              {{ type.name }}{{ client.client.tipologiaAttivita.indexOf(type) !== client.client.tipologiaAttivita.length - 1 ? ', ' : ''}}
+            </span>
+          </p>
         </div>
         <div class="col-sm-6">
           <h3>Zona</h3>
-          <p>{{ client.client.zona.name }}</p>
+          <!-- <p>{{ client.client.zona.name }}</p> -->
+          <p>
+            <span ng-repeat="zona in client.client.zona" ng-if="client.client.zona.length > 0">
+              {{ zona.name }}{{ client.client.zona.indexOf(zona) !== client.client.zona.length - 1 ? ', ' : ''}}
+            </span>
+          </p>
         </div>
       </div>
       <div class="row">

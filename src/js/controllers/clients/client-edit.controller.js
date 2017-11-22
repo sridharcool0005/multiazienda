@@ -31,6 +31,10 @@ function ClientEditCtrl(
   vm.cancel = cancel;
   vm.showForm = showForm;
   vm.clientSubmit = clientEdit;
+  vm.typeIds = [];
+  vm.zoneIds = [];
+  vm.addTypeSelection = addTypeSelection;
+  vm.addZoneSelection = addZoneSelection;
   vm.wasLocationDeleted = false;
   vm.inClientNew = false;
 
@@ -58,7 +62,44 @@ function ClientEditCtrl(
       lng: vm.client.indirizzo.lng,
       type: 'street address'
     };
+
+    // check if type selected
+    checkIfTypeSelected(client);
+    // check if zone selected
+    checkIfZoneSelected(client);
   });
+
+  function checkIfTypeSelected(client) {
+    const selectedType = document.getElementById('tipologiaAttivita').options;
+    for (var i = 0; i < client.tipologiaAttivita.length; i++) {
+      vm.typeIds.push(client.tipologiaAttivita[i].id);
+    }
+    for (var j = 0; j < selectedType.length; j++) {
+      if (vm.typeIds.includes(selectedType[j].value)) {
+        selectedType[j].selected = true;
+      }
+    }
+  }
+
+  function checkIfZoneSelected(client) {
+    const selectedZone = document.getElementById('zona').options;
+    for (var k = 0; k < client.zona.length; k++) {
+      vm.zoneIds.push(client.zona[k].id);
+    }
+    for (var l = 0; l < selectedZone.length; l++) {
+      if (vm.zoneIds.includes(selectedZone[l].value)) {
+        selectedZone[l].selected = true;
+      }
+    }
+  }
+
+  function fetchTypes() {
+    Type.query().$promise.then(types => (vm.types = types));
+  }
+
+  function fetchZones() {
+    Zone.query().$promise.then(zones => (vm.zones = zones));
+  }
 
   function searchAddress() {
     const address = document.getElementById('searchAddress').value;
@@ -133,6 +174,8 @@ function ClientEditCtrl(
       if (vm.wasLocationDeleted) {
         Location.save(vm.location).$promise.then(location => {
           vm.client.indirizzo = location.id;
+          vm.client.zona = vm.zoneIds;
+          vm.client.tipologiaAttivita = vm.typeIds;
 
           Client.update({ id: $stateParams.id }, vm.client).$promise.then(
             client => {
@@ -142,6 +185,8 @@ function ClientEditCtrl(
         });
       } else {
         vm.client.indirizzo = location.id;
+        vm.client.zona = vm.zoneIds;
+        vm.client.tipologiaAttivita = vm.typeIds;
 
         Client.update({ id: $stateParams.id }, vm.client).$promise.then(
           client => {
@@ -152,11 +197,37 @@ function ClientEditCtrl(
     }
   }
 
-  function fetchTypes() {
-    Type.query().$promise.then(types => (vm.types = types));
+  function addTypeSelection() {
+    vm.typeIds = [];
+    const selectInput = document.getElementById('tipologiaAttivita').options;
+    for (var i = 0; i < selectInput.length; i++) {
+      const option = selectInput[i];
+      if (option.selected) {
+        if (!vm.typeIds.includes(option.value)) {
+          vm.typeIds.push(option.value);
+        } else {
+          const index = vm.typeIds.indexOf(option.value);
+          vm.typeIds.splice(index, 1);
+        }
+      }
+    }
+    console.log(vm.typeIds);
   }
 
-  function fetchZones() {
-    Zone.query().$promise.then(zones => (vm.zones = zones));
+  function addZoneSelection() {
+    vm.zoneIds = [];
+    const selectInput = document.getElementById('zona').options;
+    for (var i = 0; i < selectInput.length; i++) {
+      const option = selectInput[i];
+      if (option.selected) {
+        if (!vm.zoneIds.includes(option.value)) {
+          vm.zoneIds.push(option.value);
+        } else {
+          const index = vm.zoneIds.indexOf(option.value);
+          vm.zoneIds.splice(index, 1);
+        }
+      }
+    }
+    console.log(vm.zoneIds);
   }
 }

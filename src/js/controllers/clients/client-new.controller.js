@@ -29,7 +29,8 @@ function ClientNewCtrl(
   vm.clientSubmit = clientNew;
   vm.clear = clear;
   vm.cancel = cancel;
-  vm.addSelection = addSelection;
+  vm.addTypeSelection = addTypeSelection;
+  vm.addZoneSelection = addZoneSelection;
   vm.showForm = showForm;
   vm.inClientNew = true;
   vm.client = {};
@@ -88,8 +89,8 @@ function ClientNewCtrl(
       Location.save(vm.location)
         .$promise.then(location => {
           vm.client.indirizzo = location.id;
-          vm.client.tipologiaAttivita = vm.client.tipologiaAttivita.id;
-          vm.client.zona = vm.client.zona.id;
+          vm.client.tipologiaAttivita = vm.typeIds;
+          vm.client.zona = vm.zoneIds;
         })
         .then(() => {
           Client.save(vm.client).$promise.then(() => $state.go('clientsIndex'));
@@ -129,17 +130,35 @@ function ClientNewCtrl(
     Type.query().$promise.then(types => (vm.types = types));
   }
 
-  const typeIds = [];
-  function addSelection(e) {
-    const selectInput = document.getElementById('select-input');
-    const selectedValue = selectInput.options;
-    console.log('selected value', selectedValue);
-    if (!typeIds.includes(e.target.value)) {
-      typeIds.push(e.target.value);
-    } else {
-      const index = typeIds.indexOf(e.target.value);
-      typeIds.splice(index, 1);
+  function addTypeSelection() {
+    vm.typeIds = [];
+    const selectInput = document.getElementById('tipologiaAttivita').options;
+    for (var i = 0; i < selectInput.length; i++) {
+      const option = selectInput[i];
+      if (option.selected) {
+        if (!vm.typeIds.includes(option.value)) {
+          vm.typeIds.push(option.value);
+        } else {
+          const index = vm.typeIds.indexOf(option.value);
+          vm.typeIds.splice(index, 1);
+        }
+      }
     }
-    console.log(typeIds);
+  }
+
+  function addZoneSelection() {
+    vm.zoneIds = [];
+    const selectInput = document.getElementById('zona').options;
+    for (var i = 0; i < selectInput.length; i++) {
+      const option = selectInput[i];
+      if (option.selected) {
+        if (!vm.zoneIds.includes(option.value)) {
+          vm.zoneIds.push(option.value);
+        } else {
+          const index = vm.zoneIds.indexOf(option.value);
+          vm.zoneIds.splice(index, 1);
+        }
+      }
+    }
   }
 }

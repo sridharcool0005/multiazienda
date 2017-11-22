@@ -103,9 +103,9 @@
             multiple
             required>
           </select> -->
-          <select name="select-input" id="select-input" multiple>
+          <select name="tipologiaAttivita" id="tipologiaAttivita" multiple required>
             <option
-              ng-click="controller.addSelection($event)"
+              ng-click="controller.addTypeSelection()"
               ng-repeat="option in controller.types"
               value="{{option.id}}">{{option.name}}
             </option>
@@ -120,12 +120,10 @@
         </div>
         <div class="col-sm-6">
           <div class="form-options no-label-above">
-            <a
+            <!-- <a
               ng-hide="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0"
-              ng-click="controller.clear('tipologiaAttivita')">Svuota casella</a>
-            <a
-              ng-click="controller.showForm('type')"
-              ng-show="!controller.client.tipologiaAttivita || controller.client.tipologiaAttivita.length === 0">Aggiungi nuova tipologia</a>
+              ng-click="controller.clear('tipologiaAttivita')">Svuota casella</a> -->
+            <a ng-click="controller.showForm('type')">Aggiungi nuova tipologia</a>
           </div>
         </div>
       </div>
@@ -134,12 +132,19 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="zona">Zona</label>
-          <select
+          <!-- <select
             name="zona"
             id="zona"
             ng-options="option.name for option in controller.zones track by option.id"
             ng-model="controller.client.zona"
             required>
+          </select> -->
+          <select name="zona" id="zona" multiple required>
+            <option
+              ng-click="controller.addZoneSelection()"
+              ng-repeat="option in controller.zones"
+              value="{{option.id}}">{{option.name}}
+            </option>
           </select>
           <div
             class="ng-message-error"
@@ -150,11 +155,9 @@
         </div>
         <div class="col-sm-6">
           <div class="form-options no-label-above">
-            <a
-              ng-hide="!controller.client.zona || controller.client.zona.length === 0" ng-click="controller.clear('zona')">Svuota casella</a>
-            <a
-              ng-click="controller.showForm('zone')"
-              ng-show="!controller.client.zona || controller.client.zona.length === 0">Aggiungi nuova zona</a>
+            <!-- <a
+              ng-hide="!controller.client.zona || controller.client.zona.length === 0" ng-click="controller.clear('zona')">Svuota casella</a> -->
+            <a ng-click="controller.showForm('zone')">Aggiungi nuova zona</a>
           </div>
         </div>
       </div>

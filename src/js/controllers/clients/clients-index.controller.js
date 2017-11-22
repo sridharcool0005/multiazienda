@@ -20,7 +20,7 @@ function ClientsIndexCtrl(
   vm.q = '';
   vm.cognome = '';
   vm.zona = '';
-  vm.tipologiaAttivita = '';
+  // vm.tipologiaAttivita = '';
   vm.searching = false;
   vm.clearSearch = clearSearch;
   vm.expandFilters = expandFilters;
@@ -28,6 +28,7 @@ function ClientsIndexCtrl(
   if (!$scope.$$phase) $scope.$apply();
 
   Client.query().$promise.then(clients => {
+    console.log(clients);
     vm.clients = clients;
     filterClients();
   });
@@ -35,38 +36,62 @@ function ClientsIndexCtrl(
   function filterClients() {
     const params = {
       nome: vm.q,
-      cognome: vm.cognome,
-      zona: {
-        name: vm.zona
-      },
-      tipologiaAttivita: {
-        name: vm.tipologiaAttivita
-      }
+      cognome: vm.cognome
+      // zona: {
+      //   name: vm.zona
+      // },
+      // tipologiaAttivita: {
+      //   name: vm.tipologiaAttivita
+      // }
     };
 
     vm.filtered = filterFilter(vm.clients, params);
     if (
       vm.q === '' &&
-      vm.cognome === '' &&
-      vm.zona === '' &&
-      vm.tipologiaAttivita === ''
+      vm.cognome === ''
+      // vm.zona === '' &&
+      // vm.tipologiaAttivita === ''
     ) {
       vm.searching = false;
     } else {
       vm.searching = true;
     }
+    console.log(vm.filtered);
   }
 
   $scope.$watchGroup(
-    [() => vm.q, () => vm.cognome, () => vm.zona, () => vm.tipologiaAttivita],
+    [
+      () => vm.q,
+      () => vm.cognome
+      // () => vm.zona, () => vm.tipologiaAttivita
+    ],
     filterClients
   );
+
+  // vm.filterZone = filterZone;
+  // function filterZone() {
+  //   // console.log(vm.filtered, vm.zona);
+  //   for (var i = 0; i < vm.filtered.length; i++) {
+  //     const singleResult = vm.filtered[i].zona;
+  //     console.log('SINGLERESULT ==>', singleResult);
+  //     const contains = [];
+  //     for (var j = 0; j < singleResult.length; j++) {
+  //       const zone = `${singleResult[j].name}`;
+  //       const lowerZone = zone.toLowerCase();
+  //       console.log(lowerZone);
+  //       contains.push(lowerZone.includes(vm.zona));
+  //     }
+  //     if (!contains.includes(true)) {
+  //       vm.filtered.splice(i, 1);
+  //     }
+  //   }
+  // }
 
   function clearSearch() {
     vm.q = '';
     vm.cognome = '';
     vm.zona = '';
-    vm.tipologiaAttivita = '';
+    // vm.tipologiaAttivita = '';
   }
 
   $window.addEventListener('resize', () => {
