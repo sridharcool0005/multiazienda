@@ -29,6 +29,7 @@ function ClientNewCtrl(
   vm.clientSubmit = clientNew;
   vm.clear = clear;
   vm.cancel = cancel;
+  vm.addSelection = addSelection;
   vm.showForm = showForm;
   vm.inClientNew = true;
   vm.client = {};
@@ -126,5 +127,19 @@ function ClientNewCtrl(
 
   function fetchTypes() {
     Type.query().$promise.then(types => (vm.types = types));
+  }
+
+  const typeIds = [];
+  function addSelection(e) {
+    const selectInput = document.getElementById('select-input');
+    const selectedValue = selectInput.options;
+    console.log('selected value', selectedValue);
+    if (!typeIds.includes(e.target.value)) {
+      typeIds.push(e.target.value);
+    } else {
+      const index = typeIds.indexOf(e.target.value);
+      typeIds.splice(index, 1);
+    }
+    console.log(typeIds);
   }
 }

@@ -31,28 +31,47 @@ function clientsCreate(req, res) {
 }
 
 function clientsUpdate(req, res) {
+  console.log('hit');
+  console.log('req body ------->', req.body);
   Client.findById(req.params.id)
     .then(client => {
       for (const field in req.body) {
+        console.log(client[field]);
         client[field] = req.body[field];
       }
 
-      if (req.body.tipologiaAttivita)
-        client.tipologiaAttivita = req.body.tipologiaAttivita.id;
+      if (req.body.tipologiaAttivita) {
+        const tipi = req.body.zona;
+        const tipiIds = [];
+        for (var i = 0; i < tipi.length; i++) {
+          tipiIds.push(tipi[i].id);
+        }
+        console.log(tipiIds);
+        client.tipologiaAttivita = tipiIds;
+      }
 
-      if (req.body.zona) client.zona = req.body.zona.id;
+      if (req.body.zona) {
+        const zone = req.body.zona;
+        const zoneIds = [];
+        for (var j = 0; j < zone.length; j++) {
+          zoneIds.push(zone[j].id);
+        }
+        console.log(zoneIds);
+        client.zona = zoneIds;
+      }
 
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 
-      if (client.attivitaViste.length > 0) {
-        for (var i = 0; i < client.attivitaViste.length; i++) {
-          client.attivitaViste[i].bar = req.body.attivitaViste[i].bar.id;
+      if (client.attivitaViste.length > 0 && req.body.attivitaViste) {
+        for (var k = 0; k < client.attivitaViste.length; k++) {
+          console.log(client.attivitaViste[k]);
+          client.attivitaViste[k].bar = req.body.attivitaViste[k].bar.id;
         }
       }
 
-      if (client.comments.length > 0) {
-        for (var j = 0; j < client.comments.length; j++) {
-          client.comments[j].createdBy = req.body.comments[j].createdBy.id;
+      if (client.comments.length > 0 && req.body.comments) {
+        for (var l = 0; l < client.comments.length; l++) {
+          client.comments[l].createdBy = req.body.comments[l].createdBy.id;
         }
       }
 
@@ -62,7 +81,10 @@ function clientsUpdate(req, res) {
       return client.save();
     })
     .then(client => res.status(200).json(client))
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      console.log('error', err);
+      res.status(500).json(err);
+    });
 }
 
 function clientsDelete(req, res) {
