@@ -51,6 +51,7 @@ function googlePlace($window, $rootScope) {
 
       function callback() {
         var place = autocomplete.getPlace();
+        console.log(place);
         var photoArray = [];
         if (place.photos) {
           for (var i = 0; i < place.photos.length; i++) {
