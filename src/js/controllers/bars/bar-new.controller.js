@@ -8,8 +8,7 @@ BarNewCtrl.$inject = [
   '$state',
   '$rootScope',
   '$scope',
-  '$window',
-  '$timeout'
+  '$window'
 ];
 
 function BarNewCtrl(
@@ -20,8 +19,7 @@ function BarNewCtrl(
   $state,
   $rootScope,
   $scope,
-  $window,
-  $timeout
+  $window
 ) {
   const vm = this;
   vm.changePhoto = changePhoto;
@@ -51,7 +49,6 @@ function BarNewCtrl(
   });
 
   $rootScope.$on('no place', function(event, args) {
-    // console.log('received', args);
     vm.received = true;
     vm.disabled = false;
     document

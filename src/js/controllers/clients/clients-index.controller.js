@@ -19,8 +19,8 @@ function ClientsIndexCtrl(
 
   vm.q = '';
   vm.cognome = '';
-  vm.zona = '';
-  // vm.tipologiaAttivita = '';
+  vm.zoneString = '';
+  vm.typeString = '';
   vm.searching = false;
   vm.clearSearch = clearSearch;
   vm.expandFilters = expandFilters;
@@ -28,15 +28,33 @@ function ClientsIndexCtrl(
   if (!$scope.$$phase) $scope.$apply();
 
   Client.query().$promise.then(clients => {
-    console.log(clients);
     vm.clients = clients;
+    for (var i = 0; i < clients.length; i++) {
+      if (!vm.clients[i].zoneString) {
+        vm.clients[i].zoneString = '';
+        const zone = clients[i].zona;
+        for (var j = 0; j < zone.length; j++) {
+          vm.clients[i].zoneString += ` ${zone[j].name}`;
+        }
+      }
+
+      if (!vm.clients[i].typeString) {
+        vm.clients[i].typeString = '';
+        const type = clients[i].tipologiaAttivita;
+        for (var k = 0; k < type.length; k++) {
+          vm.clients[i].typeString += ` ${type[k].name}`;
+        }
+      }
+    }
     filterClients();
   });
 
   function filterClients() {
     const params = {
       nome: vm.q,
-      cognome: vm.cognome
+      cognome: vm.cognome,
+      zoneString: vm.zoneString,
+      typeString: vm.typeString
       // zona: {
       //   name: vm.zona
       // },
@@ -48,7 +66,9 @@ function ClientsIndexCtrl(
     vm.filtered = filterFilter(vm.clients, params);
     if (
       vm.q === '' &&
-      vm.cognome === ''
+      vm.cognome === '' &&
+      vm.zoneString === '' &&
+      vm.typeString === ''
       // vm.zona === '' &&
       // vm.tipologiaAttivita === ''
     ) {
@@ -56,41 +76,24 @@ function ClientsIndexCtrl(
     } else {
       vm.searching = true;
     }
-    console.log(vm.filtered);
   }
 
   $scope.$watchGroup(
     [
       () => vm.q,
-      () => vm.cognome
+      () => vm.cognome,
+      () => vm.zoneString,
+      () => vm.typeString
       // () => vm.zona, () => vm.tipologiaAttivita
     ],
     filterClients
   );
 
-  // vm.filterZone = filterZone;
-  // function filterZone() {
-  //   // console.log(vm.filtered, vm.zona);
-  //   for (var i = 0; i < vm.filtered.length; i++) {
-  //     const singleResult = vm.filtered[i].zona;
-  //     console.log('SINGLERESULT ==>', singleResult);
-  //     const contains = [];
-  //     for (var j = 0; j < singleResult.length; j++) {
-  //       const zone = `${singleResult[j].name}`;
-  //       const lowerZone = zone.toLowerCase();
-  //       console.log(lowerZone);
-  //       contains.push(lowerZone.includes(vm.zona));
-  //     }
-  //     if (!contains.includes(true)) {
-  //       vm.filtered.splice(i, 1);
-  //     }
-  //   }
-  // }
-
   function clearSearch() {
     vm.q = '';
     vm.cognome = '';
-    vm.zona = '';
+    vm.zoneString = '';
+    vm.typeString = '';
     // vm.tipologiaAttivita = '';
   }
 

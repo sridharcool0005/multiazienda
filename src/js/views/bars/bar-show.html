@@ -369,8 +369,12 @@
                 </h2>
               </div>
               <div class="col-xs-6 col-md-12">
-                <p>{{ potentialClient.tipologiaAttivita.name }}</p><br>
-                <p>{{ potentialClient.zona.name }}</p>
+                <p class="client-tags">
+                  <span ng-repeat="type in potentialClient.tipologiaAttivita track by $index">{{ type.name }}{{ $index !== potentialClient.tipologiaAttivita.length - 1 ? ', ' : ''}}</span>
+                </p>
+                <p class="client-tags">
+                  <span ng-repeat="zone in potentialClient.zona track by $index">{{ zone.name }}{{ type.name }}{{ $index !== potentialClient.zona.length - 1 ? ', ' : ''}}</span>
+                </p>
               </div>
             </div>
           </div>

@@ -29,11 +29,13 @@ function ClientNewCtrl(
   vm.clientSubmit = clientNew;
   vm.clear = clear;
   vm.cancel = cancel;
-  vm.addTypeSelection = addTypeSelection;
-  vm.addZoneSelection = addZoneSelection;
+  vm.toggleSelection = toggleSelection;
+  vm.client = {
+    zona: [],
+    tipologiaAttivita: []
+  };
   vm.showForm = showForm;
   vm.inClientNew = true;
-  vm.client = {};
   fetchTypes();
   fetchZones();
 
@@ -89,8 +91,6 @@ function ClientNewCtrl(
       Location.save(vm.location)
         .$promise.then(location => {
           vm.client.indirizzo = location.id;
-          vm.client.tipologiaAttivita = vm.typeIds;
-          vm.client.zona = vm.zoneIds;
         })
         .then(() => {
           Client.save(vm.client).$promise.then(() => $state.go('clientsIndex'));
@@ -130,35 +130,25 @@ function ClientNewCtrl(
     Type.query().$promise.then(types => (vm.types = types));
   }
 
-  function addTypeSelection() {
-    vm.typeIds = [];
-    const selectInput = document.getElementById('tipologiaAttivita').options;
-    for (var i = 0; i < selectInput.length; i++) {
-      const option = selectInput[i];
-      if (option.selected) {
-        if (!vm.typeIds.includes(option.value)) {
-          vm.typeIds.push(option.value);
-        } else {
-          const index = vm.typeIds.indexOf(option.value);
-          vm.typeIds.splice(index, 1);
-        }
-      }
+  function toggleSelection(selection, what) {
+    const index = vm.client[what].indexOf(selection.id);
+    if (index !== -1) {
+      vm.client[what].splice(index, 1);
+    } else {
+      vm.client[what].push(selection.id);
     }
-  }
-
-  function addZoneSelection() {
-    vm.zoneIds = [];
-    const selectInput = document.getElementById('zona').options;
-    for (var i = 0; i < selectInput.length; i++) {
-      const option = selectInput[i];
-      if (option.selected) {
-        if (!vm.zoneIds.includes(option.value)) {
-          vm.zoneIds.push(option.value);
-        } else {
-          const index = vm.zoneIds.indexOf(option.value);
-          vm.zoneIds.splice(index, 1);
-        }
-      }
-    }
+    // vm.typeIds = [];
+    // const selectInput = document.getElementById('tipologiaAttivita').options;
+    // for (var i = 0; i < selectInput.length; i++) {
+    //   const option = selectInput[i];
+    //   if (option.selected) {
+    //     if (!vm.typeIds.includes(option.value)) {
+    //       vm.typeIds.push(option.value);
+    //     } else {
+    //       const index = vm.typeIds.indexOf(option.value);
+    //       vm.typeIds.splice(index, 1);
+    //     }
+    //   }
+    // }
   }
 }

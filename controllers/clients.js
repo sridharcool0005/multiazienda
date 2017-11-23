@@ -23,6 +23,28 @@ function clientsShow(req, res) {
 
 function clientsCreate(req, res) {
   req.body.archiviato = false;
+  if (req.body.tipologiaAttivita) {
+    const tipi = req.body.tipologiaAttivita;
+    let tipiName = '';
+    for (var i = 0; i < tipi.length; i++) {
+      if (i !== tipi.length - 1) {
+        tipiName += `${tipi[i].name}, `;
+      } else {
+        tipiName += `${tipi[i].name}`;
+      }
+    }
+    req.body.typeString = tipiName;
+  }
+
+  if (req.body.zona) {
+    const zone = req.body.zona;
+    let zoneName = '';
+    for (var j = 0; j < zone.length; j++) {
+      zoneName += `${zone[j].name} `;
+    }
+    req.body.zoneString = zoneName;
+  }
+
   Client.create(req.body)
     .then(client => {
       res.status(201).json(client);
@@ -31,40 +53,44 @@ function clientsCreate(req, res) {
 }
 
 function clientsUpdate(req, res) {
-  console.log('hit');
-  console.log('req body ------->', req.body);
   Client.findById(req.params.id)
     .then(client => {
       for (const field in req.body) {
-        // console.log(client[field]);
         client[field] = req.body[field];
       }
 
-      // if (req.body.tipologiaAttivita) {
-      //   const tipi = req.body.zona;
-      //   const tipiIds = [];
-      //   for (var i = 0; i < tipi.length; i++) {
-      //     tipiIds.push(tipi[i].id);
-      //   }
-      //   console.log(tipiIds);
-      //   client.tipologiaAttivita = tipiIds;
-      // }
-      //
-      // if (req.body.zona) {
-      //   const zone = req.body.zona;
-      //   const zoneIds = [];
-      //   for (var j = 0; j < zone.length; j++) {
-      //     zoneIds.push(zone[j].id);
-      //   }
-      //   console.log(zoneIds);
-      //   client.zona = zoneIds;
-      // }
+      if (req.body.tipologiaAttivita) {
+        const tipi = req.body.tipologiaAttivita;
+        const tipiIds = [];
+        let tipiName = '';
+        for (var i = 0; i < tipi.length; i++) {
+          tipiIds.push(tipi[i].id);
+          if (i !== tipi.length - 1) {
+            tipiName += `${tipi[i].name}, `;
+          } else {
+            tipiName += `${tipi[i].name}`;
+          }
+        }
+        client.tipologiaAttivita = tipiIds;
+        client.typeString = tipiName;
+      }
+
+      if (req.body.zona) {
+        const zone = req.body.zona;
+        const zoneIds = [];
+        let zoneName = '';
+        for (var j = 0; j < zone.length; j++) {
+          zoneIds.push(zone[j].id);
+          zoneName += `${zone[j].name} `;
+        }
+        client.zona = zoneIds;
+        client.zoneString = zoneName;
+      }
 
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo;
 
       if (client.attivitaViste.length > 0 && req.body.attivitaViste) {
         for (var k = 0; k < client.attivitaViste.length; k++) {
-          console.log(client.attivitaViste[k]);
           client.attivitaViste[k].bar = req.body.attivitaViste[k].bar.id;
         }
       }

@@ -99,17 +99,28 @@
             name="tipologiaAttivita" id="tipologiaAttivita"
             ng-options="option.name for option in controller.types track by option.id"
             ng-model="controller.client.tipologiaAttivita"
-            ng-change="controller.addSelection($event)"
             multiple
             required>
           </select> -->
-          <select name="tipologiaAttivita" id="tipologiaAttivita" multiple required>
+
+          <!-- <select name="tipologiaAttivita" id="tipologiaAttivita" multiple required>
             <option
               ng-click="controller.addTypeSelection()"
               ng-repeat="option in controller.types"
               value="{{option.id}}">{{option.name}}
             </option>
-          </select>
+          </select> -->
+          <div class="checkboxes">
+            <div class="" ng-repeat="type in controller.types" value="{{ type }}">
+              <input
+              type="checkbox"
+              name="tipologiaAttivita"
+              id="{{type.name}}"
+              ng-click="controller.toggleSelection(type, 'tipologiaAttivita')"
+              ng-checked="controller.checkIfChecked(type.id, 'tipologiaAttivita')">
+              <label class="checkbox-label" for="{{type.name}}">{{ type.name }}</label>
+            </div>
+          </div>
           <div
             class="ng-message-error"
             ng-messages="controller.clientForm.tipologiaAttivita.$error"
@@ -139,13 +150,24 @@
             ng-model="controller.client.zona"
             required>
           </select> -->
-          <select name="zona" id="zona" multiple required>
+          <!-- <select name="zona" id="zona" multiple required>
             <option
               ng-click="controller.addZoneSelection()"
               ng-repeat="option in controller.zones"
               value="{{option.id}}">{{option.name}}
             </option>
-          </select>
+          </select> -->
+          <div class="checkboxes">
+            <div ng-repeat="zone in controller.zones" value="{{ zone }}">
+              <input
+              type="checkbox"
+              name="zona"
+              id="{{zone.name}}"
+              ng-click="controller.toggleSelection(zone, 'zona')"
+              ng-checked="controller.checkIfChecked(zone.id, 'zona')">
+              <label class="checkbox-label" for="{{zone.name}}">{{ zone.name }}</label>
+            </div>
+          </div>
           <div
             class="ng-message-error"
             ng-messages="controller.clientForm.zona.$error"

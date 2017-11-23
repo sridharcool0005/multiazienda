@@ -36,7 +36,9 @@ const clientSchema = new mongoose.Schema(
     email: String,
     sab: String,
     tipologiaAttivita: [{ type: mongoose.Schema.ObjectId, ref: 'Type' }],
+    typeString: String,
     zona: [{ type: mongoose.Schema.ObjectId, ref: 'Zone' }],
+    zoneString: String,
     importoInvestimento: {
       anticipo: Number,
       totale: Number

@@ -31,10 +31,10 @@ function ClientEditCtrl(
   vm.cancel = cancel;
   vm.showForm = showForm;
   vm.clientSubmit = clientEdit;
-  vm.typeIds = [];
-  vm.zoneIds = [];
-  vm.addTypeSelection = addTypeSelection;
-  vm.addZoneSelection = addZoneSelection;
+  // vm.typeIds = [];
+  // vm.zoneIds = [];
+  vm.toggleSelection = toggleSelection;
+  vm.checkIfChecked = checkIfChecked;
   vm.wasLocationDeleted = false;
   vm.inClientNew = false;
 
@@ -62,34 +62,40 @@ function ClientEditCtrl(
       lng: vm.client.indirizzo.lng,
       type: 'street address'
     };
-
-    // check if type selected
-    checkIfTypeSelected(client);
-    // check if zone selected
-    checkIfZoneSelected(client);
   });
 
-  function checkIfTypeSelected(client) {
-    const selectedType = document.getElementById('tipologiaAttivita').options;
-    for (var i = 0; i < client.tipologiaAttivita.length; i++) {
-      vm.typeIds.push(client.tipologiaAttivita[i].id);
-    }
-    for (var j = 0; j < selectedType.length; j++) {
-      if (vm.typeIds.includes(selectedType[j].value)) {
-        selectedType[j].selected = true;
-      }
-    }
-  }
+  // function checkIfTypeSelected(client) {
+  //   const selectedType = document.getElementById('tipologiaAttivita').options;
+  //   for (var i = 0; i < client.tipologiaAttivita.length; i++) {
+  //     vm.typeIds.push(client.tipologiaAttivita[i].id);
+  //   }
+  //   for (var j = 0; j < selectedType.length; j++) {
+  //     if (vm.typeIds.includes(selectedType[j].value)) {
+  //       selectedType[j].selected = true;
+  //     }
+  //   }
+  // }
+  //
+  // function checkIfZoneSelected(client) {
+  //   const selectedZone = document.getElementById('zona').options;
+  //   for (var k = 0; k < client.zona.length; k++) {
+  //     vm.zoneIds.push(client.zona[k].id);
+  //   }
+  //   for (var l = 0; l < selectedZone.length; l++) {
+  //     if (vm.zoneIds.includes(selectedZone[l].value)) {
+  //       selectedZone[l].selected = true;
+  //     }
+  //   }
+  // }
 
-  function checkIfZoneSelected(client) {
-    const selectedZone = document.getElementById('zona').options;
-    for (var k = 0; k < client.zona.length; k++) {
-      vm.zoneIds.push(client.zona[k].id);
-    }
-    for (var l = 0; l < selectedZone.length; l++) {
-      if (vm.zoneIds.includes(selectedZone[l].value)) {
-        selectedZone[l].selected = true;
+  function checkIfChecked(selection, what) {
+    if (vm.client && vm.client[what]) {
+      vm[what] = [];
+      for (var i = 0; i < vm.client[what].length; i++) {
+        vm[what].push(vm.client[what][i].id);
       }
+      if (vm[what].includes(selection)) return true;
+      return false;
     }
   }
 
@@ -174,8 +180,6 @@ function ClientEditCtrl(
       if (vm.wasLocationDeleted) {
         Location.save(vm.location).$promise.then(location => {
           vm.client.indirizzo = location.id;
-          vm.client.zona = vm.zoneIds;
-          vm.client.tipologiaAttivita = vm.typeIds;
 
           Client.update({ id: $stateParams.id }, vm.client).$promise.then(
             client => {
@@ -185,8 +189,6 @@ function ClientEditCtrl(
         });
       } else {
         vm.client.indirizzo = location.id;
-        vm.client.zona = vm.zoneIds;
-        vm.client.tipologiaAttivita = vm.typeIds;
 
         Client.update({ id: $stateParams.id }, vm.client).$promise.then(
           client => {
@@ -197,37 +199,12 @@ function ClientEditCtrl(
     }
   }
 
-  function addTypeSelection() {
-    vm.typeIds = [];
-    const selectInput = document.getElementById('tipologiaAttivita').options;
-    for (var i = 0; i < selectInput.length; i++) {
-      const option = selectInput[i];
-      if (option.selected) {
-        if (!vm.typeIds.includes(option.value)) {
-          vm.typeIds.push(option.value);
-        } else {
-          const index = vm.typeIds.indexOf(option.value);
-          vm.typeIds.splice(index, 1);
-        }
-      }
+  function toggleSelection(selection, what) {
+    const index = vm.client[what].indexOf(selection);
+    if (index !== -1) {
+      vm.client[what].splice(index, 1);
+    } else {
+      vm.client[what].push({ id: selection.id, name: selection.name });
     }
-    console.log(vm.typeIds);
-  }
-
-  function addZoneSelection() {
-    vm.zoneIds = [];
-    const selectInput = document.getElementById('zona').options;
-    for (var i = 0; i < selectInput.length; i++) {
-      const option = selectInput[i];
-      if (option.selected) {
-        if (!vm.zoneIds.includes(option.value)) {
-          vm.zoneIds.push(option.value);
-        } else {
-          const index = vm.zoneIds.indexOf(option.value);
-          vm.zoneIds.splice(index, 1);
-        }
-      }
-    }
-    console.log(vm.zoneIds);
   }
 }

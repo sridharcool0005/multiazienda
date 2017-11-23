@@ -26,16 +26,16 @@
           <input type="search" ng-model="clients.cognome" placeholder="Cognome del cliente">
         </div>
         <div class="col-md-3">
-          <input type="search" ng-model="clients.zona" ng-change="clients.filterZone()" placeholder="Zona">
+          <input type="search" ng-model="clients.zoneString" placeholder="Zona">
         </div>
-        <!-- <div class="col-md-3">
-          <input type="search" ng-model="clients.tipologiaAttivita" placeholder="Tipologia attivita">
-        </div> -->
+        <div class="col-md-3">
+          <input type="search" ng-model="clients.typeString" placeholder="Tipologia attivita">
+        </div>
       </div>
     </div>
   </div>
   <ul class="row grid-list">
-    <li class="col-md-4 col-lg-3" ng-repeat="client in clients.filtered | orderBy : 'dateAdded' : true">
+    <li class="col-md-4" ng-repeat="client in clients.filtered | orderBy : 'dateAdded' : true">
       <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
         <div class="content">
           <div class="row">
@@ -46,8 +46,8 @@
               </h2>
             </div>
             <div class="col-xs-6 col-md-12">
-              <p>{{ client.tipologiaAttivita.name }}</p><br>
-              <p>{{ client.zona.name }}</p>
+              <p class="client-tags"><span ng-repeat="type in client.tipologiaAttivita track by $index">{{ type.name }}{{ $index !== client.tipologiaAttivita.length - 1 ? ', ' : ''}}</span></p>
+              <p class="client-tags"><span ng-repeat="zone in client.zona track by $index">{{ zone.name }}{{ $index !== client.zona.length - 1 ? ', ' : ''}}</span></p>
             </div>
           </div>
         </div>

@@ -25,20 +25,45 @@ function archiveClient(req, res) {
 
       client.archiviato = req.body.archiviato;
 
-      if (req.body.tipologiaAttivita.id)
-        client.tipologiaAttivita = req.body.tipologiaAttivita.id;
-      if (req.body.zona.id) client.zona = req.body.zona.id;
+      if (req.body.tipologiaAttivita) {
+        const tipi = req.body.tipologiaAttivita;
+        const tipiIds = [];
+        let tipiName = '';
+        for (var i = 0; i < tipi.length; i++) {
+          tipiIds.push(tipi[i].id);
+          if (i !== tipi.length - 1) {
+            tipiName += `${tipi[i].name}, `;
+          } else {
+            tipiName += `${tipi[i].name}`;
+          }
+        }
+        client.tipologiaAttivita = tipiIds;
+        client.typeString = tipiName;
+      }
+
+      if (req.body.zona) {
+        const zone = req.body.zona;
+        const zoneIds = [];
+        let zoneName = '';
+        for (var j = 0; j < zone.length; j++) {
+          zoneIds.push(zone[j].id);
+          zoneName += `${zone[j].name} `;
+        }
+        client.zona = zoneIds;
+        client.zoneString = zoneName;
+      }
+
       if (req.body.indirizzo) client.indirizzo = req.body.indirizzo.id;
 
       if (client.attivitaViste.length > 0) {
-        for (var i = 0; i < client.attivitaViste.length; i++) {
-          client.attivitaViste[i].bar = req.body.attivitaViste[i].bar.id;
+        for (var k = 0; k < client.attivitaViste.length; k++) {
+          client.attivitaViste[k].bar = req.body.attivitaViste[k].bar.id;
         }
       }
 
       if (client.comments.length > 0) {
-        for (var j = 0; j < client.comments.length; j++) {
-          client.comments[j].createdBy = req.body.comments[j].createdBy.id;
+        for (var l = 0; l < client.comments.length; l++) {
+          client.comments[l].createdBy = req.body.comments[l].createdBy.id;
         }
       }
 

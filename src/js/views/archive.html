@@ -23,9 +23,9 @@
                     {{ client.cognome }}
                   </h2>
                 </div>
-                <div class="col-xs-6 col-sm-12">
-                  <p>{{ client.tipologiaAttivita.name }}</p><br>
-                  <p>{{ client.zona.name }}</p>
+                <div class="col-xs-6 col-md-12">
+                  <p class="client-tags"><span ng-repeat="type in client.tipologiaAttivita track by $index">{{ type.name }}{{ $index !== client.tipologiaAttivita.length - 1 ? ', ' : ''}}</span></p>
+                  <p class="client-tags"><span ng-repeat="zone in client.zona track by $index">{{ zone.name }}{{ $index !== client.zona.length - 1 ? ', ' : ''}}</span></p>
                 </div>
               </div>
             </div>

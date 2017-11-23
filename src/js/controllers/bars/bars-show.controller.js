@@ -44,21 +44,7 @@ function BarShowCtrl(
         </div>
         `;
 
-      $timeout(() => {
-        if (vm.bar.indirizzo) {
-          if (vm.bar.indirizzo.lat) {
-            const mapDivHeight =
-              300 - document.getElementById('indirizzo').offsetHeight;
-            document.getElementsByClassName('details-map')[0].style.height = `${
-              mapDivHeight
-            }px`;
-          } else {
-            document.getElementById('indirizzo').style.height = '300px';
-          }
-        } else {
-          document.getElementById('indirizzo').style.height = '300px';
-        }
-      }, 50);
+      calculateMapHeight();
     })
     .then(() => {
       Client.query()
@@ -78,6 +64,7 @@ function BarShowCtrl(
         .then(() => {
           for (var i = 0; i < vm.clients.length; i++) {
             const client = vm.clients[i];
+            client.typeStringArray = client.typeString.split(', ');
             if (
               client.importoInvestimento &&
               client.importoInvestimento.anticipo
@@ -86,8 +73,9 @@ function BarShowCtrl(
                 !vm.clientsWhoHaveSeen.includes(`${client.id}`) &&
                 parseFloat(vm.richiestaContanti) ===
                   parseFloat(client.importoInvestimento.anticipo) &&
-                `${client.tipologiaAttivita.name}` ===
+                client.typeStringArray.includes(
                   `${vm.bar.tipologiaAttivita.name}`
+                )
               ) {
                 vm.potentialClients.push(client);
               }
@@ -95,6 +83,24 @@ function BarShowCtrl(
           }
         });
     });
+
+  function calculateMapHeight() {
+    $timeout(() => {
+      if (vm.bar.indirizzo) {
+        if (vm.bar.indirizzo.lat) {
+          const mapDivHeight =
+            300 - document.getElementById('indirizzo').offsetHeight;
+          document.getElementsByClassName('details-map')[0].style.height = `${
+            mapDivHeight
+          }px`;
+        } else {
+          document.getElementById('indirizzo').style.height = '300px';
+        }
+      } else {
+        document.getElementById('indirizzo').style.height = '300px';
+      }
+    }, 50);
+  }
 
   function comment() {
     if (vm.commentForm.$valid) {

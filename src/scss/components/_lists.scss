@@ -33,6 +33,11 @@ ul {
             margin-top: 10px;
             background: $grey;
           }
+          &.client-tags {
+            display: block;
+            min-height: 50px;
+            line-height: 18px;
+          }
         }
       }
       &.archivedmarker {

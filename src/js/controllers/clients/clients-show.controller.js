@@ -50,6 +50,7 @@ function ClientShowCtrl(
       })
       .then(data => {
         vm.client = data.client;
+        vm.typeString = vm.client.typeString.split(', ');
         bars = data.bars;
       })
       .then(() => {
@@ -62,9 +63,9 @@ function ClientShowCtrl(
 
         vm.content = `
           <div class="info-window">
-            <a class="maps-link" href="${
-              vm.client.indirizzo.url
-            }" target="_blank">
+            <a
+              class="maps-link"
+              href="${vm.client.indirizzo.url}" target="_blank">
               APRI SU GOOGLE MAPS
               <i class="fa fa-external-link" aria-hidden="true"></i>
             </a>
@@ -94,8 +95,7 @@ function ClientShowCtrl(
               // only query the bars who match between richiestaTotale and anticipo
               if (
                 !vm.attivitaVisteIds.includes(`${bar.id}`) &&
-                `${bar.tipologiaAttivita.name}` ===
-                  `${vm.client.tipologiaAttivita.name}`
+                vm.typeString.includes(`${bar.tipologiaAttivita.name}`)
               )
                 vm.filteredBars.push(bar);
             }
