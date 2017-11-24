@@ -69,12 +69,12 @@
           <div class="row">
             <div class="col-sm-6">
               <h3>Anticipo</h3>
-              <p>{{ client.client.importoInvestimento.anticipo }}</p>
+              <p>{{ client.client.importoInvestimento.anticipo | itnumber }}</p>
             </div>
             <div class="col-sm-6">
               <div class="detail-section">
                 <h3>Totale</h3>
-                <p>{{ client.client.importoInvestimento.totale }}</p>
+                <p>{{ client.client.importoInvestimento.totale | itnumber }}</p>
               </div>
             </div>
           </div>

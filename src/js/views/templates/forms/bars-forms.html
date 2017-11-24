@@ -52,9 +52,13 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="tipologiaAttivita">Tipologia</label>
-          <select name="tipologiaAttivita" id="tipologiaAttivita"
-          ng-options="option.name for option in controller.types track by option.id"
-          ng-model="controller.bar.tipologiaAttivita" required></select>
+          <select
+            name="tipologiaAttivita"
+            class="bar-dropdown"
+            id="tipologiaAttivita"
+            ng-options="option.name for option in controller.types track by option.id"
+            ng-model="controller.bar.tipologiaAttivita"
+            required></select>
           <div
             class="ng-message-error"
             ng-messages="controller.barForm.tipologiaAttivita.$error"
@@ -75,9 +79,13 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="zona">Zona</label>
-          <select name="zona" id="zona"
-          ng-options="option.name for option in controller.zones track by option.id"
-          ng-model="controller.bar.zona" required></select>
+          <select
+            name="zona"
+            class="bar-dropdown"
+            id="zona"
+            ng-options="option.name for option in controller.zones track by option.id"
+            ng-model="controller.bar.zona"
+            required></select>
           <div
             class="ng-message-error"
             ng-messages="controller.barForm.zona.$error"
@@ -144,7 +152,7 @@
       <div class="row">
         <div class="col-sm-6">
           <label for="contanti">Contanti</label>
-          <input type="text" name="contanti" id="contanti" ng-model="controller.bar.richiestaTotale.contanti" required>
+          <input type="number" name="contanti" id="contanti" ng-model="controller.bar.richiestaTotale.contanti" required>
 
           <div
             class="ng-message-error"
@@ -156,7 +164,7 @@
         </div>
         <div class="col-sm-6">
           <label for="dilazioni">Dilazioni</label>
-          <input type="text" name="dilazioni" id="dilazioni" ng-model="controller.bar.richiestaTotale.dilazioni">
+          <input type="number" name="dilazioni" id="dilazioni" ng-model="controller.bar.richiestaTotale.dilazioni">
         </div>
       </div>
       <hr>
@@ -170,11 +178,11 @@
       <div class="row">
         <div class="col-md-6">
           <label for="minimo">Minimo</label>
-          <input type="text" name="minimo" ng-model="controller.bar.incassoGiornaliero.minimo">
+          <input type="number" name="minimo" ng-model="controller.bar.incassoGiornaliero.minimo">
         </div>
         <div class="col-md-6">
           <label for="massimo">Massimo</label>
-          <input type="text" name="massimo" ng-model="controller.bar.incassoGiornaliero.massimo">
+          <input type="number" name="massimo" ng-model="controller.bar.incassoGiornaliero.massimo">
         </div>
       </div>
       <hr>
@@ -186,11 +194,11 @@
       <div class="row">
         <div class="col-md-6">
           <label for="minimo">Minimo</label>
-          <input type="text" name="minimo" ng-model="controller.bar.incassoAnnuale.minimo">
+          <input type="number" name="minimo" ng-model="controller.bar.incassoAnnuale.minimo">
         </div>
         <div class="col-md-6">
           <label for="massimo">Massimo</label>
-          <input type="text" name="massimo" ng-model="controller.bar.incassoAnnuale.massimo">
+          <input type="number" name="massimo" ng-model="controller.bar.incassoAnnuale.massimo">
         </div>
       </div>
       <hr>
@@ -243,7 +251,7 @@
         </div>
         <div class="col-sm-6">
           <label for="consumoMensile">Consumo Mensile</label>
-          <input type="text" name="consumoMensile" ng-model="controller.bar.torrefazione.consumoMensile">
+          <input type="number" name="consumoMensile" ng-model="controller.bar.torrefazione.consumoMensile">
         </div>
       </div>
       <hr>
@@ -270,8 +278,8 @@
     <div class="col-sm-6">
       <label for="impiantiCertificati">Impianti Certificati</label>
       <div class="no-label-radio">
-        <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.impiantiCertificati" value="si"><label class="checkbox-label">Si</label>
-        <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.impiantiCertificati" value="no"><label class="checkbox-label">No</label>
+        <input type="radio" name="impiantiCertificati" ng-model="controller.bar.ristrutturato.impiantiCertificati" value="si"><label class="checkbox-label">Si</label>
+        <input type="radio" name="impiantiCertificati" ng-model="controller.bar.ristrutturato.impiantiCertificati" value="no"><label class="checkbox-label">No</label>
       </div>
     </div>
   </div>
@@ -282,27 +290,27 @@
   <div class="row">
     <div class="col-sm-4">
       <label for="aggiTotali">Aggi Totali</label>
-      <input type="text" name="aggiTotali" ng-model="controller.bar.aggi.aggiTotali">
+      <input type="number" name="aggiTotali" ng-model="controller.bar.aggi.aggiTotali">
     </div>
     <div class="col-sm-4">
       <label for="tabacco">Tobacco</label>
-      <input type="text" name="tabacco" ng-model="controller.bar.aggi.tabacco">
+      <input type="number" name="tabacco" ng-model="controller.bar.aggi.tabacco">
     </div>
     <div class="col-sm-4">
       <label for="lotto">Lotto</label>
-      <input type="text" name="lotto" ng-model="controller.bar.aggi.lotto">
+      <input type="number" name="lotto" ng-model="controller.bar.aggi.lotto">
     </div>
     <div class="col-sm-4">
       <label for="sisal">Sisal</label>
-      <input type="text" name="sisal" ng-model="controller.bar.aggi.sisal">
+      <input type="number" name="sisal" ng-model="controller.bar.aggi.sisal">
     </div>
     <div class="col-sm-4">
       <label for="giochi">Giochi</label>
-      <input type="text" name="giochi" ng-model="controller.bar.aggi.giochi">
+      <input type="number" name="giochi" ng-model="controller.bar.aggi.giochi">
     </div>
     <div class="col-sm-4">
       <label for="varie">Varie</label>
-      <input type="text" name="varie" ng-model="controller.bar.aggi.varie">
+      <input type="number" name="varie" ng-model="controller.bar.aggi.varie">
     </div>
   </div>
   <hr>
@@ -311,7 +319,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <label for="slot">Numero Slot</label>
+      <label for="slot">Importo Slot</label>
       <input type="text" name="slot" ng-model="controller.bar.slot.slot">
     </div>
     <div class="col-sm-4">
@@ -320,7 +328,7 @@
     </div>
     <div class="col-sm-4">
       <label for="percentuale">Percentuale</label>
-      <input type="text" name="percentuale" ng-model="controller.bar.slot.percentuale">
+      <input type="number" name="percentuale" ng-model="controller.bar.slot.percentuale">
     </div>
   </div>
   <hr>
@@ -383,11 +391,11 @@
   <div class="row">
     <div class="col-sm-4">
       <label for="postiInterni">Posti Interni</label>
-      <input type="text" name="postiInterni" ng-model="controller.bar.postiInterni">
+      <input type="number" name="postiInterni" ng-model="controller.bar.postiInterni">
     </div>
     <div class="col-sm-4">
       <label for="postiEsterni">Posti Esterni</label>
-      <input type="text" name="postiEsterni" ng-model="controller.bar.postiEsterni.postiEsterni">
+      <input type="number" name="postiEsterni" ng-model="controller.bar.postiEsterni.postiEsterni">
     </div>
     <div class="col-sm-4">
       <label for="areaPrivata">Area Privata</label>

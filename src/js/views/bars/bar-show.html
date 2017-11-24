@@ -64,7 +64,10 @@
       <div class="col-sm-4">
         <div class="detail-section">
           <h3>Referente</h3>
-          <p>{{ bar.bar.referente }}</p>
+          <p>
+            <a href="tel:{{bar.bar.referente}}" ng-if="!bar.bar.referente.includes('-')">{{ bar.bar.referente }}</a>
+            <span ng-if="bar.bar.referente.includes('-')">{{ bar.bar.referente }}</span>
+          </p>
         </div>
       </div>
       <div class="col-sm-4">
@@ -82,8 +85,7 @@
         <div class="detail-section">
           <h3>Presente</h3>
           <p>
-            <span ng-if="bar.bar.magazzino.presente">{{ bar.bar.magazzino.presente | capitalise }}</span>
-            <span ng-show="bar.bar.magazzino.internoEsterno">, </span>
+            <span ng-if="bar.bar.magazzino.presente">{{ bar.bar.magazzino.presente | capitalise }}</span><span ng-show="bar.bar.magazzino.internoEsterno">, </span>
             <span>{{ bar.bar.magazzino.internoEsterno }}</span>
           </p>
         </div>
@@ -95,11 +97,11 @@
         <div class="row">
           <div class="col-sm-6">
             <h3>Contanti</h3>
-            <p>{{ bar.bar.richiestaTotale.contanti }}</p>
+            <p>{{ bar.bar.richiestaTotale.contanti | itnumber }}</p>
           </div>
           <div class="col-sm-6">
             <h3>Dilazioni</h3>
-            <p>{{ bar.bar.richiestaTotale.dilazioni }}</p>
+            <p>{{ bar.bar.richiestaTotale.dilazioni | itnumber }}</p>
           </div>
         </div>
       </div>
@@ -112,11 +114,11 @@
         <div class="row">
           <div class="col-md-6">
             <h3>Minimo</h3>
-            <p>{{ bar.bar.incassoGiornaliero.minimo }}</p>
+            <p>{{ bar.bar.incassoGiornaliero.minimo | itnumber }}</p>
           </div>
           <div class="col-md-6">
             <h3>Massimo</h3>
-            <p>{{ bar.bar.incassoGiornaliero.massimo }}</p>
+            <p>{{ bar.bar.incassoGiornaliero.massimo | itnumber }}</p>
           </div>
         </div>
       </div>
@@ -127,11 +129,11 @@
         <div class="row">
           <div class="col-md-6">
             <h3>Minimo</h3>
-            <p>{{ bar.bar.incassoAnnuale.minimo }}</p>
+            <p>{{ bar.bar.incassoAnnuale.minimo | itnumber }}</p>
           </div>
           <div class="col-md-6">
             <h3>Massimo</h3>
-            <p>{{ bar.bar.incassoAnnuale.massimo }}</p>
+            <p>{{ bar.bar.incassoAnnuale.massimo | itnumber }}</p>
           </div>
         </div>
       </div>
@@ -142,7 +144,7 @@
     <div class="row">
       <div class="col-md-3">
         <h3>IVA</h3>
-        <p>{{ bar.bar.canoneLocazione.iva }}</p>
+        <p>{{ bar.bar.canoneLocazione.iva | itnumber }}</p>
       </div>
       <div class="col-md-3">
         <h3>Scadenza</h3>
@@ -163,7 +165,7 @@
           <p><span>8.</span> Tassa suolo pubblico</p>
         </div>
         <h3 style="color: white;">Tassa suolo pubblico</h3>
-        <p>{{ bar.bar.tassaSuoloPubb }}</p>
+        <p>{{ bar.bar.tassaSuoloPubb | itnumber }}</p>
       </div>
       <div class="col-sm-6">
         <div class="divider">
@@ -176,7 +178,7 @@
           </div>
           <div class="col-md-6">
             <h3>Consumo mensile</h3>
-            <p>{{ bar.bar.torrefazione.consumoMensile }}</p>
+            <p>{{ bar.bar.torrefazione.consumoMensile | itnumber }}</p>
           </div>
         </div>
       </div>
@@ -188,13 +190,13 @@
       <div class="col-sm-6">
         <h3>Ristrutturato</h3>
         <p>
-          <span ng-if="bar.bar.ristrutturato.vero">{{ bar.bar.ristrutturato.vero | capitalise }}</span>
-          <span ng-if="bar.bar.ristrutturato.vero === 'si' && bar.bar.ristrutturato.ristrutturato">, </span>
-          {{ bar.bar.ristrutturato.ristrutturato }}</p>
+          <span ng-if="bar.bar.ristrutturato.vero">{{ bar.bar.ristrutturato.vero | capitalise }}</span><span ng-if="bar.bar.ristrutturato.vero === 'si' && bar.bar.ristrutturato.ristrutturato">, </span>
+          {{ bar.bar.ristrutturato.ristrutturato | itnumber }}
+        </p>
       </div>
       <div class="col-sm-6">
         <h3>Impianti certificati</h3>
-        <p>{{ bar.bar.ristrutturato.impiantiCertificati }}</p>
+        <p>{{ bar.bar.ristrutturato.impiantiCertificati | capitalise }}</p>
       </div>
     </div>
     <div class="divider">
@@ -203,27 +205,27 @@
     <div class="row">
       <div class="col-sm-4">
         <h3>Aggi Totali</h3>
-        <p>{{ bar.bar.aggi.aggiTotali }}</p>
+        <p>{{ bar.bar.aggi.aggiTotali | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Tabacco</h3>
-        <p>{{ bar.bar.aggi.tabacco }}</p>
+        <p>{{ bar.bar.aggi.tabacco | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Lotto</h3>
-        <p>{{ bar.bar.aggi.lotto }}</p>
+        <p>{{ bar.bar.aggi.lotto | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Sisal</h3>
-        <p>{{ bar.bar.aggi.sisal }}</p>
+        <p>{{ bar.bar.aggi.sisal | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Giochi</h3>
-        <p>{{ bar.bar.aggi.giochi }}</p>
+        <p>{{ bar.bar.aggi.giochi | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Varie</h3>
-        <p>{{ bar.bar.aggi.varie }}</p>
+        <p>{{ bar.bar.aggi.varie | itnumber }}</p>
       </div>
     </div>
     <div class="divider">
@@ -232,7 +234,7 @@
     <div class="row">
       <div class="col-sm-4">
         <h3>Numero slot</h3>
-        <p>{{ bar.bar.slot.slot }}</p>
+        <p>{{ bar.bar.slot.slot | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Ditta</h3>
@@ -240,7 +242,7 @@
       </div>
       <div class="col-sm-4">
         <h3>Percentuale</h3>
-        <p>{{ bar.bar.slot.percentuale }}</p>
+        <p><span ng-if="bar.bar.slot && bar.bar.slot.percentuale">{{ bar.bar.slot.percentuale }}%</span></p>
       </div>
     </div>
     <div class="divider">
@@ -253,7 +255,10 @@
       </div>
       <div class="col-sm-4">
         <h3>Telefono</h3>
-        <p><a href="tel:{{ bar.bar.commercialista.telefono }}">{{ bar.bar.commercialista.telefono }}</a></p>
+        <p>
+          <a ng-if="!bar.bar.commercialista.telefono.includes('-')" href="tel:{{ bar.bar.commercialista.telefono }}">{{ bar.bar.commercialista.telefono }}</a>
+          <span ng-if="bar.bar.commercialista.telefono.includes('-')">{{ bar.bar.commercialista.telefono }}</span>
+        </p>
       </div>
       <div class="col-sm-4">
         <h3>Email</h3>
@@ -269,7 +274,7 @@
         <p>
           <span ng-if="bar.bar.affittoAzienda.affittoAzienda">{{ bar.bar.affittoAzienda.affittoAzienda | capitalise }}</span>
           <span ng-if="bar.bar.affittoAzienda.affittoAzienda === 'si' && bar.bar.affittoAzienda.importo">, </span>
-          {{ bar.bar.affittoAzienda.importo }}</p>
+          {{ bar.bar.affittoAzienda.importo | itnumber }}</p>
       </div>
       <div class="col-sm-6">
         <h3>Garanzie</h3>
@@ -295,11 +300,11 @@
     <div class="row">
       <div class="col-sm-4">
         <h3>Posti interni</h3>
-        <p>{{ bar.bar.postiInterni }}</p>
+        <p>{{ bar.bar.postiInterni | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Posti esterni</h3>
-        <p>{{ bar.bar.postiEsterni.postiEsterni }}</p>
+        <p>{{ bar.bar.postiEsterni.postiEsterni | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Area privata</h3>
@@ -312,7 +317,7 @@
     <div class="row">
       <div class="col-sm-6">
         <h3>Numero titolari</h3>
-        <p>{{ bar.bar.addetti.numeroTitolari }}</p>
+        <p>{{ bar.bar.addetti.numeroTitolari | itnumber }}</p>
       </div>
       <div class="col-sm-6">
         <h3>Dipendenti</h3>
@@ -329,7 +334,7 @@
       </div>
       <div class="col-sm-4">
         <h3>Riservato dominio</h3>
-        <p>{{ bar.bar.riservatoDominio }}</p>
+        <p>{{ bar.bar.riservatoDominio | itnumber }}</p>
       </div>
       <div class="col-sm-4">
         <h3>Attrezzature comodato</h3>
