@@ -47,6 +47,7 @@ function clientsCreate(req, res) {
 
   Client.create(req.body)
     .then(client => {
+      console.log(client);
       res.status(201).json(client);
     })
     .catch(err => res.status(500).json(err));

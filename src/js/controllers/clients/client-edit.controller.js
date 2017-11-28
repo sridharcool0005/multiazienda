@@ -200,7 +200,11 @@ function ClientEditCtrl(
   }
 
   function toggleSelection(selection, what) {
-    const index = vm.client[what].indexOf(selection);
+    const arr = [];
+    for (var i = 0; i < vm.client[what].length; i++) {
+      arr.push(vm.client[what][i].id);
+    }
+    const index = arr.indexOf(selection.id);
     if (index !== -1) {
       vm.client[what].splice(index, 1);
     } else {
