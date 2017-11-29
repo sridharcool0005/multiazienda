@@ -216,7 +216,7 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <label for="scadenza">Scadenza</label>
+      <label for="scadenza">Importo e Scadenza</label>
       <input type="text" name="scadenza" ng-model="controller.bar.canoneLocazione.scadenza">
     </div>
     <div class="col-md-3 col-sm-6">
@@ -264,14 +264,14 @@
     <div class="col-sm-6">
       <div class="row">
         <div class="col-sm-6">
-          <label for="ristrutturato">Ristrutturato</label>
-          <input type="text" name="ristrutturato" ng-model="controller.bar.ristrutturato.ristrutturato">
+          <div class="no-label-above no-label-radio">
+            <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.vero" value="si"><label class="checkbox-label">Si</label>
+            <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.vero" value="no"><label class="checkbox-label">No</label>
+          </div>
         </div>
         <div class="col-sm-6">
-          <div class="no-label-above no-label-radio">
-          <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.vero" value="si"><label class="checkbox-label">Si</label>
-          <input type="radio" name="vero" ng-model="controller.bar.ristrutturato.vero" value="no"><label class="checkbox-label">No</label>
-        </div>
+          <label for="ristrutturato">Importo</label>
+          <input type="text" name="ristrutturato" ng-model="controller.bar.ristrutturato.ristrutturato">
         </div>
       </div>
     </div>

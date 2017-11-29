@@ -147,7 +147,7 @@
         <p>{{ bar.bar.canoneLocazione.iva | itnumber }}</p>
       </div>
       <div class="col-md-3">
-        <h3>Scadenza</h3>
+        <h3>Importo e Scadenza</h3>
         <p>{{ bar.bar.canoneLocazione.scadenza }}</p>
       </div>
       <div class="col-md-3">
@@ -188,7 +188,7 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h3>Ristrutturato</h3>
+        <h3>Importo</h3>
         <p>
           <span ng-if="bar.bar.ristrutturato.vero">{{ bar.bar.ristrutturato.vero | capitalise }}</span><span ng-if="bar.bar.ristrutturato.vero === 'si' && bar.bar.ristrutturato.ristrutturato">, </span>
           {{ bar.bar.ristrutturato.ristrutturato | itnumber }}
@@ -270,11 +270,11 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h3>Ristrutturato</h3>
+        <h3>Importo Affitto Azienda</h3>
         <p>
           <span ng-if="bar.bar.affittoAzienda.affittoAzienda">{{ bar.bar.affittoAzienda.affittoAzienda | capitalise }}</span>
           <span ng-if="bar.bar.affittoAzienda.affittoAzienda === 'si' && bar.bar.affittoAzienda.importo">, </span>
-          {{ bar.bar.affittoAzienda.importo | itnumber }}</p>
+          {{ bar.bar.affittoAzienda.importo }}</p>
       </div>
       <div class="col-sm-6">
         <h3>Garanzie</h3>
