@@ -26,10 +26,30 @@
           <input type="search" ng-model="bars.q" placeholder="Nome dell'attivita">
         </div>
         <div class="col-md-3">
-          <input type="search" ng-model="bars.zona" placeholder="Zona">
+          <!-- <input type="search" ng-model="bars.zona" placeholder="Zona"> -->
+          <div class="dropdown-container">
+            <select
+              name="zona"
+              class="bar-dropdown dropdown-white"
+              id="zona"
+              ng-options="option.name for option in bars.zones track by option.id"
+              ng-model="bars.zona"
+              required></select>
+            <span ng-hide="bars.zona" class="filter-dropdown-label">Zona</span>
+          </div>
         </div>
         <div class="col-md-3">
-          <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita">
+          <!-- <input type="search" ng-model="bars.tipologiaAttivita" placeholder="Tipologia attivita"> -->
+          <div class="dropdown-container">
+            <select
+              name="tipologiaAttivita"
+              class="bar-dropdown dropdown-white"
+              id="tipologiaAttivita"
+              ng-options="option.name for option in bars.types track by option.id"
+              ng-model="bars.tipologiaAttivita"
+              required></select>
+            <span ng-hide="bars.tipologiaAttivita" class="filter-dropdown-label">Tipo Attivita</span>
+          </div>
         </div>
       </div>
     </div>

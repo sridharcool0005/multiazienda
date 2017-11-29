@@ -2,13 +2,23 @@ angular.module('multiazienda').controller('BarsIndexCtrl', BarsIndexCtrl);
 
 BarsIndexCtrl.$inject = [
   'Bar',
+  'Zone',
+  'Type',
   'filterFilter',
   '$scope',
   '$window',
   'CommonService'
 ];
 
-function BarsIndexCtrl(Bar, filterFilter, $scope, $window, CommonService) {
+function BarsIndexCtrl(
+  Bar,
+  Zone,
+  Type,
+  filterFilter,
+  $scope,
+  $window,
+  CommonService
+) {
   const vm = this;
 
   vm.q = '';
@@ -19,6 +29,8 @@ function BarsIndexCtrl(Bar, filterFilter, $scope, $window, CommonService) {
   vm.clearSearch = clearSearch;
   vm.expandFilters = expandFilters;
 
+  vm.types = Type.query();
+  vm.zones = Zone.query();
   Bar.query().$promise.then(bars => {
     vm.bars = bars;
     filterBars();
@@ -29,10 +41,10 @@ function BarsIndexCtrl(Bar, filterFilter, $scope, $window, CommonService) {
       codiceAttivita: vm.codiceAttivita,
       denominazioneAttivita: vm.q,
       zona: {
-        name: vm.zona
+        name: vm.zona.name
       },
       tipologiaAttivita: {
-        name: vm.tipologiaAttivita
+        name: vm.tipologiaAttivita.name
       }
     };
     vm.filtered = filterFilter(vm.bars, params);
