@@ -32,13 +32,16 @@
             <li class="expandable-item" ng-show="main.user" ng-click="main.expandMenu()">
               <a ng-click="main.logout()" class="text-btn">ESCI <i class="fa fa-sign-out" aria-hidden="true"></i></a>
             </li>
-            <li class="expandable-item" ng-show="main.user" ng-class="{ infocus : main.inArchivio }" ng-click="main.expandMenu()">
+            <li class="expandable-item pull-right" ng-show="main.user" ng-class="{ infocus : main.inAttivita }" ng-click="main.expandMenu()">
+              <a ui-sref="settings" class="text-btn"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+            </li>
+            <li class="expandable-item pull-right" ng-show="main.user" ng-class="{ infocus : main.inArchivio }" ng-click="main.expandMenu()">
               <a ui-sref="archive({ clientOrBar: 'bar' })" class="text-btn">ARCHIVIO</a>
             </li>
-            <li class="expandable-item" ng-show="main.user" ng-class="{ infocus : main.inClienti }" ng-click="main.expandMenu()">
+            <li class="expandable-item pull-right" ng-show="main.user" ng-class="{ infocus : main.inClienti }" ng-click="main.expandMenu()">
               <a ui-sref="clientsIndex" class="text-btn">CLIENTI</a>
             </li>
-            <li class="expandable-item" ng-show="main.user" ng-class="{ infocus : main.inAttivita }" ng-click="main.expandMenu()">
+            <li class="expandable-item pull-right" ng-show="main.user" ng-class="{ infocus : main.inAttivita }" ng-click="main.expandMenu()">
               <a ui-sref="barsIndex" class="text-btn">ATTIVITÀ</a>
             </li>
           </div>

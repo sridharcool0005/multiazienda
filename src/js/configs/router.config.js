@@ -20,6 +20,15 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
         loginRequired: loginRequired
       }
     })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: '/js/views/settings/settings.html',
+      controller: 'SettingsCtrl',
+      controllerAs: 'settings',
+      resolve: {
+        loginRequired: loginRequired
+      }
+    })
     .state('barsIndex', {
       url: '/attivita',
       templateUrl: '/js/views/bars/bars-index.html',

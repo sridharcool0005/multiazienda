@@ -8,7 +8,8 @@ BarShowCtrl.$inject = [
   'CurrentUserService',
   '$state',
   '$rootScope',
-  '$timeout'
+  '$timeout',
+  '$q'
 ];
 
 function BarShowCtrl(
@@ -19,7 +20,8 @@ function BarShowCtrl(
   CurrentUserService,
   $state,
   $rootScope,
-  $timeout
+  $timeout,
+  $q
 ) {
   const vm = this;
 
@@ -30,77 +32,43 @@ function BarShowCtrl(
   vm.expandDetails = expandDetails;
   vm.expandedDetails = false;
 
-  Bar.get({ id: $stateParams.id })
-    .$promise.then(bar => {
-      vm.bar = bar;
-      vm.center = { lat: bar.indirizzo.lat, lng: bar.indirizzo.lng };
-      vm.title = `Indirizzo dell'attivita ${bar.denominazioneAttivita}`;
-      vm.content = `
-        <div class="info-window">
-          <a class="maps-link" href="${bar.indirizzo.url}" target="_blank">
-            APRI SU GOOGLE MAPS
-            <i class="fa fa-external-link" aria-hidden="true"></i>
-          </a>
-        </div>
-        `;
+  $q.all({
+    clients: Client.query().$promise,
+    bar: Bar.get({ id: $stateParams.id }).$promise
+  })
+    .then(data => {
+      vm.bar = data.bar;
 
-      calculateMapHeight();
+      const clients = data.clients;
+
+      if (vm.bar.richiestaTotale && vm.bar.richiestaTotale.contanti) {
+        vm.richiestaContanti = vm.bar.richiestaTotale.contanti;
+      } else {
+        vm.richiestaContanti = '';
+      }
+
+      vm.clients = clients;
+      vm.clientsWhoHaveSeen = [];
+      for (var i = 0; i < vm.bar.clienti.length; i++) {
+        vm.clientsWhoHaveSeen.push(`${vm.bar.clienti[i].id}`);
+      }
     })
     .then(() => {
-      Client.query()
-        .$promise.then(clients => {
-          if (vm.bar.richiestaTotale && vm.bar.richiestaTotale.contanti) {
-            vm.richiestaContanti = vm.bar.richiestaTotale.contanti;
-          } else {
-            vm.richiestaContanti = '';
+      for (var i = 0; i < vm.clients.length; i++) {
+        const client = vm.clients[i];
+        client.typeStringArray = client.typeString.split(', ');
+        if (client.importoInvestimento && client.importoInvestimento.anticipo) {
+          if (
+            !vm.clientsWhoHaveSeen.includes(`${client.id}`) &&
+            parseFloat(vm.richiestaContanti) ===
+              parseFloat(client.importoInvestimento.anticipo) &&
+            client.typeStringArray.includes(`${vm.bar.tipologiaAttivita.name}`)
+          ) {
+            vm.potentialClients.push(client);
           }
-
-          vm.clients = clients;
-          vm.clientsWhoHaveSeen = [];
-          for (var i = 0; i < vm.bar.clienti.length; i++) {
-            vm.clientsWhoHaveSeen.push(`${vm.bar.clienti[i].id}`);
-          }
-        })
-        .then(() => {
-          for (var i = 0; i < vm.clients.length; i++) {
-            const client = vm.clients[i];
-            client.typeStringArray = client.typeString.split(', ');
-            if (
-              client.importoInvestimento &&
-              client.importoInvestimento.anticipo
-            ) {
-              if (
-                !vm.clientsWhoHaveSeen.includes(`${client.id}`) &&
-                parseFloat(vm.richiestaContanti) ===
-                  parseFloat(client.importoInvestimento.anticipo) &&
-                client.typeStringArray.includes(
-                  `${vm.bar.tipologiaAttivita.name}`
-                )
-              ) {
-                vm.potentialClients.push(client);
-              }
-            }
-          }
-        });
-    });
-
-  function calculateMapHeight() {
-    $timeout(() => {
-      if (vm.bar.indirizzo) {
-        if (vm.bar.indirizzo.lat) {
-          const mapDivHeight =
-            300 - document.getElementById('indirizzo').offsetHeight;
-          document.getElementsByClassName('details-map')[0].style.height = `${
-            mapDivHeight
-          }px`;
-        } else {
-          document.getElementById('indirizzo').style.height = '300px';
         }
-      } else {
-        document.getElementById('indirizzo').style.height = '300px';
       }
-    }, 50);
-  }
+    });
 
   function comment() {
     if (vm.commentForm.$valid) {
