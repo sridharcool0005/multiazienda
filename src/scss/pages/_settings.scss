@@ -1,0 +1,132 @@
+.settings-page {
+  
+  .types-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      margin-bottom: 20px;
+      padding: 20px;
+      margin: 20px;
+      text-align: center;
+      background-color: $white;
+
+      width: calc(100% / 4 - 40px);
+
+      p {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .type-img-container {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: auto;
+
+    .type-img {
+      position: absolute;
+      padding: 5px;
+      width: 100%;
+      height: 100%;
+
+      @include backgroundImagePosition;
+      background-size: contain;
+    }
+
+    .img-icon {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+
+      padding: 5px;
+      border-radius: 50%;
+      background-color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add {
+      position: absolute;
+      padding: 5px 1px 5px 3px;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .modal-div {
+    height: 500px;
+
+    .settings-modal-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      margin-bottom: 20px;
+
+      h2 {
+        max-width: 650px;
+      }
+
+      .modal-close {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.image-select {
+  width: 100%;
+  height: 100%;
+
+  padding: 10px;
+  padding-bottom: 50px;
+
+  background-color: $white;
+
+  overflow-y: auto;
+
+  .images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      transition: all 0.3s ease-out;
+
+      &.used {
+        cursor: not-allowed;
+        background-color: $lightGrey;
+        img {
+          opacity: 0.3;
+        }
+
+        &:hover {
+          background-color: $lightGrey;
+        }
+      }
+
+      &:hover {
+        background-color: lightblue;
+      }
+      
+      img {
+        max-width: 100%;
+  
+      }
+    }
+  }
+}

@@ -1,9 +1,63 @@
-<div class="container">
+<div class="container settings-page">
+  <div class="modal-div animate-this modal-grey"
+    ng-show="settings.showingImagesModal">
+    <div class="settings-modal-header">
+      <h2 class="modal-title">Aggiungi o cambia l'icona a questa tipologia:</h2>
+      <div class="modal-close" ng-click="settings.showModal()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </div>
+    </div>
+    <section class="image-select">
+      <ul class="images">
+        <li 
+          class="type-img" 
+          ng-repeat="image in settings.images"
+          ng-click="settings.showModal(image, false)"
+          ng-class="{ used : image.used }">
+          <img src="/images/food_icons/{{image.path}}" alt="">
+        </li>
+      </ul>
+    </section>
+  </div>
+  
   <section class="header">
     <h1>IMPOSTAZIONI</h1>
   </section>
-  <section class="background-images">
-    <h1>Immagini tipi attività</h1>
-
+  <section class="setting accordion">
+    <div class="accordion-expand" ng-click="settings.expandAccordion('typeImages')">
+        <h1>Immagini tipi attività</h1>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"
+          ng-hide="settings.accordions.typeImages"></span>
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"
+          ng-show="settings.accordions.typeImages"></span>
+    </div>
+    <div class="accordion-expanded"
+      ng-show="settings.accordions.typeImages">
+      <hr>
+      <ul class="types-list">
+        <li ng-repeat="type in settings.types">
+          <div class="type-img-container">
+            <div class="background-images type-img" 
+              style="background-image: url('/images/food_icons/{{type.image}}')"
+              >
+            </div>
+            <div class="edit-image-btn"
+              ng-click="settings.showModal(false, type)">
+              <span 
+                class="img-icon edit" 
+                ng-if="type.image">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </span>
+              <span 
+                class="img-icon add" 
+                ng-if="!type.image">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </span>
+            </div>
+          </div>
+          <p>{{type.name}}</p>
+        </li>
+      </ul>
+    </div>
   </section>
 </div>

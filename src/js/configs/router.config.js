@@ -147,19 +147,41 @@ function Router($stateProvider, $locationProvider, $urlRouterProvider) {
     $rootScope
   ) {
     var defer = $q.defer();
+
     if (TokenService.getToken()) {
-      defer.resolve();
+      const expDate = new Date(TokenService.decodeToken().exp * 1000);
+
+      if (expDate < new Date()) {
+        forceLogout(
+          CurrentUserService,
+          $rootScope,
+          $timeout,
+          $state,
+          'La sessione è terminata, dovrai rifare il login per poter accedere.'
+        );
+      } else {
+        defer.resolve();
+      }
     } else {
       forceLogout(CurrentUserService, $rootScope, $timeout, $state);
     }
+
     return defer.promise;
   }
 
-  function forceLogout(CurrentUserService, $rootScope, $timeout, $state) {
+  function forceLogout(
+    CurrentUserService,
+    $rootScope,
+    $timeout,
+    $state,
+    customMsg = false
+  ) {
     CurrentUserService.removeUser();
     $rootScope.$broadcast('displayMessage', {
       type: 'danger',
-      content: 'Attenzione! Devi fare il login per poter accedere.'
+      content: customMsg
+        ? customMsg
+        : 'Attenzione! Devi fare il login per poter accedere.'
     });
     $timeout(() => {
       $state.go('login');

@@ -1,8 +1,8 @@
 angular.module('multiazienda').service('CommonService', CommonService);
 
-CommonService.$inject = ['$window'];
+CommonService.$inject = ['$window', '$rootScope'];
 
-function CommonService($window) {
+function CommonService($window, $rootScope) {
   const self = this;
 
   self.showFilters = () => {
@@ -19,5 +19,9 @@ function CommonService($window) {
     } else {
       return false;
     }
+  };
+
+  self.showModal = (which, id = false) => {
+    $rootScope.$broadcast('showing modal', { which, id });
   };
 }

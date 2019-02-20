@@ -14,34 +14,60 @@
   padding: 20px;
 }
 
-.new-form {
+.new-form,
+.settings-page {
   .modal-div {
     z-index: 1;
     top: 100px;
     position: fixed;
     padding: 20px;
     padding-top: 30px;
-    background: $red;
+    background-color: $red;
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
+    overflow: hidden;
+
+    &.modal-grey {
+      background-color: $lightGrey;
+
+      h2 {
+        color: $darkGrey;
+      }
+
+      .modal-close {
+        background-color: $darkGrey;
+        span {
+          color: $white;
+        }
+      }
+    }
+
     h2 {
       text-transform: uppercase;
     }
+
     h2, label {
       color: $white;
     }
+
     .row {
       margin-bottom: 30px;
       div:last-child {
         text-align: right;
-        a {
-          display: inline-block;
-          padding: 3px 7px;
-          background: $lightGrey;
-        }
       }
     }
+
+    .modal-close {
+      display: inline-block;
+      padding: 3px 7px;
+      background: $lightGrey;
+
+      span {
+        transform: rotate(45deg);
+      }
+    }
+    
     input:focus {
       border-bottom-color: $darkRed;
     }

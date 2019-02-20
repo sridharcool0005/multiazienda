@@ -7,7 +7,7 @@ form {
   }
 }
 
-input {
+input:not([type="color"]) {
   margin:0;
   // margin: auto;
   margin-bottom: 20px;

@@ -94,6 +94,8 @@ router
   .get(types.index)
   .post(types.create);
 
+router.route('/types/images').get(types.listImages);
+
 router
   .route('/types/:id')
   .get(types.show)

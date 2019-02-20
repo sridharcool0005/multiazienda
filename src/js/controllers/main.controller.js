@@ -65,8 +65,9 @@ function MainCtrl(
   $window.addEventListener('resize', getSizes);
 
   $rootScope.$on('showing modal', function(event, args) {
-    vm.showing ? (vm.showing = false) : (vm.showing = true);
+    console.log('showing modal msg received main');
 
+    vm.showing ? (vm.showing = false) : (vm.showing = true);
     if (args.which === 'type') {
       vm.showTypeForm ? (vm.showTypeForm = false) : (vm.showTypeForm = true);
     } else if (args.which === 'zone') {
