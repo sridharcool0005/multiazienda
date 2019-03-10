@@ -6,7 +6,7 @@
     </div>
   </div>
   <section class="row client-details" style="margin-bottom: 20px;">
-    <div class="col-md-6 edges">
+    <div class="col-xs-12 edges">
       <div class="right-side">
         <h1>{{ client.client.nome }} {{ client.client.cognome}}</h1>
         <div class="link">
@@ -22,18 +22,6 @@
         </div>
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ client.client.indirizzo.addressFormatted }} <span ng-show="!client.client.indirizzo.addressFormatted">No indirizzo</span></p>
       </div>
-    </div>
-    <div class="col-md-6 edges">
-      <article class="no-map-present" ng-hide="client.client.indirizzo">
-        <p>Non esiste un valido indirizzo per questo cliente</p>
-      </article>
-      <street-map
-        title="{{client.title}}"
-        center="client.center"
-        content="{{client.content}}"
-        style="height: 300px;"
-        ng-show="client.client.indirizzo">
-      </street-map>
     </div>
   </section>
   <section>
@@ -127,20 +115,26 @@
   <hr>
   <section>
     <h2><i class="fa fa-users" aria-hidden="true"></i> Attivita Potenziali</h2>
-    <ul class="row grid-list">
-      <li class="col-md-3" ng-repeat="filteredBar in client.filteredBars">
+    <ul class="row grid-list filtered-bars">
+
+      <li class="col-xs-12" ng-repeat="filteredBar in client.filteredBars">
+        
         <div class="hover-effect" ui-sref="barShow({ id: filteredBar.id })">
-          <div class="bar-img-div" style="background-image: url('{{ filteredBar.fotoAttivita }}');" ng-if="!main.isSmall"></div>
           <div class="content">
-            <div class="row">
-              <div class="col-xs-6 col-md-12">
-                <h2>{{ filteredBar.denominazioneAttivita | limitTo : 25 }}{{filteredBar.denominazioneAttivita.length > 25 ? '...' : ''}}, {{ filteredBar.codiceAttivita }}</h2>
-              </div>
-              <div class="col-xs-6 col-md-12">
-                <p>{{ filteredBar.zona.name }}</p><br>
-                <p>{{ filteredBar.tipologiaAttivita.name }}</p>
-              </div>
+            
+            <div class="bar-img-container">
+              <!-- <img class="bar-img" src="/images/food_icons/{{ filteredBar.tipologiaAttivita.image }}" alt=""> -->
+              <p>{{ filteredBar.tipologiaAttivita.name }}</p>
             </div>
+
+            <div>
+              <p>{{ filteredBar.zona.name }}</p>
+            </div>
+
+            <div>
+              <h2>{{ filteredBar.denominazioneAttivita }}, {{ filteredBar.codiceAttivita }}</h2>
+            </div>
+            
           </div>
         </div>
       </li>
