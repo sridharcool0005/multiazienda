@@ -1,4 +1,4 @@
-<section class="container">
+<section class="container bars-index">
   <div class="row title-row">
     <div class="col-sm-6">
       <h1>LISTA ATTIVITA</h1>
@@ -54,23 +54,77 @@
       </div>
     </div>
   </div>
-  <ul class="row grid-list">
-    <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat="bar in bars.filtered | orderBy : 'dateAdded' : true">
-      <div class="hover-effect" ui-sref="barShow({ id: bar.id })">
-        <div class="bar-img-div" style="background-image: url('{{ bar.fotoAttivita }}');" ng-if="!main.isSmall"></div>
-        <div class="content">
-          <div class="row">
-            <div class="col-xs-6 col-sm-12">
-              <h2>{{ bar.denominazioneAttivita | limitTo : 25 }}{{bar.denominazioneAttivita.length > 25 ? '...' : ''}}, {{ bar.codiceAttivita }}</h2>
-            </div>
-            <div class="col-xs-6 col-sm-12">
-              <p>{{ bar.zona.name }}</p><br>
-              <p>{{ bar.tipologiaAttivita.name }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li ng-show="bars.filtered.length === 0" class="no-results col-xs-12">Nessun risultato</li>
-  </ul>
+
+  <div class="table-responsive">
+    
+    <table class="bars-table table table-bordered table-hover table-sm">
+      <thead>
+        <tr class="bars-table-top">
+          <th scope="col"
+            ng-click="orderByField='codiceAttivita'; reverseSort = !reverseSort"
+            ng-class="">
+            <p class="bar-table-heading">
+              Codice 
+              <span class="chevron">
+                <span ng-show="orderByField==='codiceAttivita'">
+                  <ng-include src="'/js/views/partials/_table-sort-symbols.html'"></ng-include>
+                </span>
+              </span>
+            </p>
+          </th>
+          <th scope="col"
+            ng-click="orderByField='tipologiaAttivita.name'; reverseSort = !reverseSort">
+            <p class="bar-table-heading">
+              Tipologia
+              <span class="chevron">
+                <span ng-show="orderByField==='tipologiaAttivita.name'">
+                  <ng-include src="'/js/views/partials/_table-sort-symbols.html'"></ng-include>
+                </span>
+              </span>
+            </p>
+          </th>
+          <th scope="col"
+            ng-click="orderByField='zona.name'; reverseSort = !reverseSort">
+            <p class="bar-table-heading">
+              Zona
+              <span class="chevron">
+                <span ng-show="orderByField==='zona.name'">
+                  <ng-include src="'/js/views/partials/_table-sort-symbols.html'"></ng-include>
+                </span>
+              </span>
+            </p>
+          </th>
+          <th scope="col"
+            ng-click="orderByField='denominazioneAttivita'; reverseSort = !reverseSort">
+            <p class="bar-table-heading">
+              Nome Attivitá
+              <span class="chevron">
+                <span ng-show="orderByField==='denominazioneAttivita'">
+                  <ng-include src="'/js/views/partials/_table-sort-symbols.html'"></ng-include>
+                </span>
+              </span>
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          ng-repeat="bar in bars.filtered | orderBy : orderByField : reverseSort"
+          class="bar-single"
+          ui-sref="barShow({ id: bar.id })">
+          <th scope="col">{{bar.codiceAttivita}}</th>
+          <td class="bar-img-container">
+            <img 
+              class="bar-img"
+              src="/images/food_icons/{{ bar.tipologiaAttivita.image }}" alt="">
+            <p>{{ bar.tipologiaAttivita.name }}</p>
+          </td>
+          <td>{{ bar.zona.name }}</td>
+          <td>{{ bar.denominazioneAttivita | capitalise }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
 </section>

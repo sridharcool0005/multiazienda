@@ -8,13 +8,16 @@ ul {
   li {
     margin-bottom: 20px;
     div {
+
       @include trans(0.3s);
+      
       &:hover {
         cursor: pointer;
         h2 {
           color: $red;
         }
       }
+      
       &.content {
         padding: 20px;
         border-bottom: solid 4px $red;
@@ -40,15 +43,26 @@ ul {
           }
         }
       }
+      
       &.archivedmarker {
         opacity: 0.6;
         border-color: $darkGrey;
       }
+
+      &.bar-img-div-container {
+        width: 100px;
+        text-align: center;
+        font-size: 12px;
+        padding: 10px;
+      }
+      
       &.bar-img-div {
-        height: 100px;
+        height: 70px;
         border-bottom: none;
         @include backgroundImagePosition;
+        background-size: contain;
       }
+      
       &.hover-effect {
         margin: 10px 0;
         &:hover {

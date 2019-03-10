@@ -28,8 +28,14 @@ function BarsIndexCtrl(
   vm.searching = false;
   vm.clearSearch = clearSearch;
   vm.expandFilters = expandFilters;
+  vm.orderByField = 'codiceAttivita';
+  vm.reverseSort = false;
 
-  vm.types = Type.query();
+  Type.query().$promise.then(types => {
+    vm.types = types;
+    console.log(types);
+  });
+
   vm.zones = Zone.query();
   Bar.query().$promise.then(bars => {
     vm.bars = bars;

@@ -1,15 +1,16 @@
-<section class="container show-pages">
+<section class="container show-pages bar-show">
   <div class="title-row align-items-center">
-    <h1>{{ bar.bar.denominazioneAttivita }} <span ng-show="bar.bar.archiviato"><small>(Archiviato)</small></span></h1>
-    <h2>Codice <span>{{ bar.bar.codiceAttivita }}</span></h2>
+    <div class="bar-img-container">
+      <img class="bar-img" src="/images/food_icons/{{ bar.bar.tipologiaAttivita.image }}" alt="">
+      <p>{{ bar.bar.tipologiaAttivita.name }}</p>
+    </div>
+    <div>
+      <h1>{{ bar.bar.denominazioneAttivita }} <span ng-show="bar.bar.archiviato"><small>(Archiviato)</small></span></h1>
+      <h2>Codice <span>{{ bar.bar.codiceAttivita }}</span></h2>
+    </div>
   </div>
 
   <!-- DETTAGLI ATTIVITA -->
-  <section class="row">
-    <div class="col-xs-12">
-      <div class="bar-img" style="background-image: url('{{ bar.bar.fotoAttivita }}');"></div>
-    </div>
-  </section>
   <hr>
   <div class="row pointer" ng-click="bar.expandDetails()">
     <div class="col-xs-8">
@@ -338,12 +339,11 @@
   <section>
     <h2><i class="fa fa-eye" aria-hidden="true"></i> Lista Clienti che hanno visto il bar</h2>
     <ul class="row grid-list">
-      <li class="col-md-3" ng-repeat="client in bar.bar.clienti">
+      <li class="col-xs-12" ng-repeat="client in bar.bar.clienti">
         <div class="hover-effect" ui-sref="clientShow({ id: client.id })">
-          <div class="content">
+          <div class="content cliente">
               <h2>
-                {{ client.nome }}<br ng-if="main.isLarge">
-                {{ client.cognome }}
+                {{ client.nome }} {{ client.cognome }}
               </h2>
           </div>
         </div>
@@ -354,31 +354,31 @@
   <hr style="margin-top: 0px;">
   <section>
     <h2><i class="fa fa-users" aria-hidden="true"></i> Lista potenziali clienti</h2>
-    <ul class="row grid-list">
-      <li class="col-md-3" ng-repeat="potentialClient in bar.potentialClients">
+    <ul class="row grid-list potential-clients-list">
+      <li class="col-xs-12" ng-repeat="potentialClient in bar.potentialClients">
         <div class="hover-effect" ui-sref="clientShow({id: potentialClient.id})">
           <div class="content">
-            <div class="row">
-              <div class="col-xs-6 col-md-12">
-                <h2>
-                  {{ potentialClient.nome }}<br>
-                  {{ potentialClient.cognome }}
-                </h2>
-              </div>
-              <div class="col-xs-6 col-md-12">
+              <h2>
+                {{ potentialClient.nome }}<br>
+                {{ potentialClient.cognome }}
+              </h2>
+              <div>
                 <p class="client-tags">
+                  Sta cercando: 
                   <span ng-repeat="type in potentialClient.tipologiaAttivita track by $index">{{ type.name }}{{ $index !== potentialClient.tipologiaAttivita.length - 1 ? ', ' : ''}}</span>
                 </p>
                 <p class="client-tags">
+                  Nelle zone: 
                   <span ng-repeat="zone in potentialClient.zona track by $index">{{ zone.name }}{{ type.name }}{{ $index !== potentialClient.zona.length - 1 ? ', ' : ''}}</span>
                 </p>
               </div>
-            </div>
           </div>
+
         </div>
       </li>
       <li class="col-xs-12" ng-hide="bar.potentialClients.length > 0" style="margin-bottom: 0px;">Pare che non ci siano potenziali clienti per questo bar</li>
     </ul>
+
   </section>
   <hr>
   <section class="comments">
@@ -403,6 +403,7 @@
       </li>
       <li ng-hide="bar.bar.comments.length > 0">Non ci sono note al momento</li>
     </ul>
+
     <h3>Aggiungi una nota:</h3>
     <form name="bar.commentForm" ng-submit="bar.addComment()" novalidate>
       <textarea name="body" rows="3" ng-model="bar.comment.body" required></textarea>

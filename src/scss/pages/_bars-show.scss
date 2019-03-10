@@ -1,0 +1,56 @@
+.bar-show {
+  .title-row {
+    display: flex;
+
+    div:last-child {
+      text-align: left;
+    }
+  }
+
+  .bar-img-container {
+    width: 150px;
+    text-align: center;
+    margin-right: 30px;
+
+    img {
+      height: 80px;
+      width:auto;
+      background-color: transparent;
+    }
+  }
+
+  .grid-list li div.content.cliente {
+    h2 {
+      height: auto;
+      margin-bottom: 0;
+    }
+  }
+
+  .potential-clients-list {
+    .content {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+
+      h2 {
+        margin: 0;
+      }
+
+      > div {
+        width: 70%;
+      }
+
+      p:last-child {
+        margin-top: 0;
+      }
+      
+      @media all and (max-width: 500px) {
+        display: block;
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
